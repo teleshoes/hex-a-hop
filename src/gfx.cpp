@@ -39,10 +39,6 @@
 #include <algorithm>
 #include <string>
 
-#ifndef DATA_DIR
-#define DATA_DIR "."
-#endif
-
 StateMakerBase* StateMakerBase::first = 0;
 State* StateMakerBase::current = 0;
 
@@ -193,7 +189,7 @@ void Print_Pango(int x, int y, const std::string &text_utf8)
 {
 	// Workaround for possible crash, see
 	// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439071
-	if (text_utf8.size() == 0 || text_utf8.size() == 1 && text_utf8[0]==127)
+	if (text_utf8.size() == 0 || (text_utf8.size() == 1 && text_utf8[0]==127))
 		return;
 	assert(text_utf8.find("\n") == std::string::npos);
 	SDLPango_SetMinimumSize(context, SCREEN_W, 0);
@@ -220,7 +216,7 @@ void Print_Pango_Aligned(int x, int y, int width, const std::string &text_utf8, 
 {
 	// Workaround for possible crash, see
 	// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439071
-	if (text_utf8.size() == 0 || text_utf8.size() == 1 && text_utf8[0]==127)
+	if (text_utf8.size() == 0 || (text_utf8.size() == 1 && text_utf8[0]==127))
 		return;
 	if (width<=0)
 		return;
@@ -263,30 +259,56 @@ int TickTimer()
 	return x;
 }
 
-int main(int /*argc*/, char * /*argv*/[])
+String GetBasePath()
 {
-	base_path = DATA_DIR "/";
+	String base_path;
+
+#ifdef RELATIVE_PATHS
+#error Relative paths not implemented yet!
+	//base_path = EXEDIR + "/data/";
+#else
+	base_path = DATADIR "/";
+#endif
+
 	for (int i=strlen(base_path)-1; i>=0; i--)
+	{
+#ifdef WIN32
 		if (base_path[i]=='/' || base_path[i]=='\\')
+#else
+		if (base_path[i]=='/')
+#endif
 		{
 			base_path.truncate(i+1);
 			break;
 		}
+	}
+
 	// Check the path ends with a directory seperator
 	if (strlen(base_path)>0)
 	{
 		char last = base_path[strlen(base_path)-1];
+#ifdef WIN32
 		if (last!='/' && last!='\\')
+#else
+		if (last!='/')
+#endif
 			base_path = "";
 	}
+
 #ifdef WIN32
 	if (strstr(base_path, "\\foo2___Win32_Debug\\"))
 		strstr(base_path, "\\foo2___Win32_Debug\\")[1] = '\0';
 	if (strstr(base_path, "\\Release\\"))
 		strstr(base_path, "\\Release\\")[1] = '\0';
 #endif
-//	printf("SDL_Init\n");
-	
+
+	return base_path;	
+}
+
+int main(int /*argc*/, char * /*argv*/[])
+{
+	base_path = GetBasePath();
+
 /*
 	// Experimental - create a splash screen window whilst loading
 	SDL_Init(SDL_INIT_VIDEO);
@@ -302,7 +324,7 @@ int main(int /*argc*/, char * /*argv*/[])
 	SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_WHITE_LETTER);
 	SDLPango_SetMinimumSize(context, SCREEN_W, 0);
 
-	SDL_Surface* icon = SDL_LoadBMP("graphics/icon.bmp");
+	SDL_Surface* icon = SDL_LoadBMP(base_path + "/icon.bmp");
 	if (icon)
 	{
 		static unsigned int mask[32] = {
@@ -343,7 +365,7 @@ int main(int /*argc*/, char * /*argv*/[])
 			0x1ffffff1,
 		};
 		for (int i=0; i<32; i++)
-			mask[i] = mask[i]>>24 | (mask[i]>>8)&0xff00 | (mask[i]<<8)&0xff0000 | (mask[i]<<24)&0xff000000;
+			mask[i] = ((mask[i]>>24) | ((mask[i]>>8)&0xff00) | ((mask[i]<<8)&0xff0000) | ((mask[i]<<24)&0xff000000));
 		SDL_WM_SetIcon(icon, (unsigned char*) mask);
 		SDL_FreeSurface(icon);
 	}
@@ -361,8 +383,6 @@ int main(int /*argc*/, char * /*argv*/[])
 	bbTabletDevice &td = bbTabletDevice::getInstance( );
 	SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 #endif
-
-//	printf("Main loop...\n");
 	
 	StateMakerBase::GetNew();
 

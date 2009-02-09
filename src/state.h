@@ -71,8 +71,9 @@ public:
 	void operator = (String const & a) { *this = (const char*)a; }
 	void operator = (const char * a) { reserve(strlen(a)); strcpy(data, a); }
 	void operator += (const char * a) { reserve(strlen(a)+len); strcat(data, a); }
+	String operator + (const char * a) const { String ret(*this); ret += a; return ret; }
 	void truncate (int pos) { data[pos] = '\0'; }
-	void fix_backslashes() { if(data) for (int i=0; data[i]; i++) if (data[i]=='\\') data[i]='/'; }
+	void fix_backslashes() { if(data) { for (int i=0; data[i]; i++) { if (data[i]=='\\') data[i]='/'; } } }
 };
 
 class State

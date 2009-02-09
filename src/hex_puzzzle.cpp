@@ -16,6 +16,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+#include "config.h"
 #include "i18n.h"
 #include <string>
 #include <iostream>
@@ -33,14 +34,6 @@
 
 //#define MAP_LOCKED_VISIBLE
 
-#ifndef GAME_NAME
-#define GAME_NAME "Hex-a-hop"
-#endif
-
-#ifndef DATA_DIR
-#define DATA_DIR "."
-#endif
-
 #ifdef EDIT
 //	#define MAP_EDIT_HACKS
 	#define MAP_EDIT_HACKS_DISPLAY_UNLOCK 0
@@ -54,10 +47,10 @@
 
 
 #ifdef EDIT
-#define GAMENAME GAME_NAME " (EDIT MODE)"
+#define GAMENAME PACKAGE_NAME " (EDIT MODE)"
 #endif
 #ifndef GAMENAME
-#define GAMENAME GAME_NAME
+#define GAMENAME PACKAGE_NAME
 #endif
 
 #define IMAGE_DAT_OR_MASK 0xff030303 // Reduce colour depth of images slightly for better compression (and remove useless top 8 bits!)
@@ -163,7 +156,7 @@ FILE *file_open( const char *file, const char *flags )
 #define MIN(a,b) ((a)<(b) ? (a) : (b))
 #define ABS(a) ((a)<0 ? -(a) : (a))
 
-#define WATER_COLOUR 31 | (IMAGE_DAT_OR_MASK>>16)&255, 37 | (IMAGE_DAT_OR_MASK>>8)&255, 135 | (IMAGE_DAT_OR_MASK>>0)&255
+#define WATER_COLOUR 31 | ((IMAGE_DAT_OR_MASK>>16)&255), 37 | ((IMAGE_DAT_OR_MASK>>8)&255), 135 | ((IMAGE_DAT_OR_MASK>>0)&255)
 
 #define ROTATION_TIME 0.25
 #define BUILD_TIME 1
@@ -745,7 +738,7 @@ public:
 					}
 			}
 
-			if (playerDepth==j0 || j0==SIZE*3 && playerDepth>j0)
+			if (playerDepth==j0 || (j0==SIZE*3 && playerDepth>j0))
 				player.Render(t, reflect);
 		}
 
@@ -925,9 +918,13 @@ struct LevelSelectRender : public RenderStage
 	#endif
 
 	if (!reflect && adj)
+	{
 		for (int i=0; i<MAX_DIR; i++)
+		{
 			if (adj & (1 << i))
 				RenderTile( false, TILE_LINK_0+i, p.getScreenX(), p.getScreenY());
+		}
+	}
 
 	if (item < 0)
 		return;
@@ -1009,10 +1006,12 @@ struct TileRender : public RenderStage
 		else if (special && (t==EMPTY || t==TRAP) && !reflect && time < specialDuration)
 		{
 			if (t == TRAP)
+			{
 				if (time < specialDuration-LASER_FADE_TIME)
 					RenderTile(reflect, TILE_ICE_LASER_REFRACT, p.getScreenX(), p.getScreenY());
 				else
 					RenderTile(reflect, t, p.getScreenX(), p.getScreenY());
+			}
 			int base = ((t==EMPTY) ? TILE_LASER_0 : TILE_LASER_REFRACT);
 			if (t==EMPTY && time >= specialDuration-LASER_FADE_TIME)
 				base = TILE_LASER_FADE_0;
@@ -1281,6 +1280,7 @@ struct BuildRender : public RenderStage
 			if (dist > 0 && !height)
 			{
 				if (!reflect)
+				{
 					for (int i=0; i<=int(dist*15); i++)
 					{
 						int x = p.getScreenX(), y = p.getScreenY();
@@ -1290,6 +1290,7 @@ struct BuildRender : public RenderStage
 						RenderTile(reflect, TILE_GREEN_FRAGMENT, x+x1, y+y1+4);
 						RenderTile(reflect, TILE_GREEN_FRAGMENT, x-x1, y-y1+4);
 					}
+				}
 			}
 			if (dist > 0 && height)
 			{
@@ -1344,7 +1345,7 @@ struct PlayerRender : public RenderStage
 		if (f>1) f=1;
 		if (f==1) dead = this->dead;
 
-		if (f==1 || f>0.5 && p_h>target_h)
+		if (f==1 || (f>0.5 && p_h>target_h))
 			return target.x+target.y*2;
 		return MAX(target.x+target.y*2 , p.x+p.y*2);
 	}
@@ -1405,7 +1406,7 @@ struct PlayerRender : public RenderStage
 				//if (frame==2) frame=0; else if (frame==3) frame=2;
 				frame = 0;
 			}
-			else if (f==1 || x==x2 && y==y2)	// stationary
+			else if (f==1 || (x==x2 && y==y2))	// stationary
 				frame = 0;
 			else if (f > 0.7)
 				frame = 0;
@@ -1941,8 +1942,8 @@ struct HexPuzzle : public State
 		typedef unsigned int _fn(void*, unsigned int, unsigned int, FILE*);
 		_fn * fn = save ? (_fn*)fwrite : (loadPtr ? (_fn*)fread_replace : (_fn*)fread);
 
-		#define VERSION 4
-		int version = VERSION; // 1--9
+		#define SAVEVERSION 4
+		int version = SAVEVERSION; // 1--9
 		if (save)
 			fprintf(f, "%d\n", version);
 		else
@@ -2221,7 +2222,7 @@ struct HexPuzzle : public State
 		{
 			int i = GetLevelState(p+d, 1);
 //			if (i>1 || i==1 && t>1)
-			if (i>=1 && t>2 || t>=1 && i>2)
+			if ((i>=1 && t>2) || (t>=1 && i>2))
 			{
 				adj |= 1<<d;
 				if (t==1)
@@ -2924,7 +2925,7 @@ struct HexPuzzle : public State
 
 
 #ifndef EDIT
-		if (button_pressed==2 || button_pressed==4 && isMap)
+		if (button_pressed==2 || (button_pressed==4 && isMap))
 		{
 			KeyPressed(SDLK_ESCAPE, 0);
 			keyState[SDLK_ESCAPE] = 0;
@@ -2968,7 +2969,7 @@ struct HexPuzzle : public State
 			}
 			if(!isMap)
 			{
-				if((button_pressed & 1) || (button_held & 1) && (numUndo==0 || time>=undo[numUndo-1].endTime))
+				if((button_pressed & 1) || ((button_held & 1) && (numUndo==0 || time>=undo[numUndo-1].endTime)))
 				{
 					if(s.x==player.x && s.y==player.y)
 					{
@@ -2989,7 +2990,7 @@ struct HexPuzzle : public State
 					else if(s.y+s.x==player.y+player.x && s.x<player.x)
 						Input(4);
 				}
-				if ((button_pressed & 4) || (button_held & 4) && (undoTime < 0))
+				if ((button_pressed & 4) || ((button_held & 4) && (undoTime < 0)))
 					Undo();
 			}
 			return;
@@ -3210,7 +3211,7 @@ struct HexPuzzle : public State
 						if (hits[i]==p)
 							break;
 					if (i==numHits || 
-						t==TRAP && (hitDir[i]&(1<<fd))==0
+						(t==TRAP && (hitDir[i]&(1<<fd))==0)
 					   )
 					{
 						if (i==numHits)
@@ -3928,7 +3929,7 @@ retry_pos:
 
 		if (0) {}
 		
-		else if ((key=='p' && !editMode || key==SDLK_PAUSE || key==SDLK_ESCAPE))
+		else if ((key=='p' && !editMode) || key==SDLK_PAUSE || key==SDLK_ESCAPE)
 		{
 			noMouse = 1;
 			new PauseMenu(isMap, progress.GetLevel(STARTING_LEVEL, true)->Completed(), progress.general.endSequence>=1, progress.general.endSequence>=2);
@@ -4113,7 +4114,8 @@ retry_pos:
 	}
 	void LoadGraphics()
 	{
-		#define X(NAME,FILE,ALPHA) NAME = Load(DATA_DIR "/graphics/" FILE BMP_SUFFIX, ALPHA);
+		extern String base_path;
+		#define X(NAME,FILE,ALPHA) NAME = Load(base_path + "/" + FILE + BMP_SUFFIX, ALPHA);
 		#include "gfx_list.h"
 
 		static int first = 1;

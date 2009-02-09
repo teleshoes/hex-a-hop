@@ -420,7 +420,7 @@ char* GetSlotName(int i, char * t)
 	 return t;
 }
 
-char * optionString[] = {
+const char * optionString[] = {
 	optionSlotName[0],
 	optionSlotName[1],
 	optionSlotName[2],
@@ -1255,8 +1255,8 @@ void OptMenu::Select()
 			break;
 
 		default:
-			if (opt[select]>=OPT_GAMESLOT_0 && opt[select]<=OPT_GAMESLOT_LAST 
-				|| opt[select]==OPT_GAMESLOT_NEW && freeSlot>=0)
+			if ((opt[select]>=OPT_GAMESLOT_0 && opt[select]<=OPT_GAMESLOT_LAST) ||
+			    (opt[select]==OPT_GAMESLOT_NEW && freeSlot>=0))
 			{
 				if (opt[select]==OPT_GAMESLOT_NEW)
 					GetSlotName(freeSlot, currentSlot);
