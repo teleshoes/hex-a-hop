@@ -1,0 +1,49 @@
+# Copyright (C) 2007  Jens Seidel <jensseidel@users.sf.net>
+# Licensed under the GPL, see /usr/share/common-licenses/GPL
+
+Index: hex-a-hop.svn/hex_puzzzle.cpp
+===================================================================
+--- hex-a-hop.svn.orig/hex_puzzzle.cpp	2007-09-20 00:49:27.000000000 +0200
++++ hex-a-hop.svn/hex_puzzzle.cpp	2007-09-20 00:49:31.000000000 +0200
+@@ -1553,7 +1553,7 @@
+ 			if (t <= numComplete)
+ 				return 0;
+ 
+-			static char tmp1[100];
++			static char tmp1[1000];
+ 			static LevelInfo tmp = {0, "", tmp1};
+ 			sprintf(tmp1, ngettext("Complete 1  more level  to unlock!", "Complete %d  more levels  to unlock!", t-numComplete), t-numComplete);
+ 			return &tmp;
+Index: hex-a-hop.svn/menus.h
+===================================================================
+--- hex-a-hop.svn.orig/menus.h	2007-09-20 00:49:27.000000000 +0200
++++ hex-a-hop.svn/menus.h	2007-09-20 00:49:31.000000000 +0200
+@@ -160,7 +160,7 @@
+ 	SDL_Rect InnerTextWindowRect;
+ 	SDL_Rect OuterTextWindowRect;
+ 	const char * msg;
+-	char title[50]; // FIXME
++	char title[500];
+ 	int state;
+ 
+ 	const SDL_Rect &GetInnerWindowRect() const
+@@ -407,8 +407,8 @@
+ 	OPT_END, OPT_END2,
+ };
+ 
+-char optionSlotName[MAX_GAMESLOT][40] = { {0} };
+-char currentSlot[80] = "";
++char optionSlotName[MAX_GAMESLOT][400] = { {0} };
++char currentSlot[800] = "";
+ int freeSlot = -1;
+ char* GetSlotName(int i, char * t)
+ {
+@@ -1028,7 +1028,7 @@
+ 
+ struct DeleteConfirmMenu : public OptMenuTitle
+ {
+-	char tmp[80];
++	char tmp[800];
+ 	int num;
+ 	DeleteConfirmMenu(int _num) : OptMenuTitle(&tmp[0]), num(_num)
+ 	{

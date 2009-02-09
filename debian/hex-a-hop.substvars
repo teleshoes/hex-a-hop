@@ -1,0 +1,1 @@
+shlibs:Depends=libc6 (>= 2.7), libgcc1 (>= 1:4.1.1), libsdl-pango1, libsdl1.2debian (>= 1.2.10-1), libstdc++6 (>= 4.2.1)

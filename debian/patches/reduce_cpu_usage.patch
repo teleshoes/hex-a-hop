@@ -1,0 +1,17 @@
+# Copyright (C) 2007  Joey Hess <joeyh@debian.org>
+# based on patch from "trick" (see #440377 for details)
+# Licensed under the GPL, see /usr/share/common-licenses/GPL
+
+Index: hex-a-hop.svn/gfx.cpp
+===================================================================
+--- hex-a-hop.svn.orig/gfx.cpp	2007-09-20 00:49:22.000000000 +0200
++++ hex-a-hop.svn/gfx.cpp	2007-09-20 00:49:39.000000000 +0200
+@@ -414,6 +414,8 @@
+ 				videoExposed = 0;
+ 			}
+ 
++			SDL_Delay(10);
++
+ #ifdef USE_BBTABLET
+ 			// Tablet ////////////////////////
+ 			bbTabletEvent evt;

@@ -1,0 +1,162 @@
+# Copyright (C) 2007  Jens Seidel <jensseidel@users.sf.net>
+# Licensed under the GPL, see /usr/share/common-licenses/GPL
+
+Index: hex-a-hop.svn/hex_puzzzle.cpp
+===================================================================
+--- hex-a-hop.svn.orig/hex_puzzzle.cpp	2007-09-20 00:49:22.000000000 +0200
++++ hex-a-hop.svn/hex_puzzzle.cpp	2007-09-20 00:49:25.000000000 +0200
+@@ -307,7 +307,6 @@
+ 
+ #define MAX_DIR 6
+ 
+-SDL_Rect font[256];
+ SDL_Rect tile[2][70];
+ short tileOffset[2][70][2];
+ int Peek(SDL_Surface* i, int x, int y)
+@@ -338,45 +337,7 @@
+ 				return false;
+ 	return true;
+ }
+-void MakeFont()
+-{
+-	memset(font, 0, sizeof(font));
+ 
+-	int h = FONT_SPACING;
+-	int x=-1, y=0;
+-	for (int i=33; i<=127; i++)
+-	{
+-		do
+-		{
+-			x++;
+-			if (x>=fontImage->w)
+-				x=0, y+=h;
+-			if (y >= fontImage->h)
+-				return;
+-			if (y+h > fontImage->h)
+-				h = fontImage->h - y;
+-		} while(IsEmpty(fontImage, x, y, 1, h));
+-
+-		int w=1;
+-		while(!IsEmpty(fontImage, x+w, y, 1, h) && x+w<fontImage->w)
+-			w++;
+-		int h1=h;
+-		while (h1>1 && IsEmpty(fontImage, x, y+h1-1, w, 1))
+-			h1--;
+-		font[i].x = x;
+-		font[i].y = y;
+-		font[i].w = w;
+-		font[i].h = h1;
+-		//printf("character %c: % 4d % 4d % 4d % 4d\n", i, x, y, w, h1);
+-		x+=w;
+-	}
+-	
+-	int i=' ';
+-	font[i].x = x;
+-	font[i].y = y;
+-	font[i].w = font['j'].w;
+-	font[i].h = 0;
+-}
+ void MakeTileInfo()
+ {
+ 	for (int i=0; i<140; i++)
+@@ -396,16 +357,6 @@
+ 	}
+ }
+ 
+-void PrintRaw(int x, int y, const char * tmp)
+-{
+-	for (int i=0; tmp[i]; i++)
+-	{
+-		SDL_Rect dst = {x, y, 1, 1};
+-		SDL_BlitSurface(fontImage, &font[tmp[i]], screen, &dst);
+-		x += font[tmp[i]].w + FONT_X_SPACING;
+-	}
+-}
+-
+ void ConvertToUTF8(const std::string &text_locally_encoded, char *text_utf8, size_t text_utf8_length)
+ {
+ 	// Is this portable?
+@@ -441,14 +392,6 @@
+ 	va_end( marker );              /* Reset variable arguments.      */
+ }
+ 
+-int FontWidth(const char * string)
+-{
+-	int w = 0;
+-	for (int i=0; string[i]; i++)
+-		w += font[string[i]].w + FONT_X_SPACING;
+-	return w;
+-}
+-
+ /// Prints a string right aligned so that it ends at (x,y)
+ // TODO: Check that the maximal text width is already set
+ void PrintR(int x, int y, const char * string, ...)
+@@ -480,23 +423,6 @@
+ 		msg.replace(msg.find("  "), 2, "\n");
+ 
+ 	Print_Pango_Aligned(x, y, width, msg, align);
+-  /*
+-	{
+-		char * end = split ? strstr(scan,"  ") : 0;
+-		if (!end)
+-		{
+-			PrintRaw(x - FontWidth(scan)/2, y, scan);
+-			break;
+-		}
+-		else
+-		{
+-			*end = '\0';
+-			PrintRaw(x - FontWidth(scan)/2, y, scan);
+-			scan = end+2;
+-			y += FONT_SPACING;
+-		}
+-	}
+-  */
+ }
+ 
+ void PrintC(bool split, int x, int y, const char * string, ...)
+@@ -4194,7 +4120,6 @@
+ 		if (first)
+ 		{
+ 			first = false;
+-			MakeFont();
+ 			MakeTileInfo();
+ 		}
+ 
+Index: hex-a-hop.svn/menus.h
+===================================================================
+--- hex-a-hop.svn.orig/menus.h	2007-09-20 00:49:22.000000000 +0200
++++ hex-a-hop.svn/menus.h	2007-09-20 00:49:25.000000000 +0200
+@@ -478,8 +478,8 @@
+ 		int y = r2.y + FONT_SPACING/2 + int(FONT_SPACING * 1.5) * o;
+ 		if (left_align)
+ 		{
+-			int x = r.x + font[' '].w;
+-			int x1 = x + (font[' '].w + font['>'].w + FONT_X_SPACING*2) / 2;
++			int x = r.x + SDLPangoTextWidth(" ");
++			int x1 = x + SDLPangoTextWidth("> ");
+ 			if (select==o)
+ 			{
+ 				//x += int( sin(time*9)*2.5 );
+@@ -549,7 +549,7 @@
+ 	void RenderTitle()
+ 	{
+ 		if (left_align)
+-			Print(r2.x+font[' '].w, r.y+4, title);
++			Print(r2.x+SDLPangoTextWidth(" "), r.y+4, title);
+ 		else
+ 			PrintC(false, r2.x+r2.w/2, r.y+4, title);
+ 	}
+Index: hex-a-hop.svn/gfx_list.h
+===================================================================
+--- hex-a-hop.svn.orig/gfx_list.h	2007-09-20 00:49:19.000000000 +0200
++++ hex-a-hop.svn/gfx_list.h	2007-09-20 00:49:25.000000000 +0200
+@@ -17,7 +17,7 @@
+ */
+ 
+ 
+-X(fontImage,		"font",				true)
++//X(fontImage,		"font",				true)
+ X(gradient,			"gradient",			false)
+ X(mapBG,			"map",				false)
+ X(mapBG2,			"map_top",			true)

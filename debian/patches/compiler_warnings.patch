@@ -1,0 +1,453 @@
+# Copyright (C) 2007  Jens Seidel <jensseidel@users.sf.net>
+# Licensed under the GPL, see /usr/share/common-licenses/GPL
+
+Index: hex-a-hop.svn/menus.h
+===================================================================
+--- hex-a-hop.svn.orig/menus.h	2007-09-20 00:49:17.000000000 +0200
++++ hex-a-hop.svn/menus.h	2007-09-20 00:49:19.000000000 +0200
+@@ -31,7 +31,7 @@
+ struct Menu {
+ 	bool renderBG;
+ 
+-	Menu() : under(activeMenu), time(0), renderBG(true) { activeMenu = this; }
++	Menu() : renderBG(true), under(activeMenu), time(0) { activeMenu = this; }
+ 	
+ 	virtual ~Menu() { 
+ 		if(this!=deadMenu) FATAL("this!=deadMenu"); 
+@@ -47,7 +47,7 @@
+ 		deadMenu = m;
+ 	}
+ 
+-	virtual bool KeyPressed(int key, int mod)
++	virtual bool KeyPressed(int key, int /*mod*/)
+ 	{
+ 		if (key=='w' || key==SDLK_UP || key==SDLK_KP8 || key=='q' || key=='e' || key==SDLK_KP7 || key==SDLK_KP9)
+ 			Move(-1), noMouse=1;
+@@ -64,13 +64,13 @@
+ 			return false;
+ 		return true;
+ 	}
+-	virtual void Mouse(int x, int y, int dx, int dy, int buttons_pressed, int buttons_released, int buttons) 
++	virtual void Mouse(int /*x*/, int /*y*/, int /*dx*/, int /*dy*/, int buttons_pressed, int /*buttons_released*/, int /*buttons*/) 
+ 	{
+ 		if (buttons_pressed==4 || buttons_pressed==2)
+ 			Cancel();
+ 	}
+ 	
+-	virtual void Move(int dir) {}
++	virtual void Move(int /*dir*/) {}
+ 	virtual void Select() {}
+ 	virtual void Cancel() {}
+ 
+@@ -218,13 +218,13 @@
+ 		PrintC(true, x+SCREEN_W/2, y+FONT_SPACING/2, msg);
+ 	}
+ 
+-	virtual void Mouse(int x, int y, int dx, int dy, int buttons_pressed, int buttons_released, int buttons) 
++	virtual void Mouse(int /*x*/, int /*y*/, int /*dx*/, int /*dy*/, int buttons_pressed, int /*buttons_released*/, int /*buttons*/) 
+ 	{
+ 		if (buttons_pressed && state==0 && time>0.2)
+ 			state = 1, time=0;
+ 	}
+ 
+-	bool KeyPressed(int key, int mod)
++	bool KeyPressed(int /*key*/, int /*mod*/)
+ 	{
+ 		if (state==0 && time>0.2)
+ 			state = 1, time=0;
+@@ -364,7 +364,7 @@
+ 	OPT_END, OPT_END2,
+ };
+ 
+-char optionSlotName[MAX_GAMESLOT][40] = {0};
++char optionSlotName[MAX_GAMESLOT][40] = { {0} };
+ char currentSlot[80] = "";
+ int freeSlot = -1;
+ char* GetSlotName(int i, char * t)
+@@ -505,7 +505,6 @@
+ 	}
+ 	void RenderTitle()
+ 	{
+-		int y = r2.y + FONT_SPACING / 2;
+ 		if (left_align)
+ 			Print(r2.x+font[' '].w, r.y+4, title);
+ 		else
+@@ -527,11 +526,11 @@
+ 	bool win;
+ 	int score, par, best_score;
+ 	WinLoseScreen(bool _win, int _score=0, int _par=0, int _prev_score=0) : 
++		OptMenu(_win ? _("Level Complete!") : _("Emi can't swim...")),
++		win(_win),
+ 		score(_score),
+ 		par(_par),
+-		best_score(_prev_score),
+-		win(_win),
+-		OptMenu(_win ? _("Level Complete!") : _("Emi can't swim..."))
++		best_score(_prev_score)
+ 	{
+ 		if (!win)
+ 			opt[num_opt++] = OPT_UNDO;
+@@ -761,7 +760,7 @@
+ 		}
+ 
+ 		Particle() : type(EMPTY) {}
+-		Particle(int t, int _x) : type(t), x(_x)
++		Particle(int t, int _x) : x(_x), type(t)
+ 		{
+ 			xa=ys=xs=0; ya=400;
+ 			//if (t==1)
+@@ -815,7 +814,7 @@
+ 		SDL_Rect a = {0,0,SCREEN_W,SCREEN_H};
+ 		SDL_FillRect(screen, &a, SDL_MapRGB(screen->format, 10,25,25));
+ 
+-		for (int i=0; i<sizeof(p)/sizeof(p[0]); i++)
++		for (unsigned int i=0; i<sizeof(p)/sizeof(p[0]); i++)
+ 			p[i].Update(t);
+ 
+ 		int x = a.x + a.w/2;
+@@ -872,7 +871,7 @@
+ 			t = MAX(-td*5, -time);
+ 
+ 		Menu::Update(t);
+-		double s = scroll = time * 50;
++		scroll = time * 50;
+ //		if (scroll > scrollMax)
+ //		scroll = fmod(scroll, scrollMax);
+ //			scroll = 0, time = 0;
+@@ -896,7 +895,7 @@
+ };
+ 
+ Ending* Ending::ending = 0;
+-void* Ending::Particle::operator new(size_t sz)
++void* Ending::Particle::operator new(size_t /*sz*/)
+ {
+ 	static int start = 0;
+ 	const int max = sizeof(ending->p)/sizeof(ending->p[0]);
+@@ -929,7 +928,7 @@
+ 				fclose(f);
+ 
+ 				if (p.general.completionPercentage==100 && p.general.masteredPercentage==100)
+-					sprintf(optionSlotName[i], _("Continue game %d (All Clear!)"), i+1, p.general.completionPercentage, p.general.masteredPercentage);
++					sprintf(optionSlotName[i], _("Continue game %d (All Clear!)"), i+1);
+ 				else if (p.general.completionPercentage==100)
+ 					sprintf(optionSlotName[i], _("Continue game %d (%d%% + %d%%)"), i+1, p.general.completionPercentage, p.general.masteredPercentage);
+ 				else
+@@ -1090,7 +1089,7 @@
+ 	int dir;
+ 	double speed;
+ 	int result;
+-	Fader(int _dir, int _result, double _speed=1) : dir(_dir), result(_result), speed(_speed)
++	Fader(int _dir, int _result, double _speed=1) : dir(_dir), speed(_speed), result(_result)
+ 	{
+ 		renderBG = under ? under->renderBG : true;
+ 	}
+Index: hex-a-hop.svn/Makefile
+===================================================================
+--- hex-a-hop.svn.orig/Makefile	2007-09-20 00:49:10.000000000 +0200
++++ hex-a-hop.svn/Makefile	2007-09-20 00:49:19.000000000 +0200
+@@ -3,7 +3,9 @@
+ VERSION		= 1.0.0
+ CC		= gcc
+ DATA_DIR="."
+-CXXFLAGS		+= -g
++# See http://www.thescripts.com/forum/thread471291.html for
++# details to -Wno-char-subscripts
++CXXFLAGS		+= -Wall -W -Wno-char-subscripts -g
+ GCC =g++
+ CXXSOURCES	= gfx.cpp hex_puzzzle.cpp i18n.cpp
+ #INCLUDES	= 
+Index: hex-a-hop.svn/gfx.cpp
+===================================================================
+--- hex-a-hop.svn.orig/gfx.cpp	2007-09-20 00:49:10.000000000 +0200
++++ hex-a-hop.svn/gfx.cpp	2007-09-20 00:49:19.000000000 +0200
+@@ -92,7 +92,7 @@
+ 		return 0;
+ 	}
+ #else
+-	char* LoadSaveDialog(bool save, bool levels, const char * title)
++	char* LoadSaveDialog(bool /*save*/, bool /*levels*/, const char * /*title*/)
+ 	{
+ 		return 0;
+ 	}
+@@ -170,7 +170,7 @@
+ 	return x;
+ }
+ 
+-int main(int argc, char * argv[])
++int main(int /*argc*/, char * /*argv*/[])
+ {
+ 	base_path = DATA_DIR "/";
+ 	for (int i=strlen(base_path)-1; i>=0; i--)
+@@ -268,7 +268,6 @@
+ //	printf("Main loop...\n");
+ 	
+ 	StateMakerBase::GetNew();
+-	int time = SDL_GetTicks();
+ 
+ 	while(!quitting)
+ 	{
+Index: hex-a-hop.svn/gfx_list.h
+===================================================================
+--- hex-a-hop.svn.orig/gfx_list.h	2007-09-20 00:48:51.000000000 +0200
++++ hex-a-hop.svn/gfx_list.h	2007-09-20 00:49:19.000000000 +0200
+@@ -30,4 +30,5 @@
+ //X(uiGraphics,		"ui",				true)
+ 
+ 
+-#undef X
+\ No newline at end of file
++#undef X
++
+Index: hex-a-hop.svn/hex_puzzzle.cpp
+===================================================================
+--- hex-a-hop.svn.orig/hex_puzzzle.cpp	2007-09-20 00:49:14.000000000 +0200
++++ hex-a-hop.svn/hex_puzzzle.cpp	2007-09-20 00:49:19.000000000 +0200
+@@ -532,8 +532,9 @@
+ 
+ struct RenderStage
+ {
++	virtual ~RenderStage() {}
+ 	virtual void Render(RenderObject* r, double time, bool reflect) = 0;
+-	virtual int GetDepth(double time) { return 1; }
++	virtual int GetDepth(double /*time*/) { return 1; }
+ };
+ 
+ class RenderObject
+@@ -792,7 +793,7 @@
+ void RenderTile(bool reflect, int t, int x, int y, int cliplift)
+ {
+ 	SDL_Rect src = tile[reflect][t];
+-	SDL_Rect dst = {x-scrollX-GFX_SIZE/2, y-scrollY-GFX_SIZE+TILE_H1};
++	SDL_Rect dst = {x-scrollX-GFX_SIZE/2, y-scrollY-GFX_SIZE+TILE_H1, 0, 0};
+ 	dst.x += tileOffset[reflect][t][0];
+ 	dst.y += tileOffset[reflect][t][1];
+ 	if (reflect)
+@@ -831,7 +832,7 @@
+ 	else
+ 		y -= h;
+ 	SDL_Rect src = {sx, sy, 64, 80};
+-	SDL_Rect dst = {x-scrollX-32, y-scrollY-65};
++	SDL_Rect dst = {x-scrollX-32, y-scrollY-65, 0, 0};
+ 	SDL_BlitSurface(girlGraphics, &src, screen, &dst);
+ }
+ 
+@@ -895,7 +896,7 @@
+ 		isFadeRendering = d;
+ 	}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double time, bool reflect)
+ 	{
+ 		if (reflect) return;
+ 		if (time > 0.5)
+@@ -913,7 +914,7 @@
+ 	bool done;
+ 	ScrollRender(int a,int b) : x(a), y(b), done(false) {}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double /*time*/, bool /*reflect*/)
+ 	{
+ 		if (done) return;
+ 		scrollX = x, scrollY = y;
+@@ -934,7 +935,7 @@
+ 	LevelSelectRender(Pos const & _p, int i2, int adj) : p(_p), item(i2), adj(adj)
+ 	{}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double /*time*/, bool reflect)
+ 	{
+ 		if (item==0)
+ 			return;
+@@ -972,7 +973,7 @@
+ 	ItemCollectRender(int i2, Pos const & p) :  ItemRender(i2, 0, p)
+ 	{}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double /*time*/, bool /*reflect*/)
+ 	{
+ 	}
+ };
+@@ -1002,7 +1003,7 @@
+ 	Pos p;
+ 	double specialDuration;
+ 	
+-	TileRender(int i, Pos const & _p, int _special=0) : t(i), p(_p), special(_special), specialDuration(LASER_LINE_TIME)
++	TileRender(int i, Pos const & _p, int _special=0) : special(_special), t(i), p(_p), specialDuration(LASER_LINE_TIME)
+ 	{}
+ 
+ 	void Render(RenderObject* r, double time, bool reflect)
+@@ -1130,7 +1131,7 @@
+ 	LaserRender(Pos _p, int dir, int r) : p(_p), d(dir), range(r)
+ 	{}
+ 
+-	void Render(RenderObject* r, double time)
++	void Render(RenderObject* /*r*/, double /*time*/)
+ 	{
+ 	}
+ };
+@@ -1147,12 +1148,12 @@
+ 		seed = rand();
+ 	}
+ 
+-	virtual int GetDepth(double time) 
++	virtual int GetDepth(double /*time*/) 
+ 	{
+ 		return p.x + p.y*2;
+ 	}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double time, bool reflect)
+ 	{
+ 		if (type==1 && time > 2.5)
+ 			type = -1, new WinLoseScreen(false);
+@@ -1223,7 +1224,7 @@
+ 		seed = rand();
+ 	}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double time, bool reflect)
+ 	{
+ 		if (type)
+ 			RenderTile(reflect, height ? COLLAPSE_DOOR : COLLAPSABLE, p.getScreenX(), p.getScreenY());
+@@ -1266,11 +1267,11 @@
+ 	int height;
+ 	int type;
+ 
+-	BuildRender(Pos _p, Dir _d, int _h, int _r=0, int _type=0) : p(_p), dir(_d), height(_h), reverse(_r), type(_type)
++	BuildRender(Pos _p, Dir _d, int _h, int _r=0, int _type=0) : p(_p), dir(_d), reverse(_r), height(_h), type(_type)
+ 	{
+ 	}
+ 
+-	void Render(RenderObject* r, double time, bool reflect)
++	void Render(RenderObject* /*r*/, double time, bool reflect)
+ 	{
+ 		if (time >= BUILD_TIME)
+ 			RenderTile(reflect, height ^ reverse ? (type ? COLLAPSE_DOOR2 : COLLAPSE_DOOR) : (type ? COLLAPSABLE2 : COLLAPSABLE), p.getScreenX(), p.getScreenY());
+@@ -1346,9 +1347,9 @@
+ 	double speed;
+ 	bool dead;
+ 	
+-	PlayerRender(Pos a, int h, bool d) : p(a), dead(d), target(a), speed(0), p_h(h), target_h(h), r(3), type(0)
++	PlayerRender(Pos a, int h, bool d) : p(a), target(a), p_h(h), target_h(h), r(3), type(0), speed(0), dead(d)
+ 	{}
+-	PlayerRender(int _r, Pos a, int h1, Pos t, int h2, bool d) : p(a), dead(d), target(t), speed(JUMP_TIME), p_h(h1), target_h(h2), r(_r), type(0)
++	PlayerRender(int _r, Pos a, int h1, Pos t, int h2, bool d) : p(a), target(t), p_h(h1), target_h(h2), r(_r), type(0), speed(JUMP_TIME), dead(d)
+ 	{
+ 		int dist = MAX(ABS(p.x-target.x), ABS(p.y-target.y));
+ 		if (dist > 1)
+@@ -1363,15 +1364,12 @@
+ 		if (f>1) f=1;
+ 		if (f==1) dead = this->dead;
+ 
+-		double x = p.x + (target.x - p.x) * f;
+-		double y = p.y + (target.y - p.y) * f;
+-
+ 		if (f==1 || f>0.5 && p_h>target_h)
+ 			return target.x+target.y*2;
+ 		return MAX(target.x+target.y*2 , p.x+p.y*2);
+ 	}
+ 
+-	void Render(RenderObject* ro, double time, bool reflect)
++	void Render(RenderObject* /*ro*/, double time, bool reflect)
+ 	{
+ 		bool dead = false;
+ 		double f = speed ? time / speed : 1;
+@@ -1581,7 +1579,7 @@
+ 			return &tmp;
+ 		}
+ 
+-		for (int i=0; i<sizeof(levelNames)/sizeof(levelNames[0]); i++)
++		for (unsigned int i=0; i<sizeof(levelNames)/sizeof(levelNames[0]); i++)
+ 			if (strcmp(f, levelNames[i].file)==0)
+ 				return &levelNames[i];
+ 		static LevelInfo tmp = {0, "", _("<<NO NAME>>")};
+@@ -2634,7 +2632,6 @@
+ 					src.w = SCREEN_W;
+ 					src.h = 1;
+ 
+-					const bool farView = false;
+ 					if (isRenderMap)
+ 					{
+ 						src.x += (int)( sin(i*0.9 + time*3.7) * sin(i*0.3 + time*0.7)*4 );
+@@ -3208,7 +3205,7 @@
+ 	{
+ 		static Pos hits[100];
+ 		static Dir hitDir[100];
+-		static int numHits=0;
++		static unsigned int numHits=0;
+ 		if (!recurse)
+ 			numHits = 0;
+ 
+@@ -3220,7 +3217,7 @@
+ 
+ 			Pos p = newpos + fd;
+ 			int range = 0;
+-			for (range; range<MAP_SIZE; range++, p=p+fd)
++			for (; range<MAP_SIZE; range++, p=p+fd)
+ 			{
+ 				Tile t = GetTile(p);
+ 				if (tileSolid[t]!=-1)
+@@ -3228,7 +3225,7 @@
+ 					if (t!=TRAP)
+ 						renderer(p).Add(new TileRender(tileSolid[t]==1 ? TILE_WHITE_WALL : TILE_WHITE_TILE, p), fireTime+0.1);
+ 
+-					int i;
++					unsigned int i;
+ 					for (i=0; i<numHits; i++)
+ 						if (hits[i]==p)
+ 							break;
+@@ -3278,9 +3275,9 @@
+ 
+ 		if (!recurse)
+ 		{
+-			double _time = time;
++			//double _time = time;
+ 			time += LASER_LINE_TIME;
+-			for (int i=0; i<numHits; i++)
++			for (unsigned int i=0; i<numHits; i++)
+ 			{
+ 				Pos p = hits[i];
+ 				Tile t = GetTile(p);
+@@ -3410,8 +3407,6 @@
+ 			player_items[1]--;
+ 		}
+ 
+-		int old_score=player_score;
+-
+ 		double time0 = time;
+ 		time += 0.15;	//Time for leave-tile fx
+ 
+Index: hex-a-hop.svn/packfile.h
+===================================================================
+--- hex-a-hop.svn.orig/packfile.h	2007-09-20 00:49:01.000000000 +0200
++++ hex-a-hop.svn/packfile.h	2007-09-20 00:49:19.000000000 +0200
+@@ -57,7 +57,7 @@
+ 	Entry** e;
+ 	void* data;
+ 
+-	PackFile1() : e(0), data(0), numfiles(0)
++	PackFile1() : numfiles(0), e(0), data(0)
+ 	{}
+ 
+ 	Entry* Find(const char* name)
+Index: hex-a-hop.svn/state.h
+===================================================================
+--- hex-a-hop.svn.orig/state.h	2007-09-20 00:48:51.000000000 +0200
++++ hex-a-hop.svn/state.h	2007-09-20 00:49:19.000000000 +0200
+@@ -81,7 +81,7 @@
+ 	virtual ~State() {}
+ 
+ 	virtual bool KeyPressed(int key, int mod) = 0;
+-	virtual void KeyReleased(int key) {};
++	virtual void KeyReleased(int /*key*/) {};
+ 	virtual void Mouse(int x, int y, int dx, int dy, int buttons_pressed, int buttons_released, int buttons) = 0;
+ 	virtual void Update(double timedelta) = 0;
+ 	virtual void Render() = 0;
+@@ -151,6 +151,7 @@
+ 		next = first;
+ 		first = this;
+ 	}
++	virtual ~StateMakerBase() {}
+ 	virtual State* Create() = 0;
+ 	void Destroy()
+ 	{

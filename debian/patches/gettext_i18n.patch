@@ -1,0 +1,821 @@
+# Copyright (C) 2007  Miriam Ruiz <little_miry@yahoo.es>
+# Copyright (C) 2007  Helge Kreutzmann <debian@helgefjell.de> (comments)
+# Copyright (C) 2007  Jens Seidel <jensseidel@users.sf.net> (comments)
+# Licensed under the GPL, see /usr/share/common-licenses/GPL
+
+Index: hex-a-hop.svn/i18n.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ hex-a-hop.svn/i18n.h	2007-09-20 00:49:10.000000000 +0200
+@@ -0,0 +1,43 @@
++// (c) 2007 Miriam Ruiz <little_miry@yahoo.es>
++//
++// This library is free software; you can redistribute it and/or
++// modify it under the terms of the GNU Library General Public
++// License as published by the Free Software Foundation; either
++// version 2 of the License, or (at your option) any later version.
++//
++// This library is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++// Library General Public License for more details.
++//
++// You should have received a copy of the GNU Library General Public
++// License along with this library; if not, write to the Free Software
++// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
++// USA.
++
++#ifndef _I18N_H
++#define _I18N_H
++
++#ifdef USE_GETTEXT
++
++#include <libintl.h>
++#define _(String) gettext (String)
++
++class GetTextInit
++{
++	protected:
++		static bool IsInit;
++	public:
++		GetTextInit();
++		const char *GetEncoding() const;
++};
++
++static GetTextInit gettext_init;
++
++#else
++
++#define _(String) String
++
++#endif
++
++#endif
+Index: hex-a-hop.svn/hex_puzzzle.cpp
+===================================================================
+--- hex-a-hop.svn.orig/hex_puzzzle.cpp	2007-09-20 00:49:08.000000000 +0200
++++ hex-a-hop.svn/hex_puzzzle.cpp	2007-09-20 00:49:10.000000000 +0200
+@@ -16,6 +16,7 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ 
++#include "i18n.h"
+ 
+ //////////////////////////////////////////////////////
+ // Config
+@@ -1576,14 +1577,14 @@
+ 
+ 			static char tmp1[100];
+ 			static LevelInfo tmp = {0, "", tmp1};
+-			sprintf(tmp1, "Complete %d  more %s  to unlock!", t-numComplete, t-numComplete==1?"level":"levels");
++			sprintf(tmp1, ngettext("Complete 1  more level  to unlock!", "Complete %d  more levels  to unlock!", t-numComplete), t-numComplete);
+ 			return &tmp;
+ 		}
+ 
+ 		for (int i=0; i<sizeof(levelNames)/sizeof(levelNames[0]); i++)
+ 			if (strcmp(f, levelNames[i].file)==0)
+ 				return &levelNames[i];
+-		static LevelInfo tmp = {0, "", "<<NO NAME>>"};
++		static LevelInfo tmp = {0, "", _("<<NO NAME>>")};
+ 		return &tmp;
+ 	}
+ 
+@@ -2668,33 +2669,37 @@
+ 				if (numUndo>1 && time < undo[0].time)
+ 					v[0]=v[1]=v[2]=0;
+ 	#ifdef EDIT
+-				Print(0,0,"Anti-Ice: %d", v[0]);
+-				Print(0,FONT_SPACING,"Jumps: %d", v[1]);
+-				Print(0,FONT_SPACING*2,"Score: %d (%d)", v[2], player_score);
+-				Print(0,FONT_SPACING*3,"Par:   %d", levelPar);
+-				Print(0,FONT_SPACING*4,"Diff:  %d", levelDiff);
++        /* TRANSLATORS: Anti-Ice are pickups, which turn ice plates into solid
++           plates once you step on them. Each pickup changes one ice plate */
++				Print(0,0,_("Anti-Ice: %d"), v[0]);
++				Print(0,FONT_SPACING,_("Jumps: %d"), v[1]);
++				Print(0,FONT_SPACING*2,_("Score: %d (%d)"), v[2], player_score);
++        /* TRANSLATORS: Par is similar to golf, a pre defined score which you
++           can attempt to beat */
++				Print(0,FONT_SPACING*3,_("Par:   %d"), levelPar);
++				Print(0,FONT_SPACING*4,_("Diff:  %d"), levelDiff);
+ 	#else
+ 				if (showScoring)
+-					Print(0, SCREEN_H-FONT_SPACING, " Par: %d   Current: %d", levelPar, v[2]);
++					Print(0, SCREEN_H-FONT_SPACING, _(" Par: %d   Current: %d"), levelPar, v[2]);
+ 
+ 				if (v[0])
+-					Print(0,0," Anti-Ice: %d", v[0]);
++					Print(0,0,_(" Anti-Ice: %d"), v[0]);
+ 				else if (v[1])
+-					Print(0,0," Jumps: %d", v[1]);
++					Print(0,0,_(" Jumps: %d"), v[1]);
+ 	#endif
+ 			}
+ 			if (isRenderMap && isMap && !isFadeRendering)
+ 			{
+ 	#if 0//def EDIT
+-				Print(0,0,"Points: %d", numComplete+numMastered);
+-				Print(0,FONT_SPACING,"Discovered: %d%% (%d/%d)", numLevelsFound*100/numLevels, numLevelsFound, numLevels);
+-				Print(0,FONT_SPACING*2,"Complete: %d%% (%d)", numComplete*100/numLevels, numComplete);
+-				Print(0,FONT_SPACING*3,"Mastered: %d%% (%d)", numMastered*100/numLevels, numMastered);
++				Print(0,0,_("Points: %d"), numComplete+numMastered);
++				Print(0,FONT_SPACING,_("Discovered: %d%% (%d/%d)"), numLevelsFound*100/numLevels, numLevelsFound, numLevels);
++				Print(0,FONT_SPACING*2,_("Complete: %d%% (%d)"), numComplete*100/numLevels, numComplete);
++				Print(0,FONT_SPACING*3,_("Mastered: %d%% (%d)"), numMastered*100/numLevels, numMastered);
+ 	#else
+ 				if (numComplete==numLevels && progress.general.endSequence>0)
+-					Print(0, SCREEN_H-FONT_SPACING, " %d%% Mastered", numMastered*100/numLevels);
++					Print(0, SCREEN_H-FONT_SPACING, _(" %d%% Mastered"), numMastered*100/numLevels);
+ 				else
+-					Print(0, SCREEN_H-FONT_SPACING, " %d%% Complete", numComplete*100/numLevels);
++					Print(0, SCREEN_H-FONT_SPACING, _(" %d%% Complete"), numComplete*100/numLevels);
+ 
+ 				if (numMastered >= numLevels && progress.general.endSequence < 2)
+ 				{
+@@ -2746,14 +2751,14 @@
+ 						{
+ 							if (progress.general.scoringOn)
+ 							{
+-								PrintC(false, dst.x, dst.y + FONT_SPACING*4 - FONT_SPACING/4, "Best:% 3d", player_score);
+-								PrintC(false, dst.x, dst.y + FONT_SPACING*5 - FONT_SPACING/4, "Par:% 3d", levelPar);
++								PrintC(false, dst.x, dst.y + FONT_SPACING*4 - FONT_SPACING/4, _("Best:% 3d"), player_score);
++								PrintC(false, dst.x, dst.y + FONT_SPACING*5 - FONT_SPACING/4, _("Par:% 3d"), levelPar);
+ 							}
+ 							else
+-								PrintC(false, dst.x, dst.y + FONT_SPACING*4 - FONT_SPACING/4, "Completed", player_score);
++								PrintC(false, dst.x, dst.y + FONT_SPACING*4 - FONT_SPACING/4, _("Completed"), player_score);
+ 						}
+ 						else
+-							PrintC(false, dst.x, dst.y + FONT_SPACING*4 - FONT_SPACING/4, "Incomplete", player_score);
++							PrintC(false, dst.x, dst.y + FONT_SPACING*4 - FONT_SPACING/4, _("Incomplete"), player_score);
+ 					}
+ 				}
+ 			}
+@@ -2794,7 +2799,7 @@
+ 				t=1-t;
+ 				int y = SCREEN_H/3 - FONT_SPACING + 1;
+ 				y = SCREEN_H + int((y-SCREEN_H)*t);
+-				PrintC(true, SCREEN_W/2, y, "Level Complete!");
++				PrintC(true, SCREEN_W/2, y, _("Level Complete!"));
+ 			}
+ 		}
+ 
+@@ -2914,7 +2919,7 @@
+ 				}
+ 
+ #ifdef EDIT
+-				sprintf(tmp, "Special(%d,%d): %s (%d)", s.x, s.y, sp ? sp : "<None>", GetPar(sp));
++				sprintf(tmp, _("Special(%d,%d): %s (%d)"), s.x, s.y, sp ? sp : _("<None>"), GetPar(sp));
+ 				SDL_WM_SetCaption(tmp, NULL);
+ #endif
+ 			}
+@@ -3059,7 +3064,7 @@
+ 
+ 		if (button_pressed==256)
+ 		{
+-			char* fn = LoadSaveDialog(false, true, "Select level");
++			char* fn = LoadSaveDialog(false, true, _("Select level"));
+ 			if (fn)
+ 			{
+ 				char * l = strstr(fn, "Levels");
+@@ -4114,13 +4119,13 @@
+ 			Mouse(mousex, mousey, 0, 0, 1024, 0, mouse_buttons);
+ 
+ 		else if (key=='s' && (mod & KMOD_CTRL)){
+-			char *fn = LoadSaveDialog(true, true, "Save level");
++			char *fn = LoadSaveDialog(true, true, _("Save level"));
+ 			LoadSave(fn, true);
+ 			SDL_WM_SetCaption(currentFile, NULL);
+ 		}
+ 		
+ 		else if (key=='o' && (mod & KMOD_CTRL)){
+-			char* fn = LoadSaveDialog(false, true, "Open level");
++			char* fn = LoadSaveDialog(false, true, _("Open level"));
+ 			LoadSave(fn, false);
+ 			SDL_WM_SetCaption(currentFile, NULL);
+ 		}
+Index: hex-a-hop.svn/level_list.h
+===================================================================
+--- hex-a-hop.svn.orig/level_list.h	2007-09-20 00:48:52.000000000 +0200
++++ hex-a-hop.svn/level_list.h	2007-09-20 00:49:10.000000000 +0200
+@@ -22,112 +22,117 @@
+ 	const char *file, *name;
+ } levelNames[] = {
+ 
+-{0,		"map_maybe\\map.lev",						"  Map",},
+-{0,		"0_green\\asymmetrix.lev",					"  Orbital",},
+-{0,		"0_green\\hive.lev",						"  Hive",},
+-{0,		"0_green\\there and back.lev",				"  There  and Back",},
+-{0,		"0_green\\triangular.lev",					"  Triangular",},
+-{0,		"1_trampoline\\01.lev",						"  Mini  Island",},
+-{0,		"1_trampoline\\01_b.lev",					"  Island  Variation",},
+-{0,		"1_trampoline\\archipeligo.lev",			"  Archipelago",},
+-{0,		"1_trampoline\\arrow.lev",					"  Weathervane",},
+-{0,		"1_trampoline\\Bridges.lev",				"  Bridges",},
+-{0,		"1_trampoline\\explorer.lev",				"  Explorer",},
+-{0,		"1_trampoline\\test_trampoline.lev",		"  Trampolines",},
+-{0,		"2_greendoor\\Loopy.lev",					"  Not a Knot",},
+-{0,		"2_greendoor\\more mountain.lev",			"  Another  Mountain",},
+-{0,		"2_greendoor\\Mountain.lev",				"  A  Mountain",},
+-{0,		"2_greendoor\\test_green_gate.lev",			"  Green  Walls",},
+-{0,		"2_greendoor\\winding order.lev",			"  Winding  Order",},
+-{0,		"2005_11_15\\boating.lev",					"  Rental  Boat",},
+-{0,		"2005_11_15\\ferry.lev",					"  Ferrying",},
+-{0,		"2005_11_15\\HUB.LEV",						"  Transport  Hub",},
+-{0,		"2005_11_15\\learn lift.lev",				"  Lifts",},
+-{0,		"2005_11_15\\leftovers.lev",				"  Leftovers",},
+-{0,		"2005_11_15\\lumpy.lev",					"  Trampoline  Retrieval",},
+-{0,		"2005_11_15\\rolling hexagons.lev",			"  Rolling  Hexagons",},
+-{0,		"2005_11_15\\telephone.lev",				"  Telephone",},
+-{0,		"2005_11_16\\breakthrough.lev",				"  Breakthrough",},
+-{0,		"2005_11_19\\aa.lev",						"  Laser  Safety",},
+-{0,		"2005_11_19\\branches.lev",					"  Branching  Pathway",},
+-{0,		"2005_11_19\\one way up.lev",				"  Only One  Way Up",},
+-{0,		"2005_11_19\\outposts.lev",					"  Outposts",},
+-{0,		"2005_11_19\\turntables.lev",				"  Roundabouts",},
+-{0,		"2005_11_19\\two fish.lev",					"  Two  Fish",},
+-{0,		"3_2hitfloor\\all wound up.lev",			"All  Wound  Up",},
+-{0,		"3_2hitfloor\\collapse2.lev",				"  Toughened   Tiles",},
+-{0,		"3_2hitfloor\\Island.lev",					"  Island",},
+-{0,		"3_2hitfloor\\more stripes.lev",			"  More  Stripes",},
+-{0,		"3_2hitfloor\\Stripey.lev",					"  Stripes",},
+-{0,		"3_2hitfloor\\test_2hit_floor.lev",			"  One Two  One Two",},
+-{0,		"3_2hitfloor\\Turtle.lev",					"  Turtle",},
+-{0,		"3_2hitfloor\\Wand.lev",					"  Wand",},
+-{0,		"4_gun\\deathtrap.lev",						"  Deathtrap",},
+-{0,		"4_gun\\eagerness.lev",						"  Eagerness",},
+-{0,		"4_gun\\gun platform.lev",					"  Gun  Platform",},
+-{0,		"4_gun\\Nucleus.lev",						"  Nucleus",},
+-{0,		"4_gun\\Sniper.lev",						"  Sniper",},
+-{0,		"4_gun\\snowflake 2.lev",					"  Deadly  Snowflake",},
+-{0,		"4_gun\\snowflake.lev",						"  Snowflake",},
+-{0,		"4_gun\\Test_gun.lev",						"  Laser  Tiles",},
+-{0,		"4_gun\\trigger happy.lev",					"  Trigger  Happy",},
+-{0,		"5_spinner\\lure.lev",						"  Lure",},
+-{0,		"5_spinner\\Maxe.lev",						"  Maze",},
+-{0,		"5_spinner\\Motion.lev",					"  Motion  Sickness",},
+-{0,		"5_spinner\\preperation mk 3.lev",			"  All About  Preparation",},
+-{0,		"5_spinner\\revolver cannon.lev",			"  Revolver  Cannon",},
+-{0,		"5_spinner\\small cog.lev",					"  Small  Cog",},
+-{0,		"5_spinner\\Sprocket.lev",					"  Sprocket",},
+-{0,		"5_spinner\\switch.lev",					"  Switch",},
+-{0,		"5_spinner\\test_spinner.lev",				"  Spinner  Tiles",},
+-{0,		"5_spinner\\three more ways.lev",			"  Three  More Ways",},
+-{0,		"5_spinner\\three ways mk 2.lev",			"  Three  Ways To Go",},
+-{0,		"6_ice\\oo.lev",							"Please  Skate  Safely",},
+-{0,		"6_ice\\refraction.lev",					"  Refraction",},
+-{0,		"6_ice\\route finder.lev",					"  Route  Finder",},
+-{0,		"6_ice\\slippy.lev",						"A  Slippery  Situation",},
+-{0,		"7_item\\crooked.lev",						"  Crooked",},
+-{0,		"7_item\\green honey.lev",					"  Green  Honey",},
+-{0,		"7_item\\kx.lev",							"  Carefully  Does It",},
+-{0,		"7_item\\radioactive ice.lev",				"  Radioactive  Ice",},
+-{0,		"7_item\\slider.lev",						"  Pro  Skater",},
+-{0,		"7_item\\spinners mk2.lev",					"  Spinners  II",},
+-{0,		"7_item\\spinners.lev",						"  Spinners",},
+-{0,		"7_item\\test_ice.lev",						"  Deslippify",},
+-{0,		"7_item\\tt.lev",							"  Tri Mesh",},
+-{0,		"7_item\\Wheel.lev",						"  Wheel",},
+-{0,		"8_item2\\finishing strike.lev",			"  Finishing  Strike",},
+-{0,		"8_item2\\p2.lev",							"  Big  Jumps",},
+-{0,		"8_item2\\wave cannon.lev",					"  Wave  Cannon",},
+-{0,		"9_boat\\clearance.lev",					"  Clearance",},
+-{0,		"9_boat\\floating.lev",						"  Floating",},
+-{0,		"9_boat\\forced fire.lev",					"  Forced  Fire",},
+-{0,		"9_boat\\no swimming allowed.lev",			"No  Swimming  Allowed",},
+-{0,		"a.lev",									"A Little  Light  Lifting",},
+-{0,		"A_Lift\\house.lev",						"  House",},
+-{0,		"A_Lift\\hunting.lev",						"  Hunting",},
+-{0,		"A_Lift\\Lifting.lev",						"  More  Lifting",},
+-{0,		"A_Lift\\opportunist_mini.lev",				"  Opportunist",},
+-{0,		"A_Lift\\test_lift.lev",					"  Demolition",},
+-{0,		"A_Lift\\upper.lev",						"  Upper",},
+-{0,		"b.lev",									"Beware  Feedback  Loops",},
+-{0,		"B_Builder\\airlock ending.lev",			"  Somewhat  Constructive",},
+-{0,		"B_Builder\\overbuild.lev",					"  Overbuild",},
+-{0,		"B_Builder\\reversing space.lev",			"  Reversing  Space",},
+-{0,		"B_Builder\\test_builder.lev",				"Burn  Your  Bridges",},
+-{0,		"c.lev",									"A  Strange  Place",},
+-{0,		"commute.lev",								"  Commute",},
+-{0,		"d.lev",									"  Bouncing  Required",},
+-{0,		"de-icing.lev",								"  Fetch  Quest",},
+-{0,		"e.lev",									"  Laser  Surgery",},
+-{0,		"ice intro.lev",							"  Icy  Tiles",},
+-{0,		"icy road.lev",								"  Icy  Road",},
+-{0,		"invertor.lev",								"  Inversion",},
++/* TRANSLATORS: The following strings (in level_list.h) are level names, which
++   should give (in a humerous way) the player an indication about this level. */
++{0,		"map_maybe\\map.lev",						_("  Map"),},
++{0,		"0_green\\asymmetrix.lev",					_("  Orbital"),},
++{0,		"0_green\\hive.lev",						_("  Hive"),},
++{0,		"0_green\\there and back.lev",				_("  There  and Back"),},
++{0,		"0_green\\triangular.lev",					_("  Triangular"),},
++{0,		"1_trampoline\\01.lev",						_("  Mini  Island"),},
++{0,		"1_trampoline\\01_b.lev",					_("  Island  Variation"),},
++{0,		"1_trampoline\\archipeligo.lev",			_("  Archipelago"),},
++{0,		"1_trampoline\\arrow.lev",					_("  Weathervane"),},
++{0,		"1_trampoline\\Bridges.lev",				_("  Bridges"),},
++{0,		"1_trampoline\\explorer.lev",				_("  Explorer"),},
++{0,		"1_trampoline\\test_trampoline.lev",		_("  Trampolines"),},
++{0,		"2_greendoor\\Loopy.lev",					_("  Not a Knot"),},
++{0,		"2_greendoor\\more mountain.lev",			_("  Another  Mountain"),},
++{0,		"2_greendoor\\Mountain.lev",				_("  A  Mountain"),},
++{0,		"2_greendoor\\test_green_gate.lev",			_("  Green  Walls"),},
++{0,		"2_greendoor\\winding order.lev",			_("  Winding  Order"),},
++{0,		"2005_11_15\\boating.lev",					_("  Rental  Boat"),},
++{0,		"2005_11_15\\ferry.lev",					_("  Ferrying"),},
++{0,		"2005_11_15\\HUB.LEV",						_("  Transport  Hub"),},
++{0,		"2005_11_15\\learn lift.lev",				_("  Lifts"),},
++{0,		"2005_11_15\\leftovers.lev",				_("  Leftovers"),},
++{0,		"2005_11_15\\lumpy.lev",					_("  Trampoline  Retrieval"),},
++{0,		"2005_11_15\\rolling hexagons.lev",			_("  Rolling  Hexagons"),},
++{0,		"2005_11_15\\telephone.lev",				_("  Telephone"),},
++{0,		"2005_11_16\\breakthrough.lev",				_("  Breakthrough"),},
++{0,		"2005_11_19\\aa.lev",						_("  Laser  Safety"),},
++{0,		"2005_11_19\\branches.lev",					_("  Branching  Pathway"),},
++{0,		"2005_11_19\\one way up.lev",				_("  Only One  Way Up"),},
++{0,		"2005_11_19\\outposts.lev",					_("  Outposts"),},
++{0,		"2005_11_19\\turntables.lev",				_("  Roundabouts"),},
++{0,		"2005_11_19\\two fish.lev",					_("  Two  Fish"),},
++{0,		"3_2hitfloor\\all wound up.lev",			_("All  Wound  Up"),},
++{0,		"3_2hitfloor\\collapse2.lev",				_("  Toughened   Tiles"),},
++{0,		"3_2hitfloor\\Island.lev",					_("  Island"),},
++{0,		"3_2hitfloor\\more stripes.lev",			_("  More  Stripes"),},
++{0,		"3_2hitfloor\\Stripey.lev",					_("  Stripes"),},
++{0,		"3_2hitfloor\\test_2hit_floor.lev",			_("  One Two  One Two"),},
++{0,		"3_2hitfloor\\Turtle.lev",					_("  Turtle"),},
++{0,		"3_2hitfloor\\Wand.lev",					_("  Wand"),},
++{0,		"4_gun\\deathtrap.lev",						_("  Deathtrap"),},
++{0,		"4_gun\\eagerness.lev",						_("  Eagerness"),},
++{0,		"4_gun\\gun platform.lev",					_("  Gun  Platform"),},
++{0,		"4_gun\\Nucleus.lev",						_("  Nucleus"),},
++{0,		"4_gun\\Sniper.lev",						_("  Sniper"),},
++{0,		"4_gun\\snowflake 2.lev",					_("  Deadly  Snowflake"),},
++{0,		"4_gun\\snowflake.lev",						_("  Snowflake"),},
++{0,		"4_gun\\Test_gun.lev",						_("  Laser  Tiles"),},
++{0,		"4_gun\\trigger happy.lev",					_("  Trigger  Happy"),},
++{0,		"5_spinner\\lure.lev",						_("  Lure"),},
++{0,		"5_spinner\\Maxe.lev",						_("  Maze"),},
++{0,		"5_spinner\\Motion.lev",					_("  Motion  Sickness"),},
++{0,		"5_spinner\\preperation mk 3.lev",			_("  All About  Preparation"),},
++{0,		"5_spinner\\revolver cannon.lev",			_("  Revolver  Cannon"),},
++{0,		"5_spinner\\small cog.lev",					_("  Small  Cog"),},
++{0,		"5_spinner\\Sprocket.lev",					_("  Sprocket"),},
++{0,		"5_spinner\\switch.lev",					_("  Switch"),},
++{0,		"5_spinner\\test_spinner.lev",				_("  Spinner  Tiles"),},
++{0,		"5_spinner\\three more ways.lev",			_("  Three  More Ways"),},
++{0,		"5_spinner\\three ways mk 2.lev",			_("  Three  Ways To Go"),},
++{0,		"6_ice\\oo.lev",							_("Please  Skate  Safely"),},
++{0,		"6_ice\\refraction.lev",					_("  Refraction"),},
++{0,		"6_ice\\route finder.lev",					_("  Route  Finder"),},
++{0,		"6_ice\\slippy.lev",						_("A  Slippery  Situation"),},
++{0,		"7_item\\crooked.lev",						_("  Crooked"),},
++{0,		"7_item\\green honey.lev",					_("  Green  Honey"),},
++{0,		"7_item\\kx.lev",							_("  Carefully  Does It"),},
++{0,		"7_item\\radioactive ice.lev",				_("  Radioactive  Ice"),},
++{0,		"7_item\\slider.lev",						_("  Pro  Skater"),},
++{0,		"7_item\\spinners mk2.lev",					_("  Spinners  II"),},
++{0,		"7_item\\spinners.lev",						_("  Spinners"),},
++/* TRANSLATORS: There is a special kind of pickup, which will turn ice
++   plates into "normal" plates (you won't slip on them). So the name
++   is (probably) related to "Make less slippery". */
++{0,		"7_item\\test_ice.lev",						_("  Deslippify"),},
++{0,		"7_item\\tt.lev",							_("  Tri Mesh"),},
++{0,		"7_item\\Wheel.lev",						_("  Wheel"),},
++{0,		"8_item2\\finishing strike.lev",			_("  Finishing  Strike"),},
++{0,		"8_item2\\p2.lev",							_("  Big  Jumps"),},
++{0,		"8_item2\\wave cannon.lev",					_("  Wave  Cannon"),},
++{0,		"9_boat\\clearance.lev",					_("  Clearance"),},
++{0,		"9_boat\\floating.lev",						_("  Floating"),},
++{0,		"9_boat\\forced fire.lev",					_("  Forced  Fire"),},
++{0,		"9_boat\\no swimming allowed.lev",			_("No  Swimming  Allowed"),},
++{0,		"a.lev",									_("A Little  Light  Lifting"),},
++{0,		"A_Lift\\house.lev",						_("  House"),},
++{0,		"A_Lift\\hunting.lev",						_("  Hunting"),},
++{0,		"A_Lift\\Lifting.lev",						_("  More  Lifting"),},
++{0,		"A_Lift\\opportunist_mini.lev",				_("  Opportunist"),},
++{0,		"A_Lift\\test_lift.lev",					_("  Demolition"),},
++{0,		"A_Lift\\upper.lev",						_("  Upper"),},
++{0,		"b.lev",									_("Beware  Feedback  Loops"),},
++{0,		"B_Builder\\airlock ending.lev",			_("  Somewhat  Constructive"),},
++{0,		"B_Builder\\overbuild.lev",					_("  Overbuild"),},
++{0,		"B_Builder\\reversing space.lev",			_("  Reversing  Space"),},
++{0,		"B_Builder\\test_builder.lev",				_("Burn  Your  Bridges"),},
++{0,		"c.lev",									_("A  Strange  Place"),},
++{0,		"commute.lev",								_("  Commute"),},
++{0,		"d.lev",									_("  Bouncing  Required"),},
++{0,		"de-icing.lev",								_("  Fetch  Quest"),},
++{0,		"e.lev",									_("  Laser  Surgery"),},
++{0,		"ice intro.lev",							_("  Icy  Tiles"),},
++{0,		"icy road.lev",								_("  Icy  Road"),},
++{0,		"invertor.lev",								_("  Inversion"),},
+ 
+-{0,		"_20",										"Complete __ levels to unlock"},
+-{0,		"_35",										"Complete __ levels to unlock"},
+-{0,		"_55",										"Complete __ levels to unlock"},
+-{0,		"_75",										"Complete __ levels to unlock"},
+-{0,		"_90",										"Complete __ levels to unlock"},
++{0,		"_20",										_("Complete __ levels to unlock")},
++{0,		"_35",										_("Complete __ levels to unlock")},
++{0,		"_55",										_("Complete __ levels to unlock")},
++{0,		"_75",										_("Complete __ levels to unlock")},
++{0,		"_90",										_("Complete __ levels to unlock")},
+ 
+ };
+Index: hex-a-hop.svn/gfx.cpp
+===================================================================
+--- hex-a-hop.svn.orig/gfx.cpp	2007-09-20 00:49:08.000000000 +0200
++++ hex-a-hop.svn/gfx.cpp	2007-09-20 00:49:10.000000000 +0200
+@@ -16,6 +16,8 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ 
++#include "i18n.h"
++
+ #include "state.h"
+ 
+ #ifdef WIN32
+Index: hex-a-hop.svn/i18n.cpp
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ hex-a-hop.svn/i18n.cpp	2007-09-20 00:49:10.000000000 +0200
+@@ -0,0 +1,49 @@
++// (c) 2007 Miriam Ruiz <little_miry@yahoo.es>
++//
++// This library is free software; you can redistribute it and/or
++// modify it under the terms of the GNU Library General Public
++// License as published by the Free Software Foundation; either
++// version 2 of the License, or (at your option) any later version.
++//
++// This library is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++// Library General Public License for more details.
++//
++// You should have received a copy of the GNU Library General Public
++// License along with this library; if not, write to the Free Software
++// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
++// USA.
++
++#ifdef USE_GETTEXT
++
++#include "i18n.h"
++
++#include <libintl.h>
++#include <locale.h>
++#include <langinfo.h>
++
++GetTextInit::GetTextInit()
++{
++	if  (!IsInit)
++	{
++		IsInit = true;
++		setlocale (LC_MESSAGES, "");
++		setlocale (LC_CTYPE, "");
++		setlocale (LC_COLLATE, "");
++		textdomain ("hex-a-hop");
++		bindtextdomain ("hex-a-hop", NULL);
++	}
++}
++
++bool GetTextInit::IsInit = false;
++
++const char *GetTextInit::GetEncoding() const
++{
++	// See http://svn.xiph.org/trunk/vorbis-tools/intl/localcharset.c
++	// if nl_langinfo isn't found
++	char *locale_enc = nl_langinfo(CODESET);
++	return locale_enc;
++}
++
++#endif
+Index: hex-a-hop.svn/menus.h
+===================================================================
+--- hex-a-hop.svn.orig/menus.h	2007-09-20 00:48:52.000000000 +0200
++++ hex-a-hop.svn/menus.h	2007-09-20 00:49:10.000000000 +0200
+@@ -84,61 +84,70 @@
+ const char * hint[] = {
+ 	
+ /*EMPTY*/
+-"Basic controls:|Move around with the keys Q,W,E,A,S,D or the numeric  keypad. Alternatively, you can use the mouse and  click on the tile you'd like to move to.    Use 'U', backspace or the right mouse button to  undo mistakes.    The 'Esc' key (or middle mouse button) brings up a  menu from which you can restart if you get stuck.",
++_("Basic controls:|Move around with the keys Q,W,E,A,S,D or the numeric  keypad. Alternatively, you can use the mouse and  click on the tile you'd like to move to.    Use 'U', backspace or the right mouse button to  undo mistakes.    The 'Esc' key (or middle mouse button) brings up a  menu from which you can restart if you get stuck."),
+ /*NORMAL*/
+ 0,
+ /*COLLAPSABLE*/
+-"Objective:|Your goal is to break all the green tiles.    You mainly do this by jumping on them.    They will crack when you land on them, and  only disintegrate when you jump off.    Try not to trap yourself!", 
++_("Objective:|Your goal is to break all the green tiles.    You mainly do this by jumping on them.    They will crack when you land on them, and  only disintegrate when you jump off.    Try not to trap yourself!"), 
+ /*COLLAPSE_DOOR*/
+-"The coloured walls flatten themselves when there  are no matching coloured tiles remaining.",
++_("The coloured walls flatten themselves when there  are no matching coloured tiles remaining."),
+ /*TRAMPOLINE*/
+-"You can bounce on the purple trampoline tiles to  get around.    But try not to fall in the water.    If you do, remember you can undo with 'U',  backspace or the right mouse button!",
++_("You can bounce on the purple trampoline tiles to  get around.    But try not to fall in the water.    If you do, remember you can undo with 'U',  backspace or the right mouse button!"),
+ /*SPINNER*/
+-"A red spinner tile will rotate the pieces around  it when you step on it.",
++_("A red spinner tile will rotate the pieces around  it when you step on it."),
+ /*WALL*/
+ 0,
+ /*COLLAPSABLE2*/
+-"You don't need to destroy blue tiles to complete  the level.    But they'll turn green when you step off them, and  you know what you have to do to green tiles...",
++_("You don't need to destroy blue tiles to complete  the level.    But they'll turn green when you step off them, and  you know what you have to do to green tiles..."),
+ /*COLLAPSE_DOOR2*/
+ 0,
+ /*GUN*/
+-"Yellow laser tiles fire when you step on them.    Shooting other laser tiles is more destructive.",
++_("Yellow laser tiles fire when you step on them.    Shooting other laser tiles is more destructive."),
+ /*TRAP*/
+-"Ice is slippery!    Please be careful!!",
++_("Ice is slippery!    Please be careful!!"),
+ /*COLLAPSABLE3*/
+ 0,
+ /*BUILDER*/
+-"The dark grey tiles with arrows on are builders.    Landing on one creates green tiles in any adjacent  empty tile, and turns green tiles into walls.",
++_("The dark grey tiles with arrows on are builders.    Landing on one creates green tiles in any adjacent  empty tile, and turns green tiles into walls."),
+ /*SWITCH*/
+ 0,
+ /*FLOATING_BALL*/
+-"You can ride on the pink floating boats to get  across water.    They'll pop if you try and float off the edge of the  screen though, so look where you're going.",
++/* TRANSLATORS: pop means vanish and Emy drowns (you loose) */
++_("You can ride on the pink floating boats to get  across water.    They'll pop if you try and float off the edge of the  screen though, so look where you're going."),
+ /*LIFT_DOWN*/
+-"The blue lifts go up or down when you land on them.",
++_("The blue lifts go up or down when you land on them."),
+ /*LIFT_UP*/
+ 0,
+ 
+ 0,0,0,0,
+ //Item 0 (21)
+-"The spiky anti-ice pickups turn icy tiles into blue ones.    They get used automatically when you land on ice.",
++_("The spiky anti-ice pickups turn icy tiles into blue ones.    They get used automatically when you land on ice."),
+ //Item 1 (22)
+-"Collecting the golden jump pickups will allow you to  do a big vertical jump.    Try it out on different types of tile.    Use the space bar or return key to jump. Or click  on the tile you're currently on with the mouse.",
++/* TRANSLATORS: Normally you jump from one plate to another. The golden jump (a
++   pickup) allows you to jump and land on the *same* plate */
++_("Collecting the golden jump pickups will allow you to  do a big vertical jump.    Try it out on different types of tile.    Use the space bar or return key to jump. Or click  on the tile you're currently on with the mouse."),
+ 
+ 0,0,
+ 
+ // Map (25)
+-"Map Screen:|You can choose which level to attempt next from  the map screen.    Silver levels are ones you've cleared.    Black levels are ones you haven't completed yet,  but are available to play.",
++_("Map Screen:|You can choose which level to attempt next from  the map screen.    Silver levels are ones you've cleared.    Black levels are ones you haven't completed yet,  but are available to play."),
+ 
+ // Scoring (26)
+-"New feature unlocked!|Each level has an efficiency target for you to try  and beat.    Every move you make and each non-green tile  you destroy counts against you.    Why not try replaying some levels and going  for gold?",
++/* TRANSLATORS: Levels are depicted as black balls. Once you passed them, they
++   turn silver. If you reached the par, they turn golden (with a crown), and if
++   you beat the par, they turn their shape/color once more */
++_("New feature unlocked!|Each level has an efficiency target for you to try  and beat.    Every move you make and each non-green tile  you destroy counts against you.    Why not try replaying some levels and going  for gold?"),
+ 
+ 0,0,0,
+ 
+ // End of help (30)
+-"Thanks for playing this little game.    I hope you  enjoy it!    -- --    All content is Copyright 2005 Tom Beaumont    email: tombeaumont@yahoo.com  Any constructive criticism gratefully received!",
++_("Thanks for playing this little game.    I hope you  enjoy it!    -- --    All content is Copyright 2005 Tom Beaumont    email: tombeaumont@yahoo.com  Any constructive criticism gratefully received!"),
+ 
+ // First help page (31)
+-"Welcome to " GAMENAME "!    This is a puzzle game based on hexagonal tiles.  There is no time limit and no real-time elements, so  take as long as you like.    Use the cursor keys or click on the arrows to  scroll through the help pages. More pages will be  added as you progress through the game.",
++/* TRANSLATORS: This string is copied twice into the POT file to workaround a
++   gettext limitation (no macro expansion). The extracted string "Welcome to "
++   will not be used. */
++_("Welcome to " GAMENAME "!    This is a puzzle game based on hexagonal tiles.  There is no time limit and no real-time elements, so  take as long as you like.    Use the cursor keys or click on the arrows to  scroll through the help pages. More pages will be  added as you progress through the game."),
+ };
+ 
+ struct HintMessage : public Menu
+@@ -174,7 +183,7 @@
+ 		if (!x)
+ 		{
+ 			msg = m;
+-			strcpy(title, "Info:");
++			strcpy(title, _("Info:"));
+ 		}
+ 		else
+ 		{
+@@ -196,7 +205,7 @@
+ 		Render(0, y);
+ 		
+ 		if (!state && time>0.2)
+-			Print(SCREEN_W*3/4, SCREEN_H-FONT_SPACING, "Press any key");
++			Print(SCREEN_W*3/4, SCREEN_H-FONT_SPACING, _("Press any key"));
+ 	}
+ 
+ 	void Render(int x, int y)
+@@ -281,9 +290,9 @@
+ 		const double SPD = 10;
+ 
+ #ifdef EDIT
+-		sprintf (title, "Help (Page --)", page_display+1, page_count);
++		sprintf (title, _("Help (Page --)"), page_display+1, page_count);
+ #else
+-		sprintf (title, "Help (Page %d/%d)", page_display+1, page_count);
++		sprintf (title, _("Help (Page %d/%d)"), page_display+1, page_count);
+ #endif
+ 
+ 		int y=SCREEN_H/4;
+@@ -369,23 +378,23 @@
+ 	optionSlotName[1],
+ 	optionSlotName[2],
+ 	optionSlotName[3],
+-	"Resume",
+-	"Restart Level",
+-	"Return to Map",
+-	"Continue",
+-	"Toggle Fullscreen",
+-	"Options",
+-	"Quit",
+-	"Yes",
+-	"No",
+-	"Return to Title",
+-	"Help",
+-	"Start New Game",
+-	"Yes, really delete it!",
+-	"Don't do it!",
+-	"Undo Last Move",
+-	"OK",
+-	"View Credits Sequence", "View Credits Sequence",
++	_("Resume"),
++	_("Restart Level"),
++	_("Return to Map"),
++	_("Continue"),
++	_("Toggle Fullscreen"),
++	_("Options"),
++	_("Quit"),
++	_("Yes"),
++	_("No"),
++	_("Return to Title"),
++	_("Help"),
++	_("Start New Game"),
++	_("Yes, really delete it!"),
++	_("Don't do it!"),
++	_("Undo Last Move"),
++	_("OK"),
++	_("View Credits Sequence"), _("View Credits Sequence"),
+ };
+ 
+ 
+@@ -522,7 +531,7 @@
+ 		par(_par),
+ 		best_score(_prev_score),
+ 		win(_win),
+-		OptMenu(_win ? "Level Complete!" : "Emi can't swim...")
++		OptMenu(_win ? _("Level Complete!") : _("Emi can't swim..."))
+ 	{
+ 		if (!win)
+ 			opt[num_opt++] = OPT_UNDO;
+@@ -557,13 +566,13 @@
+ 			int x = r.x+r.w/2;
+ 			int y = r2.y + FONT_SPACING/2;
+ 			if (score < best_score && score <= par)
+-				PrintC(true, x, y, "New Best Score: %d  Par Score: %d  Par Beaten!", score, par);
++				PrintC(true, x, y, _("New Best Score: %d  Par Score: %d  Par Beaten!"), score, par);
+ 			else if (score < best_score)
+-				PrintC(true, x, y, "New Best Score: %d  Par Score: %d", score, par);
++				PrintC(true, x, y, _("New Best Score: %d  Par Score: %d"), score, par);
+ 			else if (par && best_score)
+-				PrintC(true, x, y, "Score: %d  Previous Best: %d  Par Score: %d", score, best_score, par);	
++				PrintC(true, x, y, _("Score: %d  Previous Best: %d  Par Score: %d"), score, best_score, par);	
+ 			else
+-				PrintC(true, x, y+FONT_SPACING/2, "Well Done!  Level Completed!");	
++				PrintC(true, x, y+FONT_SPACING/2, _("Well Done!  Level Completed!"));
+ 		}
+ 	}
+ 
+@@ -642,49 +651,49 @@
+ };
+ 
+ const char *ending[] = {
+-	" Very Well Done! ",
++	_(" Very Well Done! "),
+ 	"", "", "", "", "", "",
+ 	
+ 	"", "", "*15,4", "", "", 
+ 	
+-	"All Levels Cleared!",
++	_("All Levels Cleared!"),
+ 	
+ 	"", "", "*5,7", "", "", 
+ 	
+-	"Not a single green hexagon is left unbroken.",
++	_("Not a single green hexagon is left unbroken."),
+ 	"", 
+-	"Truly, you are a master of hexagon hopping!",
++	_("Truly, you are a master of hexagon hopping!"),
+ 	
+ 	"", "", "*9,10", "", "", 
+ 	
+-	"", "Credits", "", "", "",
+-	"<Design & Direction:", ">Tom Beaumont", "", "",
+-	"<Programming:", ">Tom Beaumont", "", "",
+-	"<Graphics:", ">Tom Beaumont", "", "",
+-	"<Thanks to:", ">Kris Beaumont", "",  "",
++	"", _("Credits"), "", "", "",
++	_("<Design & Direction:"), ">Tom Beaumont", "", "",
++	_("<Programming:"), ">Tom Beaumont", "", "",
++	_("<Graphics:"), ">Tom Beaumont", "", "",
++	_("<Thanks to:"), ">Kris Beaumont", "",  "",
+ //	"", "<Some useless facts...", "",
+-	"<Tools and libraries used:", "", ">Photoshop LE", ">Inno Setup", ">Wings 3D", ">MSVC", ">SDL", "", 
+-	"<Fonts used:", "", ">Copperplate gothic bold", ">Verdana", "", 
++	_("<Tools and libraries used:"), "", ">Photoshop LE", ">Inno Setup", ">Wings 3D", ">MSVC", ">SDL", "", 
++	_("<Fonts used:"), "", ">Copperplate gothic bold", ">Verdana", "", 
+ 
+ 	"", "", "*12,14", "", "", 
+ 
+-	"Thanks for playing!"
++	_("Thanks for playing!")
+ };
+ 
+ const char *ending2[] = {
+-	" Absolutely Amazing! ",
++	_(" Absolutely Amazing! "),
+ 	"", "", "", "", "", 
+ 	
+ 	"", "", "*15,4", "", "", 
+ 	
+-	"All Levels Mastered!!",
++	_("All Levels Mastered!!"),
+ 	
+ 	"", "", "*5,7", "", "", 
+ 	
+-	"You crushed every last green hexagon with",
+-	"breathtaking efficiency!", 
++	_("You crushed every last green hexagon with"),
++	_("breathtaking efficiency!"), 
+ 	"",
+-	"You truly are a grand master of hexagon hopping!",
++	_("You truly are a grand master of hexagon hopping!"),
+ };
+ 
+ const int endingLen = sizeof(ending)/sizeof(ending[0]);
+@@ -833,7 +842,7 @@
+ 			y+=FONT_SPACING;
+ 		}
+ 		if (scroll > scrollMax + FONT_SPACING*10)
+-			PrintC(true, x, SCREEN_H/2-FONT_SPACING/2, "The End");
++			PrintC(true, x, SCREEN_H/2-FONT_SPACING/2, _("The End"));
+ 	}
+ 	
+ 	void Cancel();
+@@ -920,11 +929,11 @@
+ 				fclose(f);
+ 
+ 				if (p.general.completionPercentage==100 && p.general.masteredPercentage==100)
+-					sprintf(optionSlotName[i], "Continue game %d (All Clear!)", i+1, p.general.completionPercentage, p.general.masteredPercentage);
++					sprintf(optionSlotName[i], _("Continue game %d (All Clear!)"), i+1, p.general.completionPercentage, p.general.masteredPercentage);
+ 				else if (p.general.completionPercentage==100)
+-					sprintf(optionSlotName[i], "Continue game %d (%d%% + %d%%)", i+1, p.general.completionPercentage, p.general.masteredPercentage);
++					sprintf(optionSlotName[i], _("Continue game %d (%d%% + %d%%)"), i+1, p.general.completionPercentage, p.general.masteredPercentage);
+ 				else
+-					sprintf(optionSlotName[i], "Continue game %d (%d%% complete)", i+1, p.general.completionPercentage);
++					sprintf(optionSlotName[i], _("Continue game %d (%d%% complete)"), i+1, p.general.completionPercentage);
+ 	
+ 				opt[num_opt++] = OPT_GAMESLOT_0 + i;
+ 			}
+@@ -963,7 +972,7 @@
+ 
+ struct QuitConfirmMenu : public OptMenuTitle
+ {
+-	QuitConfirmMenu() : OptMenuTitle("Quit: Are you sure?")
++	QuitConfirmMenu() : OptMenuTitle(_("Quit: Are you sure?"))
+ 	{
+ 		opt[num_opt++] = OPT_QUIT_CONFIRM;
+ 		opt[select=num_opt++] = OPT_QUIT_CANCEL;
+@@ -983,7 +992,7 @@
+ 	{
+ 		//left_align = 1;
+ 
+-		sprintf(tmp, "Really delete game %d?", num+1);
++		sprintf(tmp, _("Really delete game %d?"), num+1);
+ 		opt[num_opt++] = OPT_DELETE_CONFIRM;
+ 		opt[select=num_opt++] = OPT_DELETE_CANCEL;
+ 		Init();
+@@ -1023,7 +1032,7 @@
+ 
+ struct PauseMenu : public OptMenu
+ {
+-	PauseMenu(bool isMap, bool allowGotoMap, int allowEnd, int allowEnd2) : OptMenu("Paused")
++	PauseMenu(bool isMap, bool allowGotoMap, int allowEnd, int allowEnd2) : OptMenu(_("Paused"))
+ 	{
+ 		opt[num_opt++] = OPT_RESUME;
+ 		if (!isMap)
+@@ -1050,7 +1059,7 @@
+ struct OptionMenu : public OptMenuTitle
+ {
+ 	bool title;
+-	OptionMenu(bool _title) : OptMenuTitle("Options"), title(_title)
++	OptionMenu(bool _title) : OptMenuTitle(_("Options")), title(_title)
+ 	{
+ 		opt[num_opt++] = OPT_FULLSCREEN;
+ 		
+Index: hex-a-hop.svn/Makefile
+===================================================================
+--- hex-a-hop.svn.orig/Makefile	2007-09-20 00:49:08.000000000 +0200
++++ hex-a-hop.svn/Makefile	2007-09-20 00:49:10.000000000 +0200
+@@ -5,7 +5,7 @@
+ DATA_DIR="."
+ CXXFLAGS		+= -g
+ GCC =g++
+-CXXSOURCES	= gfx.cpp hex_puzzzle.cpp
++CXXSOURCES	= gfx.cpp hex_puzzzle.cpp i18n.cpp
+ #INCLUDES	= 
+ 
+ 
