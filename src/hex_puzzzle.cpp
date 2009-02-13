@@ -1530,7 +1530,7 @@ struct HexPuzzle : public State
 	double time;
 	double undoTime;
 
-	#define MAX_UNDO 6
+	#define MAX_UNDO 50
 	Undo undo[MAX_UNDO];
 	int numUndo;
 	LevelInfo* currentLevelInfo;
