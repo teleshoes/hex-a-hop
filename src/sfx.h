@@ -48,7 +48,7 @@ enum
 	HHOP_SOUND_EXPLODE_BIG,   // Laser hits a laser tile.
 	HHOP_SOUND_EXPLODE_SMALL, // Laser hits any other tile.
 	HHOP_SOUND_FLOATER_ENTER, // Girl steps on a floater.
-	HHOP_SOUND_FLOATER_MOVE,  // Floater movs one tile.
+	HHOP_SOUND_FLOATER_MOVE,  // Floater moves one tile.
 	HHOP_SOUND_FOUND_ANTIICE, // Girl picks up anti-ice item.
 	HHOP_SOUND_FOUND_JUMP,    // Girl picks up jump item.
 	HHOP_SOUND_ICE,           // Girl slides through ice tile.
