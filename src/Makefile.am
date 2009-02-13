@@ -15,6 +15,8 @@ hex_a_hop_SOURCES = \
 	menus.h \
 	packfile.h \
 	savestate.h \
+	sfx.cpp \
+	sfx.h \
 	state.h \
 	tiletypes.h
 

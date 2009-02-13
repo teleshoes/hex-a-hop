@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include "i18n.h"
+#include "sfx.h"
 #include <string>
 #include <iostream>
 #include <cctype> // TODO: remove it later
@@ -1901,6 +1902,9 @@ struct HexPuzzle : public State
 				_LoadSave(NULL, save);
 				loadPtr = endLoad = 0;
 
+				if (!isMap && !activeMenu)
+					PlayMusic(HHOP_MUSIC_GAME);
+
 				return true;
 			}
 		#else
@@ -1924,6 +1928,9 @@ struct HexPuzzle : public State
 					_LoadSave(f, save);
 				}
 				fclose(f);
+
+				if (!isMap && !activeMenu && !save)
+					PlayMusic(HHOP_MUSIC_GAME);
 
 				return true;
 			}
@@ -2561,6 +2568,7 @@ struct HexPuzzle : public State
 		
 		//editMode = false;
 		LoadSave(mapname, false);
+		PlayMusic(HHOP_MUSIC_MAP);
 	}
 
 	void Render()
@@ -3106,8 +3114,11 @@ struct HexPuzzle : public State
 			if (Replace(COLLAPSE_DOOR2, COLLAPSABLE2))
 				slow = true;
 
-		if (slow) 
+		if (slow)
+		{
+			QueueSound(HHOP_SOUND_COLLAPSE, time);
 			time += BUILD_TIME;
+		}
 	}
 	bool Collide(Pos p, bool high)
 	{
@@ -3134,6 +3145,9 @@ struct HexPuzzle : public State
 		undoTime = undo[numUndo].time;
 		
 		undo[numUndo].Restore(this);
+
+		// Cancel all queued sounds.
+		UndoSound();
 	}
 	void UndoDone()
 	{
@@ -3276,6 +3290,11 @@ struct HexPuzzle : public State
 					renderer(p,true).Add(new ItemRender(GetItem(p), 1, p), time);
 
 				if (t==GUN)
+					QueueSound(HHOP_SOUND_EXPLODE_BIG, time);
+				else
+					QueueSound(HHOP_SOUND_EXPLODE_SMALL, time);
+
+				if (t==GUN)
 				{
 					for (Dir j=0; j<MAX_DIR; j++)
 					{
@@ -3385,15 +3404,20 @@ struct HexPuzzle : public State
 
 		if (d<0)
 		{
+			QueueSound(HHOP_SOUND_USED_JUMP, time);
 			player_items[1]--;
 		}
 
 		double time0 = time;
 		time += 0.15;	//Time for leave-tile fx
 
+		if (d>=0)
+			QueueSound(HHOP_SOUND_STEP, time);
+
 		switch (GetTile(oldpos))
 		{
 			case COLLAPSABLE:
+				QueueSound(HHOP_SOUND_DISINTEGRATE, time);
 				SetTile(oldpos, EMPTY);
 				renderer(oldpos).Add(new DisintegrateRender(oldpos), time);
 				CheckFinished();
@@ -3402,11 +3426,13 @@ struct HexPuzzle : public State
 			case COLLAPSE_DOOR:
 				// Don't need to CheckFinished - can't be collapse doors around
 				//  unless there're still collapsable tiles around.
+				QueueSound(HHOP_SOUND_DISINTEGRATE, time);
 				SetTile(oldpos, EMPTY);
 				renderer(oldpos).Add(new DisintegrateRender(oldpos, 1), time);
 				break;
 
 			case COLLAPSABLE2:
+				QueueSound(HHOP_SOUND_DISINTEGRATE, time);
 				SetTile(oldpos, COLLAPSABLE, false);
 				renderer(oldpos).Add(new DisintegrateRender(oldpos, 0, 1), time);
 				player_score += 10; 
@@ -3414,6 +3440,7 @@ struct HexPuzzle : public State
 				break;
 
 			case COLLAPSE_DOOR2:
+				QueueSound(HHOP_SOUND_DISINTEGRATE, time);
 				SetTile(oldpos, COLLAPSE_DOOR, false);
 				renderer(oldpos).Add(new DisintegrateRender(oldpos, 1, 1), time);
 				player_score += 10; 
@@ -3432,12 +3459,14 @@ retry_pos:
 		
 		if (GetItem(newpos)==1)
 		{
+			QueueSound(HHOP_SOUND_FOUND_ANTIICE, time);
 			renderer(newpos, true).Add(new ItemCollectRender(GetItem(newpos), newpos), time + JUMP_TIME/2);
 			SetItem(newpos, 0, false);
 			player_items[0]++;
 		}
 		if (GetItem(newpos)==2)
 		{
+			QueueSound(HHOP_SOUND_FOUND_JUMP, time);
 			renderer(newpos, true).Add(new ItemCollectRender(GetItem(newpos), newpos), time + JUMP_TIME/2);
 			SetItem(newpos, 0, false);
 			player_items[1]++;
@@ -3468,6 +3497,7 @@ retry_pos:
 		if (d==-1)
 			p->speed = JUMP_TIME * 1.5;
 		renderer.player.Add(p, time);
+
 		endAnimTime = MAX(endAnimTime, time + p->speed+0.001);
 		time += p->speed;
 
@@ -3513,20 +3543,27 @@ retry_pos:
 						renderer(newpos+fd).Add(new BuildRender(newpos+fd, fd, 1), time);
 					}
 				}
-				if (done) time += BUILD_TIME;
-				else time = pretime;
+				if (done)
+				{
+					QueueSound(HHOP_SOUND_BUILDER, time);
+					time += BUILD_TIME;
+				}
+				else
+					time = pretime;
 				CheckFinished();
 				endAnimTime = MAX(endAnimTime, time + 0.1);
 			}
 			break;
 
 			case SWITCH:
+				// FIXME SOUND: No switches in the game currently?
 				Swap(COLLAPSE_DOOR, COLLAPSABLE);
 				break;
 
 			case FLOATING_BALL:
 			{
 				int step=0;
+				QueueSound(HHOP_SOUND_FLOATER_ENTER, time);
 				renderer.player.Add(new PlayerRender(playerRot, Pos(-30,-30), 0, Pos(-30,-30), 0, dead), time);
 				while (tileSolid[GetTile(newpos+d)]==-1)
 				{
@@ -3563,6 +3600,7 @@ retry_pos:
 
 					endAnimTime = MAX(endAnimTime, time + ROTATION_TIME + ROTATION_TIME/2);
 					time += ROTATION_TIME;
+					QueueSound(HHOP_SOUND_FLOATER_MOVE, time);
 				}
 				player = newpos;
 //				renderer.player.Add(new PlayerRender(playerRot, player, 0, player, 0, 0), time);
@@ -3581,6 +3619,10 @@ retry_pos:
 			case LIFT_DOWN:
 			case LIFT_UP:
 			{
+				if (GetTile(newpos)==LIFT_UP)
+					QueueSound(HHOP_SOUND_LIFT_DOWN, time);
+				else
+					QueueSound(HHOP_SOUND_LIFT_UP, time);
 				SetTile(newpos, GetTile(newpos)==LIFT_UP ? LIFT_DOWN : LIFT_UP, false);
 				renderer(newpos).Add(new TileRender(GetTile(newpos), newpos, 1), time);
 
@@ -3592,6 +3634,7 @@ retry_pos:
 
 			case TRAMPOLINE:
 				if (d<0) break;
+				QueueSound(HHOP_SOUND_TRAMPOLINE, time);
 
 				oldpos = newpos;
 				if (Collide(newpos + d, high)) 
@@ -3607,6 +3650,7 @@ retry_pos:
 
 			case SPINNER:
 			{
+				QueueSound(HHOP_SOUND_SPINNER, time);
 				for (Dir d=0; d<MAX_DIR; d++)
 				{
 					Tile tmp = GetTile(newpos + d);
@@ -3634,6 +3678,7 @@ retry_pos:
 
 				if (player_items[0]==0)
 				{
+					QueueSound(HHOP_SOUND_ICE, time);
 					if (tileSolid[GetTile(newpos + d)] == 1) 
 						break;
 					newpos = newpos + d;
@@ -3644,6 +3689,7 @@ retry_pos:
 				}
 				else
 				{
+					QueueSound(HHOP_SOUND_USED_ANTIICE, time);
 					SetTile(newpos, COLLAPSABLE3);
 					player_items[0]--;
 				}
@@ -3652,6 +3698,7 @@ retry_pos:
 
 			case GUN:
 			{
+				QueueSound(HHOP_SOUND_LASER, time);
 				FireGun(newpos, d, false, time);
 
 				endAnimTime = MAX(endAnimTime, time);
@@ -3723,6 +3770,7 @@ retry_pos:
 
 		if (dead)
 		{
+			QueueSound(HHOP_SOUND_DEATH, time);
 			win = false;
 			
 			PlayerRender* pr = new PlayerRender(player, 0, dead);
@@ -3736,6 +3784,11 @@ retry_pos:
 				renderer.player.Add(new ExplosionRender(player, 0, 1), time);
 
 			endAnimTime = MAX(endAnimTime, time+2);
+		}
+		if (win)
+		{
+			QueueSound(HHOP_SOUND_WIN, time);
+			PlayMusic(HHOP_MUSIC_WIN);
 		}
 
 		time = realTime;
@@ -3804,6 +3857,7 @@ retry_pos:
 			time += timedelta;
 			if (turboAnim)
 				time += timedelta * 20;
+			UpdateSound(time);
 		}
 	}
 	void FileDrop(const char* filename)

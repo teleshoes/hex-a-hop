@@ -19,6 +19,7 @@
 #include "i18n.h"
 
 #include "state.h"
+#include "sfx.h"
 #include <cassert>
 
 #ifdef WIN32
@@ -370,6 +371,8 @@ int main(int /*argc*/, char * /*argv*/[])
 		SDL_FreeSurface(icon);
 	}
 
+	InitSound();
+
 	InitScreen();
 
 	SDL_WarpMouse(SCREEN_W/2, SCREEN_H/2);
@@ -389,6 +392,7 @@ int main(int /*argc*/, char * /*argv*/[])
 	while(!quitting)
 	{
 		SDL_Event e;
+		UpdateSound(-1.0);
 		while(!SDL_PollEvent(&e) && !quitting)
 		{
 			int x = 0;
@@ -596,6 +600,7 @@ int main(int /*argc*/, char * /*argv*/[])
 	}
 
 	SDLPango_FreeContext(context);
+	FreeSound();
 	SDL_Quit();
 	return 0;
 }

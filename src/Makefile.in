@@ -45,7 +45,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_hex_a_hop_OBJECTS = gfx.$(OBJEXT) hex_puzzzle.$(OBJEXT) \
-	i18n.$(OBJEXT)
+	i18n.$(OBJEXT) sfx.$(OBJEXT)
 hex_a_hop_OBJECTS = $(am_hex_a_hop_OBJECTS)
 am__DEPENDENCIES_1 =
 hex_a_hop_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -174,6 +174,8 @@ hex_a_hop_SOURCES = \
 	menus.h \
 	packfile.h \
 	savestate.h \
+	sfx.cpp \
+	sfx.h \
 	state.h \
 	tiletypes.h
 
@@ -267,6 +269,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gfx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hex_puzzzle.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/i18n.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sfx.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

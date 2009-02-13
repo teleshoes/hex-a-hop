@@ -854,6 +854,7 @@ struct Ending : public Menu
 		renderBG = false;
 		scroll = 0;
 		t=0;
+		PlayMusic(HHOP_MUSIC_ENDING);
 	}
 	
 	void Render()
@@ -917,6 +918,7 @@ struct Ending : public Menu
 		if (keyState[SDLK_0]) 
 			t = MAX(-td*5, -time);
 
+		UpdateSound(-1.0);
 		Menu::Update(t);
 		scroll = time * 50;
 //		if (scroll > scrollMax)
@@ -961,6 +963,7 @@ struct TitleMenu : public OptMenuTitle
 	TitleMenu() : OptMenuTitle("")
 	{
 		//left_align = 1;
+		PlayMusic(HHOP_MUSIC_TITLE);
 
 		SaveState p;
 		freeSlot = -1;
@@ -1139,6 +1142,7 @@ struct Fader : public Menu
 	Fader(int _dir, int _result, double _speed=1) : dir(_dir), speed(_speed), result(_result)
 	{
 		renderBG = under ? under->renderBG : true;
+		PlaySound(HHOP_SOUND_UI_FADE);
 	}
 	void Render()
 	{
@@ -1184,6 +1188,10 @@ struct Fader : public Menu
 
 void Ending::Cancel()
 {
+	if (isMap)
+		PlayMusic(HHOP_MUSIC_MAP);
+	else
+		PlayMusic(HHOP_MUSIC_GAME);
 	new Fader(-1, -6, 0.3);
 //	Pop();
 }
@@ -1194,6 +1202,7 @@ void OptMenu::Select()
 {
 	if (select<0 || select>=num_opt)
 		return;
+	PlaySound(HHOP_SOUND_UI_MENU);
 	switch(opt[select])
 	{
 		case OPT_RESUME:

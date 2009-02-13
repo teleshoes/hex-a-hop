@@ -16,6 +16,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+#ifndef __HHOP_STATE_H__
+#define __HHOP_STATE_H__
 
 //
 // Config block
@@ -208,3 +210,6 @@ extern int stylusok;
 extern int quitting;
 
 char* LoadSaveDialog(bool save, bool levels, const char * title);
+
+#endif
+
