@@ -9,4 +9,9 @@ data_DATA = \
 	map_top.dat \
 	tiles.dat \
 	tiles_reflect.dat \
-	title.dat
+	title.dat \
+	\
+	sound-disintegrate.ogg \
+	sound-ice.ogg \
+	sound-laser.ogg \
+	sound-ui-menu.ogg
