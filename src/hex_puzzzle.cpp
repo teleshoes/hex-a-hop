@@ -3148,6 +3148,9 @@ struct HexPuzzle : public State
 
 		// Cancel all queued sounds.
 		UndoSound();
+
+		// Restore game music if undid winning move.
+		PlayMusic(HHOP_MUSIC_GAME);
 	}
 	void UndoDone()
 	{
