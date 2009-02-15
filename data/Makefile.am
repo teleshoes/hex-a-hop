@@ -12,6 +12,9 @@ data_DATA = \
 	title.dat \
 	\
 	sound-disintegrate.ogg \
+	sound-explode-big.ogg \
+	sound-explode-small.ogg \
 	sound-ice.ogg \
 	sound-laser.ogg \
+	sound-trampoline.ogg \
 	sound-ui-menu.ogg
