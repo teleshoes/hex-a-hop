@@ -18,6 +18,8 @@ hex_a_hop_SOURCES = \
 	sfx.cpp \
 	sfx.h \
 	state.h \
+	system-relative.c \
+	system-relative.h \
 	tiletypes.h
 
 hex_a_hop_LDADD = \

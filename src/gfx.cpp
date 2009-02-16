@@ -20,6 +20,7 @@
 
 #include "state.h"
 #include "sfx.h"
+#include "system-relative.h"
 #include <cassert>
 
 #ifdef WIN32
@@ -265,11 +266,21 @@ String GetBasePath()
 	String base_path;
 
 #ifdef RELATIVE_PATHS
-#error Relative paths not implemented yet!
-	//base_path = EXEDIR + "/data/";
+	char* exedir = lisys_relative_exedir();
+	if (exedir != NULL)
+	{
+		printf ("HUUUUUUUUUUURR \"%s\"\n", exedir);
+		base_path += exedir;
+		base_path += "/data/";
+		free(exedir);
+	}
+	else
+		base_path = "./data/";
+	printf ("JAJAJA \"%s\"\n", (const char*) base_path);
+
+	return base_path;
 #else
 	base_path = DATADIR "/";
-#endif
 
 	for (int i=strlen(base_path)-1; i>=0; i--)
 	{
@@ -304,6 +315,7 @@ String GetBasePath()
 #endif
 
 	return base_path;	
+#endif
 }
 
 int main(int /*argc*/, char * /*argv*/[])

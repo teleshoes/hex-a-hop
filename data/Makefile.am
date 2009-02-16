@@ -1,5 +1,5 @@
 datadir = $(DATADIR)
-data_DATA = \
+datadat = \
 	emi.dat \
 	font.dat \
 	gradient.dat \
@@ -10,7 +10,6 @@ data_DATA = \
 	tiles.dat \
 	tiles_reflect.dat \
 	title.dat \
-	\
 	sound-disintegrate.ogg \
 	sound-explode-big.ogg \
 	sound-explode-small.ogg \
@@ -18,3 +17,5 @@ data_DATA = \
 	sound-laser.ogg \
 	sound-trampoline.ogg \
 	sound-ui-menu.ogg
+data_DATA = $(datadat)
+EXTRA_DIST = $(datadat)

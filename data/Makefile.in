@@ -145,7 +145,7 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-data_DATA = \
+datadat = \
 	emi.dat \
 	font.dat \
 	gradient.dat \
@@ -156,7 +156,6 @@ data_DATA = \
 	tiles.dat \
 	tiles_reflect.dat \
 	title.dat \
-	\
 	sound-disintegrate.ogg \
 	sound-explode-big.ogg \
 	sound-explode-small.ogg \
@@ -165,6 +164,8 @@ data_DATA = \
 	sound-trampoline.ogg \
 	sound-ui-menu.ogg
 
+data_DATA = $(datadat)
+EXTRA_DIST = $(datadat)
 all: all-am
 
 .SUFFIXES:

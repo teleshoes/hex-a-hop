@@ -66,7 +66,7 @@ class String
 	char* data;
 public:
 	void reserve(int i) { if (i<0) FATAL("-ve string length."); if (i<=len) return; len=i; data=(char*)realloc(data, (len+1)*sizeof(char)); }
-	String() : len(0), data(NULL) {}
+	String() : len(0), data(NULL) { reserve(32); *data = '\0'; }
 	String(String const & s) : len(0), data(NULL) { reserve(s.len); strcpy(data, s.data); }
 	~String() { free(data); }
 	operator const char* () const {return data ? data : "";}
