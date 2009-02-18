@@ -269,15 +269,12 @@ String GetBasePath()
 	char* exedir = lisys_relative_exedir();
 	if (exedir != NULL)
 	{
-		printf ("HUUUUUUUUUUURR \"%s\"\n", exedir);
 		base_path += exedir;
 		base_path += "/data/";
 		free(exedir);
 	}
 	else
 		base_path = "./data/";
-	printf ("JAJAJA \"%s\"\n", (const char*) base_path);
-
 	return base_path;
 #else
 	base_path = DATADIR "/";
