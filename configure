@@ -1303,6 +1303,7 @@ Optional Features:
   --disable-sdltest       Do not try to compile and run a test SDL program
   --disable-debug         Do not compile with debugging symbols
   --disable-sound         Do not compile with sound support
+  --disable-sdlttf        Use SDL_Pango instead of SDL_ttf
   --enable-relative-paths Install everything under a single directory
 
 Optional Packages:
@@ -6636,9 +6637,6 @@ echo "$as_me: error: *** SDL version $SDL_VERSION not found!" >&2;}
 
   rm -f conf.sdltest
 
-SDL_LIBS="$SDL_LIBS -lSDL_Pango"
-
-
 
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then
@@ -6652,6 +6650,13 @@ if test "${enable_sound+set}" = set; then
   enableval=$enable_sound; want_sound=no
 else
   want_sound=yes
+fi
+
+# Check whether --enable-sdlttf was given.
+if test "${enable_sdlttf+set}" = set; then
+  enableval=$enable_sdlttf; want_ttf=no
+else
+  want_ttf=yes
 fi
 
 # Check whether --enable-relative-paths was given.
@@ -6674,11 +6679,18 @@ if test "$want_sound" = yes; then
 
 		SDL_LIBS="$SDL_LIBS -lSDL_mixer"
 	SDL_CFLAGS="$SDL_CFLAGS"
-
-
 else
 	MAYBE_SOUND=
 	CXXFLAGS="$CXXFLAGS -DDISABLE_SOUND"
+fi
+
+if test "$want_ttf" = yes; then
+		SDL_LIBS="$SDL_LIBS -lSDL_ttf"
+	SDL_CFLAGS="$SDL_CFLAGS"
+else
+		SDL_LIBS="$SDL_LIBS -lSDL_Pango"
+	SDL_CFLAGS="$SDL_CFLAGS"
+	CXXFLAGS="$CXXFLAGS -DENABLE_PANGO"
 fi
 
 if test "$want_relative" = yes; then
@@ -6690,6 +6702,8 @@ else
 	DATADIR="${datadir}/${PACKAGE}"
 	CXXFLAGS="$CXXFLAGS -DDATADIR=\\\"\"${datadir}/${PACKAGE}\"\\\""
 fi
+
+
 
 
 

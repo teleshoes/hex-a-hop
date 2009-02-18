@@ -1,6 +1,8 @@
 #ifndef __HHOP_VIDEO_H__
 #define __HHOP_VIDEO_H__
 
+#include <SDL/SDL.h>
+
 // Uncomment this to check cross-platform compilation compatibility
 // #undef WIN32
 

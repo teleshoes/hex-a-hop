@@ -17,13 +17,11 @@ AC_CHECK_LIB(m, main)
 dnl Check for SDL.
 SDL_VERSION=1.2.0
 AM_PATH_SDL($SDL_VERSION, :, AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
-SDL_LIBS="$SDL_LIBS -lSDL_Pango"
-AC_SUBST([SDL_LIBS])
-AC_SUBST([SDL_CFLAGS])
 
 dnl Arguments.
 AC_ARG_ENABLE([debug], AC_HELP_STRING([--disable-debug], [Do not compile with debugging symbols]), [want_debug=no], [want_debug=yes])
 AC_ARG_ENABLE([sound], AC_HELP_STRING([--disable-sound], [Do not compile with sound support]), [want_sound=no], [want_sound=yes])
+AC_ARG_ENABLE([sdlttf], AC_HELP_STRING([--disable-sdlttf], [Use SDL_Pango instead of SDL_ttf]), [want_ttf=no], [want_ttf=yes])
 AC_ARG_ENABLE([relative-paths], AC_HELP_STRING([--enable-relative-paths], [Install everything under a single directory]), [want_relative=yes], [want_relative=no])
 
 dnl Compilation flags.
@@ -41,11 +39,21 @@ if test "$want_sound" = yes; then
 	dnl Check for SDL_mixer.
 	SDL_LIBS="$SDL_LIBS -lSDL_mixer"
 	SDL_CFLAGS="$SDL_CFLAGS"
-	AC_SUBST([SDL_LIBS])
-	AC_SUBST([SDL_CFLAGS])
 else
 	MAYBE_SOUND=
 	CXXFLAGS="$CXXFLAGS -DDISABLE_SOUND"
+fi
+
+dnl Conditional Pango/TTF support.
+if test "$want_ttf" = yes; then
+	dnl Check for SDL_ttf.
+	SDL_LIBS="$SDL_LIBS -lSDL_ttf"
+	SDL_CFLAGS="$SDL_CFLAGS"
+else
+	dnl Check for SDL_Pango.
+	SDL_LIBS="$SDL_LIBS -lSDL_Pango"
+	SDL_CFLAGS="$SDL_CFLAGS"
+	CXXFLAGS="$CXXFLAGS -DENABLE_PANGO"
 fi
 
 dnl Relative paths.
@@ -63,6 +71,8 @@ dnl Export configuration.
 AC_SUBST([CXXFLAGS])
 AC_SUBST([DATADIR])
 AC_SUBST([MAYBE_SOUND])
+AC_SUBST([SDL_LIBS])
+AC_SUBST([SDL_CFLAGS])
 
 AC_OUTPUT([
 Makefile

@@ -3,7 +3,7 @@
 
 #include <string>
 
-void TextInit();
+bool TextInit(const char* base);
 void TextFree();
 int TextWidth(const std::string &text_utf8);
 int TextHeight(const std::string &text_utf8, int width);

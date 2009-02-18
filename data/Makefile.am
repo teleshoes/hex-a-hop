@@ -2,6 +2,7 @@ datadir = $(DATADIR)
 datadat = \
 	emi.dat \
 	font.dat \
+	font.ttf \
 	gradient.dat \
 	icon.bmp \
 	levels.dat \

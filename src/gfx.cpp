@@ -241,7 +241,8 @@ int main(int /*argc*/, char * /*argv*/[])
 */
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE);
-	TextInit();
+	if (!TextInit(base_path))
+		return 1;
 
 	SDL_Surface* icon = SDL_LoadBMP(base_path + "/icon.bmp");
 	if (icon)
