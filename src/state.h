@@ -19,27 +19,6 @@
 #ifndef __HHOP_STATE_H__
 #define __HHOP_STATE_H__
 
-//
-// Config block
-//
-
-
-// Uncomment this to check cross-platform compilation compatibility
-// #undef WIN32
-
-//#define USE_BBTABLET
-//#define USE_OPENGL
-
-#define SCREEN_W 640
-#define SCREEN_H 480
-
-//
-// End of config block
-//
-
-// Hacky workaround for MSVC's broken for scoping
-#define for if (0) ; else for
-
 #include <SDL/SDL.h>
 #ifdef USE_OPENGL
 #include <SDL/SDL_OpenGL.h>
@@ -49,8 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-
-extern SDL_Surface * screen;
+#include "video.h"
 
 #ifdef WIN32
 	// Trigger debugger

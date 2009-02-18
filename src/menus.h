@@ -22,8 +22,6 @@ struct Menu;
 Menu* activeMenu = 0;
 Menu* deadMenu = 0;
 
-int SDLPangoTextHeight(const std::string &text_utf8, int width);
-
 static void HackKeyPress(int key, int mod)
 {
 	int k = keyState[key];
@@ -212,7 +210,7 @@ struct HintMessage : public Menu
 			text.replace(text.find("  "), 2, "\n");
 
 		InnerTextWindowRect.w = SCREEN_W-TILE_W1*2; 
-		InnerTextWindowRect.h = SDLPangoTextHeight(text, InnerTextWindowRect.w - 2*FONT_SPACING);
+		InnerTextWindowRect.h = TextHeight(text, InnerTextWindowRect.w - 2*FONT_SPACING);
 		InnerTextWindowRect.h += FONT_SPACING;
 		OuterTextWindowRect = InnerTextWindowRect;
 		OuterTextWindowRect.w += 4;
@@ -482,8 +480,8 @@ struct OptMenu : public Menu
 		int y = r2.y + FONT_SPACING/2 + int(FONT_SPACING * 1.5) * o;
 		if (left_align)
 		{
-			int x = r.x + SDLPangoTextWidth(" ");
-			int x1 = x + SDLPangoTextWidth("> ");
+			int x = r.x + TextWidth(" ");
+			int x1 = x + TextWidth("> ");
 			if (select==o)
 			{
 				//x += int( sin(time*9)*2.5 );
@@ -553,7 +551,7 @@ struct OptMenu : public Menu
 	void RenderTitle()
 	{
 		if (left_align)
-			Print(r2.x+SDLPangoTextWidth(" "), r.y+4, title);
+			Print(r2.x+TextWidth(" "), r.y+4, title);
 		else
 			PrintC(false, r2.x+r2.w/2, r.y+4, title);
 	}

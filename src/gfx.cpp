@@ -20,6 +20,7 @@
 
 #include "state.h"
 #include "sfx.h"
+#include "text.h"
 #include "system-relative.h"
 #include <cassert>
 
@@ -32,11 +33,6 @@
 #else
 	#undef USE_BBTABLET
 #endif
-
-// If included multiple times:
-// BUG: multiple definition of `MATRIX_WHITE_BACK'
-// see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=437517
-#include "SDL_Pango.h"
 
 #include <algorithm>
 #include <string>
@@ -117,7 +113,6 @@ int stylusok= 0;
 float styluspressure = 0;
 SDL_Surface * screen = 0;
 SDL_Surface * realScreen = 0;
-SDLPango_Context *context = 0;
 
 extern State* MakeWorld();
 
@@ -164,89 +159,6 @@ void ToggleFullscreen()
 	StateMakerBase::current->ScreenModeChanged();
 }
 String base_path;
-
-/// determine length of longest line with current font (wrapping allowed if text_width != -1)
-int SDLPangoTextHeight(const std::string &text_utf8, int text_width)
-{
-	// SDLPango_SetMinimumSize limits indeed the maximal size! See
-	// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=438691
-	SDLPango_SetMinimumSize(context, text_width, 0);
-	SDLPango_SetText(context, text_utf8.c_str(), -1);
-	return SDLPango_GetLayoutHeight(context);
-}
-
-/** \brief Determine length of longest line with current font
- *
- * Whether line breaks are allowed or not needs to be set before using
- * SDLPango_SetMinimumSize!
- */
-int SDLPangoTextWidth(const std::string &text_utf8)
-{
-	SDLPango_SetText(context, text_utf8.c_str(), -1);
-	return SDLPango_GetLayoutWidth(context);
-}
-
-/// Display the specified UTF-8 text left aligned at (x,y)
-void Print_Pango(int x, int y, const std::string &text_utf8)
-{
-	// Workaround for possible crash, see
-	// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439071
-	if (text_utf8.size() == 0 || (text_utf8.size() == 1 && text_utf8[0]==127))
-		return;
-	assert(text_utf8.find("\n") == std::string::npos);
-	SDLPango_SetMinimumSize(context, SCREEN_W, 0);
-	SDLPango_SetText(context, text_utf8.c_str(), -1);
-	SDL_Surface *surface = SDLPango_CreateSurfaceDraw(context);
-	SDL_Rect dst = {x, y, 1, 1};
-	SDL_BlitSurface(surface, NULL, screen, &dst);
-	SDL_FreeSurface(surface);
-}
-
-/** \brief Display the specified UTF-8 text according to the alignment
- *
- *  If line breaks are already properly set (manually) the will be respected
- *  and no new line breaks will be added. This assumes that th text is not too
- *  wide.
- *
- *  \param x the displayed text is horizontally centered around x
- *  \param y the displayed text starts at y
- *  \param width background window size into which the text needs to fit
- *  \param text_utf8 the text to be displayed, in UTF8 encoding
- *  \param align=1: horizontally centered around (x,y)
- * */
-void Print_Pango_Aligned(int x, int y, int width, const std::string &text_utf8, int align)
-{
-	// Workaround for possible crash, see
-	// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439071
-	if (text_utf8.size() == 0 || (text_utf8.size() == 1 && text_utf8[0]==127))
-		return;
-	if (width<=0)
-		return;
-	SDLPango_SetMinimumSize(context, width, 0);
-	int real_width = SDLPangoTextWidth(text_utf8);
-	// Workaround for a crash in SDL Pango, see
-	// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439855
-	if (real_width>width)
-		SDLPango_SetMinimumSize(context, real_width, 0);
-
-  SDLPango_Alignment alignment;
-  if (align==0)
-    alignment = SDLPANGO_ALIGN_LEFT;
-  else if (align==2) {
-    alignment = SDLPANGO_ALIGN_RIGHT;
-    x -= width;
-  } else {
-    alignment = SDLPANGO_ALIGN_CENTER;
-    x -= width/2;
-  }
-	// SDLPango_SetText_GivenAlignment is not (yet?) part of the official Pango
-	// distribution, see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=437865
-	SDLPango_SetText_GivenAlignment(context, text_utf8.c_str(), -1, alignment);
-	SDL_Surface *surface = SDLPango_CreateSurfaceDraw(context);
-	SDL_Rect dst = {x, y, 1, 1};
-	SDL_BlitSurface(surface, NULL, screen, &dst);
-	SDL_FreeSurface(surface);
-}
 
 int TickTimer()
 {
@@ -329,10 +241,7 @@ int main(int /*argc*/, char * /*argv*/[])
 */
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE);
-	SDLPango_Init();
-	context = SDLPango_CreateContext_GivenFontDesc("sans-serif bold 12");
-	SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_WHITE_LETTER);
-	SDLPango_SetMinimumSize(context, SCREEN_W, 0);
+	TextInit();
 
 	SDL_Surface* icon = SDL_LoadBMP(base_path + "/icon.bmp");
 	if (icon)
@@ -608,7 +517,7 @@ int main(int /*argc*/, char * /*argv*/[])
 		}
 	}
 
-	SDLPango_FreeContext(context);
+	TextFree();
 	FreeSound();
 	SDL_Quit();
 	return 0;

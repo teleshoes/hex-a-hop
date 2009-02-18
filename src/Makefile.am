@@ -20,7 +20,10 @@ hex_a_hop_SOURCES = \
 	state.h \
 	system-relative.c \
 	system-relative.h \
-	tiletypes.h
+	text.cpp \
+	text.h \
+	tiletypes.h \
+	video.h
 
 hex_a_hop_LDADD = \
 	$(SDL_LIBS)
