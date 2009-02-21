@@ -1,0 +1,21 @@
+<asset>
+	<author>
+		<name>Ketchetwah South</name>
+	</author>
+	<license>
+		<name>GNU GPL v3+</name>
+		<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+	</license>
+	<details>
+		<file>../hex-a-hop/data/music-map.ogg</file>
+		<mime>audio/ogg</mime>
+		<name>Puzzle mode music</name>
+		<type>music</type>
+		<tag>music</tag>
+		<tag>puzzle</tag>
+	</details>
+	<collab>
+		<status>Complete</status>
+		<comment>No source files are available currently.</comment>
+	</collab>
+</asset>

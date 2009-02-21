@@ -11,6 +11,8 @@ datadat = \
 	tiles.dat \
 	tiles_reflect.dat \
 	title.dat \
+	music-game.ogg \
+	music-map.ogg \
 	sound-disintegrate.ogg \
 	sound-explode-big.ogg \
 	sound-explode-small.ogg \
