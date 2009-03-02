@@ -38,9 +38,6 @@ enum
 
 enum
 {
-	HHOP_SOUND_UI_FADE,       // Screen fade begins.
-	HHOP_SOUND_UI_MENU,       // Menu item activated.
-
 	HHOP_SOUND_BUILDER,       // Builder generates new tiles.
 	HHOP_SOUND_COLLAPSE,      // Green or blue walls collapse to floor tiles.
 	HHOP_SOUND_DEATH,         // Girl falls in water.
@@ -58,6 +55,8 @@ enum
 	HHOP_SOUND_SPINNER,       // Spinner tile spins.
 	HHOP_SOUND_STEP,          // Girl moves one step.
 	HHOP_SOUND_TRAMPOLINE,    // Girl steps on a trampoline.
+	HHOP_SOUND_UI_FADE,       // Screen fade begins.
+	HHOP_SOUND_UI_MENU,       // Menu item activated.
 	HHOP_SOUND_USED_ANTIICE,  // Girl steps on ice and uses anti-ice.
 	HHOP_SOUND_USED_JUMP,     // Girl jumps.
 	HHOP_SOUND_WIN,           // Level is completed.
@@ -65,7 +64,7 @@ enum
 	HHOP_SOUND_MAX
 };
 
-void InitSound();
+void InitSound(const char* path);
 void FreeSound();
 void PlayMusic(int type);
 void PlaySound(int type);

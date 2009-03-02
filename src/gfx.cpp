@@ -290,7 +290,7 @@ int main(int /*argc*/, char * /*argv*/[])
 		SDL_FreeSurface(icon);
 	}
 
-	InitSound();
+	InitSound(base_path);
 
 	InitScreen();
 

@@ -16,110 +16,225 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+#ifndef DISABLE_SOUND
 #include <list>
+#include <vector>
 #include <SDL/SDL_mixer.h>
 #include "sfx.h"
+#include "system-directory.h"
 
-#ifndef DISABLE_SOUND
-static int music_curr = -1;
-static int music_next = -1;
-static Mix_Music* music_chunks[HHOP_MUSIC_MAX];
 static const char* const music_names[HHOP_MUSIC_MAX] =
 {
-	"music-ending.ogg",
-	"music-game.ogg",
-	"music-map.ogg",
-	"music-title.ogg",
-	"music-win.ogg"
+	"music-ending",
+	"music-game",
+	"music-map",
+	"music-title",
+	"music-win"
 };
-static Mix_Chunk* sound_chunks[HHOP_SOUND_MAX];
 static const char* const sound_names[HHOP_SOUND_MAX] =
 {
-	"sound-ui-fade.ogg",
-	"sound-ui-menu.ogg",
-
-	"sound-builder.ogg",
-	"sound-death.ogg",
-	"sound-collapse.ogg",
-	"sound-disintegrate.ogg",
-	"sound-explode-big.ogg",
-	"sound-explode-small.ogg",
-	"sound-floater-enter.ogg",
-	"sound-floater-move.ogg",
-	"sound-found-antiice.ogg",
-	"sound-found-jump.ogg",
-	"sound-ice.ogg",
-	"sound-laser.ogg",
-	"sound-lift-up.ogg",
-	"sound-lift-down.ogg",
-	"sound-spinner.ogg",
-	"sound-step.ogg",
-	"sound-trampoline.ogg",
-	"sound-used-antiice.ogg",
-	"sound-used-jump.ogg",
-	"sound-win.ogg"
+	"sound-builder",
+	"sound-death",
+	"sound-collapse",
+	"sound-disintegrate",
+	"sound-explode-big",
+	"sound-explode-small",
+	"sound-floater-enter",
+	"sound-floater-move",
+	"sound-found-antiice",
+	"sound-found-jump",
+	"sound-ice",
+	"sound-laser",
+	"sound-lift-up",
+	"sound-lift-down",
+	"sound-spinner",
+	"sound-step",
+	"sound-trampoline",
+	"sound-ui-fade",
+	"sound-ui-menu",
+	"sound-used-antiice",
+	"sound-used-jump",
+	"sound-win"
 };
-#endif
 
-#ifndef DISABLE_SOUND
 /* We store delayed sound effects in a queue and play them back when the
    time is right. It's sort of ugly but makes creating samples easier. */
-class Sound
+class SoundQueue
 {
 public:
-	Sound(int ty, double ti) : type(ty), time(ti) { }
+	SoundQueue(int ty, double ti) : type(ty), time(ti) { }
 public:
 	int type;
 	double time;
 };
-std::list<Sound> sounds;
+
+class SoundEngine
+{
+public:
+	SoundEngine(const char* path) : music_curr(-1), music_next(-1)
+	{
+		int i;
+		int j;
+		char* pth;
+		const char* name;
+		lisysDir* dir;
+
+		// Open data directory.
+		dir = lisys_dir_open (path);
+		if (dir == NULL)
+			return;
+		lisys_dir_set_filter (dir, LISYS_DIR_FILTER_FILES);
+		if (!lisys_dir_scan (dir))
+		{
+			lisys_dir_free (dir);
+			return;
+		}
+
+		// Scan for sound and music.
+		for (i = 0 ; i < lisys_dir_get_count (dir) ; i++)
+		{
+			name = lisys_dir_get_name (dir, i);
+			pth = lisys_dir_get_path (dir, i);
+			for (j = 0 ; j < HHOP_MUSIC_MAX ; j++)
+			{
+				if (strstr (name, music_names[j]) == name)
+				{
+					Mix_Music* music = Mix_LoadMUS(pth);
+					if (music)
+						music_chunks[j].push_back(music);
+					else
+						fprintf(stderr, "Cannot load music `%s': %s\n", name, Mix_GetError());
+				}
+			}
+			for (j = 0 ; j < HHOP_SOUND_MAX ; j++)
+			{
+				if (strstr (name, sound_names[j]) == name)
+				{
+					Mix_Chunk* sound = Mix_LoadWAV(pth);
+					if (sound)
+						sound_chunks[j].push_back(sound);
+					else
+						fprintf(stderr, "Cannot load music `%s': %s\n", name, Mix_GetError());
+				}
+			}
+			free (pth);
+		}
+
+		lisys_dir_free (dir);
+	}
+	~SoundEngine()
+	{
+		int j;
+
+		for (j = 0 ; j < HHOP_MUSIC_MAX ; j++)
+		{
+			std::vector<Mix_Music*>::iterator i;
+			for (i = music_chunks[j].begin() ; i != music_chunks[j].end() ; i++)
+				Mix_FreeMusic (*i);
+		}
+		for (j = 0 ; j < HHOP_SOUND_MAX ; j++)
+		{
+			std::vector<Mix_Chunk*>::iterator i;
+			for (i = sound_chunks[j].begin() ; i != sound_chunks[j].end() ; i++)
+				Mix_FreeChunk (*i);
+		}
+	}
+	void PlayMusic(int type)
+	{
+		int size = music_chunks[type].size();
+		if (size)
+		{
+			int music = (int)(round((float) rand() / RAND_MAX) * (size - 1));
+			Mix_FadeInMusic(music_chunks[type][music], -1, HHOP_FADE_MUSIC_IN);
+		}
+	}
+	void PlaySound(int type)
+	{
+		int size = sound_chunks[type].size();
+		if (size)
+		{
+			int sound = (int)(round((float) rand() / RAND_MAX) * (size - 1));
+			Mix_PlayChannel(-1, sound_chunks[type][sound], 0);
+		}
+	}
+	void QueueMusic(int type)
+	{
+		if (music_curr != type || music_next != type)
+		{
+			music_curr = -2;
+			music_next = type;
+			Mix_FadeOutMusic(HHOP_FADE_MUSIC_OUT);
+		}
+	}
+	void QueueSound(int type, double time)
+	{
+		sound_queue.push_back(SoundQueue(type, time));
+	}
+	void UndoQueue()
+	{
+		sound_queue.clear();
+	}
+	void Update(double time)
+	{
+		while (true)
+		{
+			std::list<SoundQueue>::iterator i;
+
+			// Find the first effect that needs playing.
+			for (i = sound_queue.begin() ; i != sound_queue.end() ; i++)
+			{
+				if (time >= i->time)
+				{
+					PlaySound(i->type);
+					break;
+				}
+			}
+
+			// Erase the effect or stop if not found.
+			if (i != sound_queue.end())
+				sound_queue.erase(i);
+			else
+				break;
+		}
+		if (Mix_FadingMusic() == MIX_NO_FADING)
+		{
+			if (music_curr != music_next)
+			{
+				PlayMusic(music_next);
+				music_curr = music_next;
+			}
+		}
+	}
+public:
+	int music_curr;
+	int music_next;
+	std::vector<Mix_Music*> music_chunks[HHOP_MUSIC_MAX];
+	std::vector<Mix_Chunk*> sound_chunks[HHOP_SOUND_MAX];
+	std::list<SoundQueue> sound_queue;
+};
+
+static SoundEngine* sound_engine;
 #endif
 
-void InitSound()
+void InitSound(const char* path)
 {
 #ifndef DISABLE_SOUND
-	int i;
-	extern String base_path;
-
 	SDL_InitSubSystem(SDL_INIT_AUDIO);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
 	{
 		fprintf(stderr, "Initializing audio failed: %s\n", Mix_GetError());
 		exit(1);
 	}
-	for (i = 0 ; i < HHOP_MUSIC_MAX ; i++)
-	{
-		String file = base_path + "/" + music_names[i];
-		music_chunks[i] = Mix_LoadMUS(file);
-		if (!music_chunks[i])
-			fprintf(stderr, "Cannot load music `%s': %s\n", (const char*) file, Mix_GetError());
-	}
-	for (i = 0 ; i < HHOP_SOUND_MAX ; i++)
-	{
-		String file = base_path + "/" + sound_names[i];
-		sound_chunks[i] = Mix_LoadWAV(file);
-		if (!sound_chunks[i])
-			fprintf(stderr, "Cannot load music `%s': %s\n", (const char*) file, Mix_GetError());
-	}
 	Mix_AllocateChannels(HHOP_EFFECT_CHANNELS);
+
+	sound_engine = new SoundEngine(path);
 #endif
 }
 
 void FreeSound()
 {
 #ifndef DISABLE_SOUND
-	int i;
-
-	for (i = 0 ; i < HHOP_MUSIC_MAX ; i++)
-	{
-		if (music_chunks[i])
-			Mix_FreeMusic(music_chunks[i]);
-	}
-	for (i = 0 ; i < HHOP_SOUND_MAX ; i++)
-	{
-		if (sound_chunks[i])
-			Mix_FreeChunk(sound_chunks[i]);
-	}
+	delete sound_engine;
 	Mix_CloseAudio();
 #endif
 }
@@ -127,68 +242,34 @@ void FreeSound()
 void PlayMusic(int type)
 {
 #ifndef DISABLE_SOUND
-	if (music_curr != type || music_next != type)
-	{
-		music_curr = -2;
-		music_next = type;
-		Mix_FadeOutMusic(HHOP_FADE_MUSIC_OUT);
-	}
+	sound_engine->QueueMusic(type);
 #endif
 }
 
 void PlaySound(int type)
 {
 #ifndef DISABLE_SOUND
-	if (sound_chunks[type])
-		Mix_PlayChannel(-1, sound_chunks[type], 0);
+	sound_engine->PlaySound(type);
 #endif
 }
 
 void QueueSound(int type, double time)
 {
 #ifndef DISABLE_SOUND
-	sounds.push_back(Sound(type, time));
+	sound_engine->QueueSound(type, time);
 #endif
 }
 
 void UndoSound()
 {
 #ifndef DISABLE_SOUND
-	sounds.clear();
+	sound_engine->UndoQueue();
 #endif
 }
 
 void UpdateSound(double time)
 {
 #ifndef DISABLE_SOUND
-	while (true)
-	{
-		std::list<Sound>::iterator i;
-
-		// Find the first effect that needs playing.
-		for (i = sounds.begin() ; i != sounds.end() ; i++)
-		{
-			if (time >= i->time)
-			{
-				PlaySound(i->type);
-				break;
-			}
-		}
-
-		// Erase the effect or stop if not found.
-		if (i != sounds.end())
-			sounds.erase(i);
-		else
-			break;
-	}
-	if (Mix_FadingMusic() == MIX_NO_FADING)
-	{
-		if (music_curr != music_next)
-		{
-			music_curr = music_next;
-			if (music_chunks[music_curr])
-				Mix_FadeInMusic(music_chunks[music_curr], -1, HHOP_FADE_MUSIC_IN);
-		}
-	}
+	sound_engine->Update(time);
 #endif
 }

@@ -18,6 +18,8 @@ hex_a_hop_SOURCES = \
 	sfx.cpp \
 	sfx.h \
 	state.h \
+	system-directory.c \
+	system-directory.h \
 	system-relative.c \
 	system-relative.h \
 	text.cpp \
