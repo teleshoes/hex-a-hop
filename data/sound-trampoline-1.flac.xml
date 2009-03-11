@@ -1,0 +1,25 @@
+<asset>
+	<author>
+		<name>Tomasz Mazurek</name>
+		<email>mazurek _at_ tryglaw.eu</email>
+	</author>
+	<author>
+		<name>Ari Mustonen</name>
+		<email>amuzen@users.sourceforge.net</email>
+	</author>
+	<license>
+		<name>Creative Commons BY-SA 3.0</name>
+		<url>http://creativecommons.org/licenses/by-sa/3.0/</url>
+	</license>
+	<details>
+		<mime>audio/flac</mime>
+		<name>Trampoline 1</name>
+		<type>Sound effect</type>
+		<tag>sfx</tag>
+		<tag>puzzle</tag>
+	</details>
+	<collab>
+		<status>Usable</status>
+		<comment>Made this one out of the simple samples using Audacity. -Ari</comment>
+	</collab>
+</asset>

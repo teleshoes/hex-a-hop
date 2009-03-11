@@ -19,6 +19,9 @@ datadat = \
 	sound-ice.ogg \
 	sound-laser.ogg \
 	sound-trampoline.ogg \
+	sound-trampoline-1.ogg \
+	sound-used-jump.ogg \
+	sound-used-jump-1.ogg \
 	sound-ui-menu.ogg
 data_DATA = $(datadat)
 EXTRA_DIST = $(datadat)
