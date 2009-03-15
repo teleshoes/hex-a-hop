@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.20070315\n"
 "Report-Msgid-Bugs-To: hex-a-hop@packages.debian.org\n"
-"POT-Creation-Date: 2007-09-20 00:13+0200\n"
+"POT-Creation-Date: 2009-03-15 02:02+0200\n"
 "PO-Revision-Date: 2007-08-29 21:00+0400\n"
 "Last-Translator: Yuri Kozlov <kozlov.y@gmail.com>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
@@ -51,135 +51,135 @@ msgstr ""
 
 # Using only two plural forms simplifies translation a little bit
 # and works here ...
-#: hex_puzzzle.cpp:1558
+#: src/hex_puzzzle.cpp:1473
 #, c-format
 msgid "Complete 1  more level  to unlock!"
 msgid_plural "Complete %d  more levels  to unlock!"
 msgstr[0] "Осталось пройти ещё один!"
 msgstr[1] "Нужно пройти ещё %d!"
 
-#: hex_puzzzle.cpp:1565
+#: src/hex_puzzzle.cpp:1480
 msgid "<<NO NAME>>"
 msgstr "<<БЕЗ ИМЕНИ>>"
 
 #. TRANSLATORS: Anti-Ice are pickups, which turn ice plates into solid
 #. plates once you step on them. Each pickup changes one ice plate
-#: hex_puzzzle.cpp:2655
+#: src/hex_puzzzle.cpp:2577
 #, c-format
 msgid "Anti-Ice: %d"
 msgstr "Анти-лёд: %d"
 
-#: hex_puzzzle.cpp:2656
+#: src/hex_puzzzle.cpp:2578
 #, c-format
 msgid "Jumps: %d"
 msgstr "Прыжки: %d"
 
-#: hex_puzzzle.cpp:2657
+#: src/hex_puzzzle.cpp:2579
 #, c-format
 msgid "Score: %d (%d)"
 msgstr "Счёт: %d (%d)"
 
 #. TRANSLATORS: Par is similar to golf, a pre defined score which you
 #. can attempt to beat
-#: hex_puzzzle.cpp:2660
+#: src/hex_puzzzle.cpp:2582
 #, c-format
 msgid "Par:   %d"
 msgstr "Номинал:   %d"
 
-#: hex_puzzzle.cpp:2661
+#: src/hex_puzzzle.cpp:2583
 #, c-format
 msgid "Diff:  %d"
 msgstr "Разность:  %d"
 
-#: hex_puzzzle.cpp:2664
+#: src/hex_puzzzle.cpp:2586
 #, c-format
 msgid " Par: %d   Current: %d"
 msgstr " Номинал: %d   Текущий: %d"
 
-#: hex_puzzzle.cpp:2667
+#: src/hex_puzzzle.cpp:2589
 #, c-format
 msgid " Anti-Ice: %d"
 msgstr " Анти-лёд: %d"
 
-#: hex_puzzzle.cpp:2669
+#: src/hex_puzzzle.cpp:2591
 #, c-format
 msgid " Jumps: %d"
 msgstr " Прыжки: %d"
 
-#: hex_puzzzle.cpp:2675
+#: src/hex_puzzzle.cpp:2597
 #, c-format
 msgid "Points: %d"
 msgstr "Очки: %d"
 
-#: hex_puzzzle.cpp:2676
+#: src/hex_puzzzle.cpp:2598
 #, c-format
 msgid "Discovered: %d%% (%d/%d)"
 msgstr "Открыто: %d%% (%d/%d)"
 
-#: hex_puzzzle.cpp:2677
+#: src/hex_puzzzle.cpp:2599
 #, c-format
 msgid "Complete: %d%% (%d)"
 msgstr "Выполнено: %d%% (%d)"
 
-#: hex_puzzzle.cpp:2678
+#: src/hex_puzzzle.cpp:2600
 #, c-format
 msgid "Mastered: %d%% (%d)"
 msgstr "Мастерски: %d%% (%d)"
 
-#: hex_puzzzle.cpp:2681
+#: src/hex_puzzzle.cpp:2603
 #, c-format
 msgid " %d%% Mastered"
 msgstr " мастерски %d%%"
 
-#: hex_puzzzle.cpp:2683
+#: src/hex_puzzzle.cpp:2605
 #, c-format
 msgid " %d%% Complete"
 msgstr " %d%% выполнено"
 
-#: hex_puzzzle.cpp:2735
+#: src/hex_puzzzle.cpp:2657
 #, c-format
 msgid "Best:% 3d"
 msgstr "Лучший:% 3d"
 
-#: hex_puzzzle.cpp:2736
+#: src/hex_puzzzle.cpp:2658
 #, c-format
 msgid "Par:% 3d"
 msgstr "Номинал:% 3d"
 
-#: hex_puzzzle.cpp:2739
+#: src/hex_puzzzle.cpp:2661
 msgid "Completed"
 msgstr "Пройден"
 
-#: hex_puzzzle.cpp:2742
+#: src/hex_puzzzle.cpp:2664
 msgid "Incomplete"
 msgstr "Не пройден"
 
-#: hex_puzzzle.cpp:2783 menus.h:576
+#: src/hex_puzzzle.cpp:2705 src/menus.h:574
 msgid "Level Complete!"
 msgstr "Уровень пройден!"
 
-#: hex_puzzzle.cpp:2899
+#: src/hex_puzzzle.cpp:2821
 #, c-format
 msgid "Special(%d,%d): %s (%d)"
 msgstr "Специально(%d,%d): %s (%d)"
 
-#: hex_puzzzle.cpp:2899
+#: src/hex_puzzzle.cpp:2821
 msgid "<None>"
 msgstr "<Нет>"
 
-#: hex_puzzzle.cpp:3044
+#: src/hex_puzzzle.cpp:2966
 msgid "Select level"
 msgstr "Выбрать уровень"
 
-#: hex_puzzzle.cpp:4097
+#: src/hex_puzzzle.cpp:4068
 msgid "Save level"
 msgstr "Сохранить уровень"
 
-#: hex_puzzzle.cpp:4103
+#: src/hex_puzzzle.cpp:4074
 msgid "Open level"
 msgstr "Открыть уровень"
 
-#: menus.h:90
+#: src/menus.h:88
 msgid ""
 "Basic controls:|Move around with the keys Q,W,E,A,S,D or the numeric  "
 "keypad. Alternatively, you can use the mouse and  click on the tile you'd "
@@ -193,7 +193,7 @@ msgstr ""
 "backspace или правую клавишу мыши.    По клавише 'Esc' (или средней кнопке "
 "мыши) появляется меню, откуда можно начать заново, если ничего не получается."
 
-#: menus.h:94
+#: src/menus.h:92
 msgid ""
 "Objective:|Your goal is to break all the green tiles.    You mainly do this "
 "by jumping on them.    They will crack when you land on them, and  only "
@@ -203,7 +203,7 @@ msgstr ""
 "нужно прыгнуть на них.    Он трескаются, если на них наступить и сломаются "
 "окончательно, когда вы с них спрыгните.    Не загоните сами себя в ловушку!"
 
-#: menus.h:96
+#: src/menus.h:94
 msgid ""
 "The coloured walls flatten themselves when there  are no matching coloured "
 "tiles remaining."
@@ -211,7 +211,7 @@ msgstr ""
 "Цветные стены превратятся в плитки, когда не останется ни одной  плитки того "
 "же цвета."
 
-#: menus.h:98
+#: src/menus.h:96
 msgid ""
 "You can bounce on the purple trampoline tiles to  get around.    But try not "
 "to fall in the water.    If you do, remember you can undo with 'U',  "
@@ -221,14 +221,14 @@ msgstr ""
 "воду.    Если это случилось, можно отменить последний ход, нажав клавишу "
 "'U', backspace или правую кнопку мыши!"
 
-#: menus.h:100
+#: src/menus.h:98
 msgid ""
 "A red spinner tile will rotate the pieces around  it when you step on it."
 msgstr ""
 "Если наступить на красную плитку со стрелкой, то все плитки  вокруг неё "
 "повернутся."
 
-#: menus.h:104
+#: src/menus.h:102
 msgid ""
 "You don't need to destroy blue tiles to complete  the level.    But they'll "
 "turn green when you step off them, and  you know what you have to do to "
@@ -238,7 +238,7 @@ msgstr ""
 "становятся зелёными, если на них наступить, а вы, конечно, знаете что "
 "придётся делать с зелёными плитками..."
 
-#: menus.h:108
+#: src/menus.h:106
 msgid ""
 "Yellow laser tiles fire when you step on them.    Shooting other laser tiles "
 "is more destructive."
@@ -246,11 +246,11 @@ msgstr ""
 "Жёлтые плитки стреляют лазером, если на них наступить.    А если попасть в "
 "другую плитку с лазером, то взрыв будет ещё больше."
 
-#: menus.h:110
+#: src/menus.h:108
 msgid "Ice is slippery!    Please be careful!!"
 msgstr "Лёд очень скользкий!    Осторожней!!"
 
-#: menus.h:114
+#: src/menus.h:112
 msgid ""
 "The dark grey tiles with arrows on are builders.    Landing on one creates "
 "green tiles in any adjacent  empty tile, and turns green tiles into walls."
@@ -260,7 +260,7 @@ msgstr ""
 "становятся стенами."
 
 #. TRANSLATORS: pop means vanish and Emy drowns (you loose)
-#: menus.h:119
+#: src/menus.h:117
 msgid ""
 "You can ride on the pink floating boats to get  across water.    They'll pop "
 "if you try and float off the edge of the  screen though, so look where "
@@ -269,11 +269,11 @@ msgstr ""
 "Вы можете плавать по воде на красных плотах.    Они тонут когда достигают "
 "края экрана,  поэтому смотрите куда плывёте."
 
-#: menus.h:121
+#: src/menus.h:119
 msgid "The blue lifts go up or down when you land on them."
 msgstr "Синие лифты переместят вас вверх и вниз."
 
-#: menus.h:127
+#: src/menus.h:125
 msgid ""
 "The spiky anti-ice pickups turn icy tiles into blue ones.    They get used "
 "automatically when you land on ice."
@@ -283,7 +283,7 @@ msgstr ""
 
 #. TRANSLATORS: Normally you jump from one plate to another. The golden jump (a
 #. pickup) allows you to jump and land on the *same* plate
-#: menus.h:131
+#: src/menus.h:129
 msgid ""
 "Collecting the golden jump pickups will allow you to  do a big vertical "
 "jump.    Try it out on different types of tiles.    Use the space bar or "
@@ -294,7 +294,7 @@ msgstr ""
 "используйте клавишу пробела или ввода. Или щёлкните мышкой по  плитке, на "
 "которой стоите."
 
-#: menus.h:136
+#: src/menus.h:134
 msgid ""
 "Map Screen:|You can choose which level to attempt next from  the map "
 "screen.    Silver levels are ones you've cleared.    Black levels are ones "
@@ -307,7 +307,7 @@ msgstr ""
 #. TRANSLATORS: Levels are depicted as black balls. Once you passed them, they
 #. turn silver. If you reached the par, they turn golden (with a crown), and if
 #. you beat the par, they turn their shape/color once more
-#: menus.h:142
+#: src/menus.h:140
 msgid ""
 "New feature unlocked!|Each level has an efficiency target for you to try  "
 "and beat.    Every move you make and each non-green tile  you destroy counts "
@@ -318,7 +318,7 @@ msgstr ""
 "разрушенную плитку снимаются очки.    Почему бы вам не пройти уровни ещё раз "
 "и не  обратить их в золото?"
 
-#: menus.h:147
+#: src/menus.h:145
 msgid ""
 "Thanks for playing this little game.    I hope you  enjoy it!    -- --    "
 "All content is Copyright 2005 Tom Beaumont    email: tombeaumont@yahoo.com  "
@@ -331,652 +331,639 @@ msgstr ""
 #. TRANSLATORS: This string is copied twice into the POT file to workaround a
 #. gettext limitation (no macro expansion). The extracted string "Welcome to "
 #. will not be used.
-#: menus.h:153
+#: src/menus.h:151
 msgid "Welcome to "
 msgstr "Welcome to "
 
-#: menus.h:199
+#: src/menus.h:197
 msgid "Info:"
 msgstr ""
 
-#: menus.h:231
+#: src/menus.h:229
 msgid "Press any key"
 msgstr "Нажмите любую клавишу"
 
 #. TRANSLATORS: This specifies how the text in the help dialog should
 #. be aligned. Do *not* translate the text itself but use one of "left",
 #. "center" or "right" (untranslated!). The default is "center".
-#: menus.h:253
+#: src/menus.h:251
 msgid "text alignment"
 msgstr ""
 
-#: menus.h:339
+#: src/menus.h:337
 #, c-format
 msgid "Help (Page --)"
 msgstr "Помощь (Страница --)"
 
-#: menus.h:341
+#: src/menus.h:339
 #, c-format
 msgid "Help (Page %d/%d)"
 msgstr "Помощь (Страница %d/%d)"
 
-#: menus.h:428
+#: src/menus.h:426
 msgid "Resume"
 msgstr "Продолжить"
 
-#: menus.h:429
+#: src/menus.h:427
 msgid "Restart Level"
 msgstr "Уровень заново"
 
-#: menus.h:430
+#: src/menus.h:428
 msgid "Return to Map"
 msgstr "Вернуться на карту"
 
-#: menus.h:431
+#: src/menus.h:429
 msgid "Continue"
 msgstr "Продолжить"
 
-#: menus.h:432
+#: src/menus.h:430
 msgid "Toggle Fullscreen"
 msgstr "На полный экран"
 
-#: menus.h:433 menus.h:1108
+#: src/menus.h:431 src/menus.h:1109
 msgid "Options"
 msgstr "Параметры"
 
-#: menus.h:434
+#: src/menus.h:432
 msgid "Quit"
 msgstr "Выход"
 
-#: menus.h:435
+#: src/menus.h:433
 msgid "Yes"
 msgstr "Да"
 
-#: menus.h:436
+#: src/menus.h:434
 msgid "No"
 msgstr "Нет"
 
-#: menus.h:437
+#: src/menus.h:435
 msgid "Return to Title"
 msgstr "В главное меню"
 
-#: menus.h:438
+#: src/menus.h:436
 msgid "Help"
 msgstr "Помощь"
 
-#: menus.h:439
+#: src/menus.h:437
 msgid "Start New Game"
 msgstr "Начать новую игру"
 
-#: menus.h:440
+#: src/menus.h:438
 msgid "Yes, really delete it!"
 msgstr "Да, удалить!"
 
-#: menus.h:441
+#: src/menus.h:439
 msgid "Don't do it!"
 msgstr "Нет, не надо!"
 
-#: menus.h:442
+#: src/menus.h:440
 msgid "Undo Last Move"
 msgstr "Отменить последний ход"
 
-#: menus.h:443
+#: src/menus.h:441
 msgid "OK"
 msgstr "OK"
 
-#: menus.h:444
+#: src/menus.h:442
 msgid "View Credits Sequence"
 msgstr "Об авторах"
 
-#: menus.h:576
+#: src/menus.h:574
 msgid "Emi can't swim..."
 msgstr "Эми не умеет плавать..."
 
-#: menus.h:615
+#: src/menus.h:613
 #, c-format
 msgid "New Best Score: %d  Par Score: %d  Par Beaten!"
 msgstr "Новый рекорд: %d  Номинал: %d  Номинал побит!"
 
-#: menus.h:617
+#: src/menus.h:615
 #, c-format
 msgid "New Best Score: %d  Par Score: %d"
 msgstr "Новый рекорд: %d  Номинал: %d"
 
-#: menus.h:619
+#: src/menus.h:617
 #, c-format
 msgid "Score: %d  Previous Best: %d  Par Score: %d"
 msgstr "Очки: %d  Лучший предыдущий: %d  Номинал: %d"
 
-#: menus.h:621
+#: src/menus.h:619
 msgid "Well Done!  Level Completed!"
 msgstr "Хорошо!  Уровень пройден!"
 
-#: menus.h:700
+#: src/menus.h:698
 msgid " Very Well Done! "
 msgstr " Очень хорошо! "
 
-#: menus.h:705
+#: src/menus.h:703
 msgid "All Levels Cleared!"
 msgstr "Все уровни очищены!"
 
-#: menus.h:709
+#: src/menus.h:707
 msgid "Not a single green hexagon is left unbroken."
 msgstr "Ни один зелёный шестиугольник не остался целым."
 
-#: menus.h:711
+#: src/menus.h:709
 msgid "Truly, you are a master of hexagon hopping!"
 msgstr "Несомненно, вы мастер в прыжках по шестиугольникам!"
 
-#: menus.h:715
+#: src/menus.h:713
 msgid "Credits"
 msgstr "Создатели"
 
-#: menus.h:716
+#: src/menus.h:714
 msgid "<Design & Direction:"
 msgstr "<Проектирование & управление:"
 
-#: menus.h:717
+#: src/menus.h:715
 msgid "<Programming:"
 msgstr "<Программирование:"
 
-#: menus.h:718
+#: src/menus.h:716
 msgid "<Graphics:"
 msgstr "<Графика:"
 
-#: menus.h:719
+#: src/menus.h:717
 msgid "<Thanks to:"
 msgstr "<Спасибо:"
 
-#: menus.h:721
+#: src/menus.h:719
 msgid "<Tools and libraries used:"
 msgstr "<Использованные библиотеки и инструменты:"
 
-#: menus.h:722
+#: src/menus.h:720
 msgid "<Fonts used:"
 msgstr "<Использованные шрифты:"
 
-#: menus.h:726
+#: src/menus.h:724
 msgid "Thanks for playing!"
 msgstr "Спасибо за игру!"
 
-#: menus.h:730
+#: src/menus.h:728
 msgid " Absolutely Amazing! "
 msgstr " Изумительно! "
 
-#: menus.h:735
+#: src/menus.h:733
 msgid "All Levels Mastered!!"
 msgstr "Все уровни пройдены мастерски!"
 
-#: menus.h:739
+#: src/menus.h:737
 msgid "You crushed every last green hexagon with"
 msgstr "Вы ломали зелёные плитки с"
 
-#: menus.h:740
+#: src/menus.h:738
 msgid "breathtaking efficiency!"
 msgstr "поразительной эффективностью!"
 
-#: menus.h:742
+#: src/menus.h:740
 msgid "You truly are a grand master of hexagon hopping!"
 msgstr "Несомненно, вы великий мастер в прыжках по шестиугольникам!"
 
-#: menus.h:891
+#: src/menus.h:890
 msgid "The End"
 msgstr "Конец"
 
-#: menus.h:978
+#: src/menus.h:979
 #, c-format
 msgid "Continue game %d (All Clear!)"
 msgstr "Продолжить игру %d (всё очистится!)"
 
-#: menus.h:980
+#: src/menus.h:981
 #, c-format
 msgid "Continue game %d (%d%% + %d%%)"
 msgstr "Продолжить игру %d (%d%% + %d%%)"
 
-#: menus.h:982
+#: src/menus.h:983
 #, c-format
 msgid "Continue game %d (%d%% complete)"
 msgstr "Продолжить игру %d (%d%% пройдено)"
 
-#: menus.h:1021
+#: src/menus.h:1022
 msgid "Quit: Are you sure?"
 msgstr "Выход: Уверены?"
 
-#: menus.h:1041
+#: src/menus.h:1042
 #, c-format
 msgid "Really delete game %d?"
 msgstr "Действительно удалить игру %d?"
 
-#: menus.h:1081
+#: src/menus.h:1082
 msgid "Paused"
 msgstr "Пауза"
 
 #. TRANSLATORS: The following strings (in level_list.h) are level names, which
 #. should give (in a humerous way) the player an indication about this level.
-#: level_list.h:27
+#: src/level_list.h:27
 msgid "  Map"
 msgstr "  Карта"
 
-#: level_list.h:28
+#: src/level_list.h:28
 msgid "  Orbital"
 msgstr "  Орбиталь"
 
-#: level_list.h:29
+#: src/level_list.h:29
 msgid "  Hive"
 msgstr "  Сота"
 
-#: level_list.h:30
+#: src/level_list.h:30
 msgid "  There  and Back"
 msgstr "  Туда и обратно"
 
-#: level_list.h:31
+#: src/level_list.h:31
 msgid "  Triangular"
 msgstr "  Треугольник"
 
-#: level_list.h:32
+#: src/level_list.h:32
 msgid "  Mini  Island"
 msgstr "  Мини  остров"
 
-#: level_list.h:33
+#: src/level_list.h:33
 msgid "  Island  Variation"
 msgstr "  Другой  остров"
 
-#: level_list.h:34
+#: src/level_list.h:34
 msgid "  Archipelago"
 msgstr "  Архипелаг"
 
-#: level_list.h:35
+#: src/level_list.h:35
 msgid "  Weathervane"
 msgstr "  Флюгер"
 
-#: level_list.h:36
+#: src/level_list.h:36
 msgid "  Bridges"
 msgstr "  Мосты"
 
-#: level_list.h:37
+#: src/level_list.h:37
 msgid "  Explorer"
 msgstr "  Исследователь"
 
-#: level_list.h:38
+#: src/level_list.h:38
 msgid "  Trampolines"
 msgstr "  Трамплины"
 
-#: level_list.h:39
+#: src/level_list.h:39
 msgid "  Not a Knot"
 msgstr " Хитрый узел"
 
-#: level_list.h:40
+#: src/level_list.h:40
 msgid "  Another  Mountain"
 msgstr "  Другая  гора"
 
-#: level_list.h:41
+#: src/level_list.h:41
 msgid "  A  Mountain"
 msgstr "  Гора"
 
-#: level_list.h:42
+#: src/level_list.h:42
 msgid "  Green  Walls"
 msgstr "  Зелёные  стены"
 
-#: level_list.h:43
+#: src/level_list.h:43
 msgid "  Winding  Order"
 msgstr "  Направление  ветра"
 
-#: level_list.h:44
+#: src/level_list.h:44
 msgid "  Rental  Boat"
 msgstr "  Лодка  напрокат"
 
-#: level_list.h:45
+#: src/level_list.h:45
 msgid "  Ferrying"
 msgstr "  Паром"
 
-#: level_list.h:46
+#: src/level_list.h:46
 msgid "  Transport  Hub"
 msgstr "  Транспортный  узел"
 
-#: level_list.h:47
+#: src/level_list.h:47
 msgid "  Lifts"
 msgstr "  Лифты"
 
-#: level_list.h:48
+#: src/level_list.h:48
 msgid "  Leftovers"
 msgstr "  Отходы"
 
-#: level_list.h:49
+#: src/level_list.h:49
 msgid "  Trampoline  Retrieval"
 msgstr "  Поиск  трамплина"
 
-#: level_list.h:50
+#: src/level_list.h:50
 msgid "  Rolling  Hexagons"
 msgstr "  Катящиеся  шестиугольники"
 
-#: level_list.h:51
+#: src/level_list.h:51
 msgid "  Telephone"
 msgstr "  Телефон"
 
-#: level_list.h:52
+#: src/level_list.h:52
 msgid "  Breakthrough"
 msgstr "  Прорыв"
 
-#: level_list.h:53
+#: src/level_list.h:53
 msgid "  Laser  Safety"
 msgstr "  Лазерная  безопасность"
 
-#: level_list.h:54
+#: src/level_list.h:54
 msgid "  Branching  Pathway"
 msgstr "  Извилистая  тропинка"
 
-#: level_list.h:55
+#: src/level_list.h:55
 msgid "  Only One  Way Up"
 msgstr "  Один путь  наверх!"
 
-#: level_list.h:56
+#: src/level_list.h:56
 msgid "  Outposts"
 msgstr "  Форпосты"
 
-#: level_list.h:57
+#: src/level_list.h:57
 msgid "  Roundabouts"
 msgstr "  Развязка"
 
-#: level_list.h:58
+#: src/level_list.h:58
 msgid "  Two  Fish"
 msgstr "  Две  рыбы"
 
-#: level_list.h:59
+#: src/level_list.h:59
 msgid "All  Wound  Up"
 msgstr "  Всё ликвидировать"
 
-#: level_list.h:60
+#: src/level_list.h:60
 msgid "  Toughened  Tiles"
 msgstr "  Жёсткие  плитки"
 
-#: level_list.h:61
+#: src/level_list.h:61
 msgid "  Island"
 msgstr "  Остров"
 
-#: level_list.h:62
+#: src/level_list.h:62
 msgid "  More  Stripes"
 msgstr "  Ещё  полосы"
 
-#: level_list.h:63
+#: src/level_list.h:63
 msgid "  Stripes"
 msgstr "  Полосы"
 
-#: level_list.h:64
+#: src/level_list.h:64
 msgid "  One Two  One Two"
 msgstr "  Раз два  Раз два"
 
-#: level_list.h:65
+#: src/level_list.h:65
 msgid "  Turtle"
 msgstr "  Черепаха"
 
-#: level_list.h:66
+#: src/level_list.h:66
 msgid "  Wand"
 msgstr "  Стенка"
 
-#: level_list.h:67
+#: src/level_list.h:67
 msgid "  Deathtrap"
 msgstr "  Ловушка"
 
-#: level_list.h:68
+#: src/level_list.h:68
 msgid "  Eagerness"
 msgstr "  Напряжение"
 
-#: level_list.h:69
+#: src/level_list.h:69
 msgid "  Gun  Platform"
 msgstr "  Орудийная  платформа"
 
-#: level_list.h:70
+#: src/level_list.h:70
 msgid "  Nucleus"
 msgstr "  Ядро"
 
-#: level_list.h:71
+#: src/level_list.h:71
 msgid "  Sniper"
 msgstr "  Снайпер"
 
-#: level_list.h:72
+#: src/level_list.h:72
 msgid "  Deadly  Snowflake"
 msgstr "  Смертельная  снежинка"
 
-#: level_list.h:73
+#: src/level_list.h:73
 msgid "  Snowflake"
 msgstr "  Снежинка"
 
-#: level_list.h:74
+#: src/level_list.h:74
 msgid "  Laser  Tiles"
 msgstr "  Лазерные  плитки"
 
-#: level_list.h:75
+#: src/level_list.h:75
 msgid "  Trigger  Happy"
 msgstr "  Сорвиголова"
 
-#: level_list.h:76
+#: src/level_list.h:76
 msgid "  Lure"
 msgstr "  Приманка"
 
-#: level_list.h:77
+#: src/level_list.h:77
 msgid "  Maze"
 msgstr "  Лабиринт"
 
-#: level_list.h:78
+#: src/level_list.h:78
 msgid "  Motion  Sickness"
 msgstr "  Морская  болезнь"
 
-#: level_list.h:79
+#: src/level_list.h:79
 msgid "  All About  Preparation"
 msgstr "  Одни  хлопоты"
 
-#: level_list.h:80
+#: src/level_list.h:80
 msgid "  Revolver  Cannon"
 msgstr "  Револьвер"
 
-#: level_list.h:81
+#: src/level_list.h:81
 msgid "  Small  Cog"
 msgstr "  Маленькая  шестерёнка"
 
-#: level_list.h:82
+#: src/level_list.h:82
 msgid "  Sprocket"
 msgstr "  Звёздочка"
 
-#: level_list.h:83
+#: src/level_list.h:83
 msgid "  Switch"
 msgstr "  Переключатель"
 
-#: level_list.h:84
+#: src/level_list.h:84
 msgid "  Spinner  Tiles"
 msgstr "  Вращающиеся  плитки"
 
-#: level_list.h:85
+#: src/level_list.h:85
 msgid "  Three  More Ways"
 msgstr "  Ещё три  дороги"
 
-#: level_list.h:86
+#: src/level_list.h:86
 msgid "  Three  Ways To Go"
 msgstr "  У трёх  дорог"
 
-#: level_list.h:87
+#: src/level_list.h:87
 msgid "Please  Skate  Safely"
 msgstr "Катайтесь  аккуратно"
 
-#: level_list.h:88
+#: src/level_list.h:88
 msgid "  Refraction"
 msgstr "  Отражение"
 
-#: level_list.h:89
+#: src/level_list.h:89
 msgid "  Route  Finder"
 msgstr "  Поиск  маршрута"
 
-#: level_list.h:90
+#: src/level_list.h:90
 msgid "A  Slippery  Situation"
 msgstr "Скользкая  ситуация"
 
-#: level_list.h:91
+#: src/level_list.h:91
 msgid "  Crooked"
 msgstr "  Поворот"
 
-#: level_list.h:92
+#: src/level_list.h:92
 msgid "  Green  Honey"
 msgstr "  Зелёный  мёд"
 
-#: level_list.h:93
+#: src/level_list.h:93
 msgid "  Carefully  Does It"
 msgstr "  Проходить  осторожно"
 
-#: level_list.h:94
+#: src/level_list.h:94
 msgid "  Radioactive  Ice"
 msgstr "  Радиоактивный  лёд"
 
-#: level_list.h:95
+#: src/level_list.h:95
 msgid "  Pro  Skater"
 msgstr "  Скейтер  профи"
 
-#: level_list.h:96
+#: src/level_list.h:96
 msgid "  Spinners  II"
 msgstr "  Вращалка  2"
 
-#: level_list.h:97
+#: src/level_list.h:97
 msgid "  Spinners"
 msgstr "  Вращалка"
 
 #. TRANSLATORS: There is a special kind of pickup, which will turn ice
 #. plates into "normal" plates (you won't slip on them). So the name
 #. is (probably) related to "Make less slippery".
-#: level_list.h:101
+#: src/level_list.h:101
 msgid "  Deslippify"
 msgstr "  Не зевай"
 
-#: level_list.h:102
+#: src/level_list.h:102
 msgid "  Tri Mesh"
 msgstr "  Тройная  петля"
 
-#: level_list.h:103
+#: src/level_list.h:103
 msgid "  Wheel"
 msgstr "  Колесо"
 
-#: level_list.h:104
+#: src/level_list.h:104
 msgid "  Finishing  Strike"
 msgstr "  Финальный  удар"
 
-#: level_list.h:105
+#: src/level_list.h:105
 msgid "  Big  Jumps"
 msgstr "  Большие  прыжки"
 
-#: level_list.h:106
+#: src/level_list.h:106
 msgid "  Wave  Cannon"
 msgstr "  Волновая  пушка"
 
-#: level_list.h:107
+#: src/level_list.h:107
 msgid "  Clearance"
 msgstr "  Холостой  ход"
 
-#: level_list.h:108
+#: src/level_list.h:108
 msgid "  Floating"
 msgstr "  Плавание"
 
-#: level_list.h:109
+#: src/level_list.h:109
 msgid "  Forced  Fire"
 msgstr "  Сильный  огонь"
 
-#: level_list.h:110
+#: src/level_list.h:110
 msgid "No  Swimming  Allowed"
 msgstr "  Купаться  запрещено"
 
-#: level_list.h:111
+#: src/level_list.h:111
 msgid "A Little  Light  Lifting"
 msgstr "Светлый  лёгкий  подъём"
 
-#: level_list.h:112
+#: src/level_list.h:112
 msgid "  House"
 msgstr "  Дом"
 
-#: level_list.h:113
+#: src/level_list.h:113
 msgid "  Hunting"
 msgstr "  Охота"
 
-#: level_list.h:114
+#: src/level_list.h:114
 msgid "  More  Lifting"
 msgstr "  Ещё  подъём"
 
-#: level_list.h:115
+#: src/level_list.h:115
 msgid "  Opportunist"
 msgstr "  Приспособленец"
 
-#: level_list.h:116
+#: src/level_list.h:116
 msgid "  Demolition"
 msgstr "  Разрушение"
 
-#: level_list.h:117
+#: src/level_list.h:117
 msgid "  Upper"
 msgstr "  Верхний"
 
-#: level_list.h:118
+#: src/level_list.h:118
 msgid "Beware  Feedback  Loops"
 msgstr "  Остерегайтесь  отдачи"
 
-#: level_list.h:119
+#: src/level_list.h:119
 msgid "  Somewhat  Constructive"
 msgstr "  Что-то  творческое"
 
-#: level_list.h:120
+#: src/level_list.h:120
 msgid "  Overbuild"
 msgstr "  Надстройка"
 
-#: level_list.h:121
+#: src/level_list.h:121
 msgid "  Reversing  Space"
 msgstr "  Обратная  сторона"
 
-#: level_list.h:122
+#: src/level_list.h:122
 msgid "Burn  Your  Bridges"
 msgstr "  Сжигая  мосты"
 
-#: level_list.h:123
+#: src/level_list.h:123
 msgid "A  Strange  Place"
 msgstr "  Странное  место"
 
-#: level_list.h:124
+#: src/level_list.h:124
 msgid "  Commute"
 msgstr "  Соединение"
 
-#: level_list.h:125
+#: src/level_list.h:125
 msgid "  Bouncing  Required"
 msgstr "  Нужно  прыгать"
 
-#: level_list.h:126
+#: src/level_list.h:126
 msgid "  Fetch  Quest"
 msgstr "  Хитрое  задание"
 
-#: level_list.h:127
+#: src/level_list.h:127
 msgid "  Laser  Surgery"
 msgstr "  Лазерная  хирургия"
 
-#: level_list.h:128
+#: src/level_list.h:128
 msgid "  Icy  Tiles"
 msgstr "  Cкользкие плитки"
 
-#: level_list.h:129
+#: src/level_list.h:129
 msgid "  Icy  Road"
 msgstr "  Скользкая  дорога"
 
-#: level_list.h:130
+#: src/level_list.h:130
 msgid "  Inversion"
 msgstr "  Поворот"
 
-#: level_list.h:132 level_list.h:133 level_list.h:134 level_list.h:135
-#: level_list.h:136
+#: src/level_list.h:132 src/level_list.h:133 src/level_list.h:134
+#: src/level_list.h:135 src/level_list.h:136
 msgid "Complete __ levels to unlock"
 msgstr "Пройдено __ уровней для разблокировки"
-
-#: menus.h:153
-msgid ""
-"Welcome to Hex-a-hop!    This is a puzzle game based on hexagonal tiles.  "
-"There is no time limit and no real-time element, so  take as long as you "
-"like.    Use the cursor keys or click on the arrows to  scroll through the "
-"help pages. More pages will be  added as you progress through the game."
-msgstr ""
-"Добро пожаловать в Hex-a-hop!    Это игра-головоломка с шестиугольными "
-"плитками.  Здесь нет ограничений по времени и элементов аркады, поэтому её "
-"можно проходить сколь угодно долго.    Для пролистывания страниц помощи "
-"используются клавиши курсора или можно щёлкать мышкой по стрелкам. По мере "
-"прохождения игры количество страниц будет увеличиваться."
 
 # type: TH
 #: debian/hex-a-hop.6:18
@@ -1130,3 +1117,16 @@ msgstr ""
 "Игра была написана Томом Бомоном (Tom Beaumont) и распространяется под "
 "лицензией GNU General Public License версии 2 или (на ваш выбор) любой новой "
 "версией."
+
+#~ msgid ""
+#~ "Welcome to Hex-a-hop!    This is a puzzle game based on hexagonal tiles.  "
+#~ "There is no time limit and no real-time element, so  take as long as you "
+#~ "like.    Use the cursor keys or click on the arrows to  scroll through "
+#~ "the help pages. More pages will be  added as you progress through the "
+#~ "game."
+#~ msgstr ""
+#~ "Добро пожаловать в Hex-a-hop!    Это игра-головоломка с шестиугольными "
+#~ "плитками.  Здесь нет ограничений по времени и элементов аркады, поэтому "
+#~ "её можно проходить сколь угодно долго.    Для пролистывания страниц "
+#~ "помощи используются клавиши курсора или можно щёлкать мышкой по стрелкам. "
+#~ "По мере прохождения игры количество страниц будет увеличиваться."

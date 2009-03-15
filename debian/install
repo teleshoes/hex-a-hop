@@ -1,12 +1,2 @@
-hex-a-hop usr/games
-*.dat usr/share/games/hex-a-hop
-graphics/emi.dat usr/share/games/hex-a-hop/graphics/
-graphics/gradient.dat usr/share/games/hex-a-hop/graphics/
-graphics/icon.bmp usr/share/games/hex-a-hop/graphics/
-graphics/map.dat usr/share/games/hex-a-hop/graphics/
-graphics/map_top.dat usr/share/games/hex-a-hop/graphics/
-graphics/tiles.dat usr/share/games/hex-a-hop/graphics/
-graphics/tiles_reflect.dat usr/share/games/hex-a-hop/graphics/
-graphics/title.dat usr/share/games/hex-a-hop/graphics/
 debian/*.xpm usr/share/pixmaps/
 debian/*.desktop usr/share/applications/

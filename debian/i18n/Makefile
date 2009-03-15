@@ -22,17 +22,17 @@ all: hex-a-hop.pot build-stamp
 
 # xgettext fails on _("Welcome to " GAMENAME "!") (doesn't extract anything
 # behind the macro, so we preprocess hex_puzzzle.cpp first
-hex_puzzzle_preprocessed.cpp: ../../hex_puzzzle.cpp ../../menus.h ../../level_list.h
-	cd ../..; $(CXX) $(CXXFLAGS) -E hex_puzzzle.cpp -o debian/i18n/$@
+hex_puzzzle_preprocessed.cpp: ../../src/hex_puzzzle.cpp ../../src/menus.h ../../src/level_list.h
+	cd ../..; $(CXX) $(CXXFLAGS) -E src/hex_puzzzle.cpp -o debian/i18n/$@
 
-hex-a-hop.pot: hex_puzzzle_preprocessed.cpp ../../gfx.cpp ../hex-a-hop.6
+hex-a-hop.pot: hex_puzzzle_preprocessed.cpp ../../src/gfx.cpp ../hex-a-hop.6
 	@echo Creating Template \"$@\"
 # Yes, we specify both hex_puzzzle.cpp AND debian/i18n/hex_puzzzle_preprocessed.cpp
 # as the preprocessed file does not contain all strings as preprocessor
 # conditionals are already evaluated for the second file. We also want proper
 # path references to source files (no ../.. prefix).
 	cd ../..; xgettext --add-comments="TRANSLATORS:" -k_ -o "debian/i18n/$@.templ" \
-	  gfx.cpp hex_puzzzle.cpp menus.h level_list.h debian/i18n/hex_puzzzle_preprocessed.cpp \
+	  src/gfx.cpp src/hex_puzzzle.cpp src/menus.h src/level_list.h debian/i18n/hex_puzzzle_preprocessed.cpp \
 		--msgid-bugs-address=hex-a-hop@packages.debian.org \
 		--copyright-holder="Tom Beaumont"
 	cd ../..; po4a-updatepo -f man -m debian/hex-a-hop.6 -p debian/i18n/hex-a-hop.6.pot

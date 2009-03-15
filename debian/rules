@@ -22,14 +22,14 @@ unpatch:
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	$(MAKE) -f /usr/share/quilt/quilt.make patch
+	./configure --prefix=/usr/games --bindir=/usr/games --datadir=/usr/share/games/hex-a-hop
 	touch $@
 
 build: build-stamp
 build-stamp: configure-stamp 
 	dh_testdir
-	$(MAKE) CXXFLAGS="$(CFLAGS)" NAME="hex-a-hop" DATA_DIR="/usr/share/games/hex-a-hop"
-	$(MAKE) CXXFLAGS="$(CFLAGS)" NAME="hex-a-hop" DATA_DIR="/usr/share/games/hex-a-hop" -C debian/i18n
+	$(MAKE)
+	$(MAKE) -C debian/i18n
 	touch $@
 
 clean:
@@ -37,7 +37,7 @@ clean:
 	dh_testroot
 	rm -f build-stamp configure-stamp
 	$(MAKE) -C debian/i18n clean
-	[ ! -f Makefile ] || $(MAKE) NAME="hex-a-hop" clean
+	[ ! -f Makefile ] || $(MAKE) clean
 	$(MAKE) -f /usr/share/quilt/quilt.make unpatch
 	dh_clean 
 
@@ -46,9 +46,9 @@ install: build
 	dh_testroot
 	dh_clean -k 
 	dh_installdirs
-	install -p -d -m 755 $(CURDIR)/debian/hex-a-hop/usr/share/lintian/overrides/
-	install -m 644 debian/lintian-override $(CURDIR)/debian/hex-a-hop/usr/share/lintian/overrides/hex-a-hop
-	#$(MAKE) DESTDIR=$(CURDIR)/debian/hex-a-hop install
+	#install -p -d -m 755 $(CURDIR)/debian/hex-a-hop/usr/share/lintian/overrides/
+	#install -m 644 debian/lintian-override $(CURDIR)/debian/hex-a-hop/usr/share/lintian/overrides/hex-a-hop
+	$(MAKE) DESTDIR=$(CURDIR)/debian/hex-a-hop install
 	$(MAKE) -C debian/i18n install LOCALEDIR=$(CURDIR)/debian/hex-a-hop/usr/share/locale/ \
 	  MANDIR=$(CURDIR)/debian/hex-a-hop/usr/share/man/
 
