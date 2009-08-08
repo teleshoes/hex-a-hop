@@ -34,8 +34,8 @@ static const char* const music_names[HHOP_MUSIC_MAX] =
 static const char* const sound_names[HHOP_SOUND_MAX] =
 {
 	"sound-builder",
-	"sound-death",
 	"sound-collapse",
+	"sound-death",
 	"sound-disintegrate",
 	"sound-explode-big",
 	"sound-explode-small",
@@ -114,7 +114,7 @@ public:
 					if (sound)
 						sound_chunks[j].push_back(sound);
 					else
-						fprintf(stderr, "Cannot load music `%s': %s\n", name, Mix_GetError());
+						fprintf(stderr, "Cannot load effect `%s': %s\n", name, Mix_GetError());
 				}
 			}
 			free (pth);
