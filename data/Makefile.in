@@ -160,9 +160,11 @@ datadat = \
 	title.dat \
 	music-game.ogg \
 	music-map.ogg \
+	sound-death.ogg \
 	sound-disintegrate.ogg \
 	sound-explode-big.ogg \
 	sound-explode-small.ogg \
+	sound-floater-enter.ogg \
 	sound-ice.ogg \
 	sound-laser.ogg \
 	sound-trampoline.ogg \
