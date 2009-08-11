@@ -167,6 +167,9 @@ datadat = \
 	sound-floater-enter.ogg \
 	sound-ice.ogg \
 	sound-laser.ogg \
+	sound-laser-1.ogg \
+	sound-lift-down.ogg \
+	sound-lift-up.ogg \
 	sound-trampoline.ogg \
 	sound-trampoline-1.ogg \
 	sound-used-jump.ogg \

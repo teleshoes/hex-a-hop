@@ -9,7 +9,7 @@
 	</license>
 	<details>
 		<source>http://opengameart.org/content/water-splashes</source>
-		<mime>audio/flac</mime>
+		<mime>audio/x-wav</mime>
 		<name>Death</name>
 		<type>Sound effect</type>
 		<tag>sfx</tag>
