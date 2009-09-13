@@ -29,9 +29,9 @@ enum
 {
 	HHOP_MUSIC_ENDING,        // Ending sequence after clearing all levels.
 	HHOP_MUSIC_GAME,          // Puzzle mode music.
-	HHOP_MUSIC_MAP,           // Map screen music.
-	HHOP_MUSIC_TITLE,         // Title screen music.
-	HHOP_MUSIC_WIN,           // Victory music after clearing a level.
+	HHOP_MUSIC_MAP = 1,       // Map screen music.
+	HHOP_MUSIC_TITLE = 1,     // Title screen music.
+	HHOP_MUSIC_WIN = 1,       // Victory music after clearing a level.
 
 	HHOP_MUSIC_MAX
 };

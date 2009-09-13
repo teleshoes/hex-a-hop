@@ -27,9 +27,9 @@ static const char* const music_names[HHOP_MUSIC_MAX] =
 {
 	"music-ending",
 	"music-game",
-	"music-map",
-	"music-title",
-	"music-win"
+//	"music-map",
+//	"music-title",
+//	"music-win"
 };
 static const char* const sound_names[HHOP_SOUND_MAX] =
 {
