@@ -19,9 +19,12 @@
 #ifndef DISABLE_SOUND
 #include <list>
 #include <vector>
+#include <ctime>
 #include <SDL/SDL_mixer.h>
 #include "sfx.h"
 #include "system-directory.h"
+
+#define SOUND_START_DELAY -0.2
 
 static const char* const music_names[HHOP_MUSIC_MAX] =
 {
@@ -78,6 +81,8 @@ public:
 		char* pth;
 		const char* name;
 		lisysDir* dir;
+
+		srand (time (NULL));
 
 		// Open data directory.
 		dir = lisys_dir_open (path);
@@ -144,8 +149,8 @@ public:
 		int size = music_chunks[type].size();
 		if (size)
 		{
-			int music = (int)(round((float) rand() / RAND_MAX) * (size - 1));
-			Mix_FadeInMusic(music_chunks[type][music], -1, HHOP_FADE_MUSIC_IN);
+			int music = rand () % size;
+			Mix_FadeInMusic(music_chunks[type][music], 1, HHOP_FADE_MUSIC_IN);
 		}
 	}
 	void PlaySound(int type)
@@ -153,7 +158,7 @@ public:
 		int size = sound_chunks[type].size();
 		if (size)
 		{
-			int sound = (int)(round((float) rand() / RAND_MAX) * (size - 1));
+			int sound = rand() % size;
 			Mix_PlayChannel(-1, sound_chunks[type][sound], 0);
 		}
 	}
@@ -196,13 +201,10 @@ public:
 			else
 				break;
 		}
-		if (Mix_FadingMusic() == MIX_NO_FADING)
+		if (!Mix_PlayingMusic())
 		{
-			if (music_curr != music_next)
-			{
-				PlayMusic(music_next);
-				music_curr = music_next;
-			}
+			PlayMusic(music_next);
+			music_curr = music_next;
 		}
 	}
 public:
@@ -256,7 +258,7 @@ void PlaySound(int type)
 void QueueSound(int type, double time)
 {
 #ifndef DISABLE_SOUND
-	sound_engine->QueueSound(type, time);
+	sound_engine->QueueSound(type, time + SOUND_START_DELAY);
 #endif
 }
 
