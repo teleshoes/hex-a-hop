@@ -3328,7 +3328,18 @@ struct HexPuzzle : public State
 		time += 0.15;	//Time for leave-tile fx
 
 		if (d>=0)
+		{
 			QueueSound(HHOP_SOUND_STEP, time);
+			switch (GetTile (newpos))
+			{
+				case COLLAPSABLE:
+				case COLLAPSABLE2:
+				case COLLAPSE_DOOR:
+				case COLLAPSE_DOOR2:
+					QueueSound(HHOP_SOUND_CRACK, time + 0.28);
+					break;
+			}
+		}
 
 		switch (GetTile(oldpos))
 		{

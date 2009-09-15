@@ -40,6 +40,7 @@ enum
 {
 	HHOP_SOUND_BUILDER,       // Builder generates new tiles.
 	HHOP_SOUND_COLLAPSE,      // Green or blue walls collapse to floor tiles.
+	HHOP_SOUND_CRACK,         // Girl steps on an a green or blue tile.
 	HHOP_SOUND_DEATH,         // Girl falls in water.
 	HHOP_SOUND_DISINTEGRATE,  // Tile is removed when girl leaves it.
 	HHOP_SOUND_EXPLODE_BIG,   // Laser hits a laser tile.

@@ -10,8 +10,8 @@ freedata = \
 	tiles.dat \
 	tiles_reflect.dat \
 	title.dat \
+	sound-crack.ogg \
 	sound-death.ogg \
-	sound-disintegrate.ogg \
 	sound-explode-big.ogg \
 	sound-explode-small.ogg \
 	sound-floater-enter.ogg \
@@ -23,8 +23,8 @@ freedata = \
 	sound-used-jump.ogg \
 	sound-win.ogg
 freeinfo = \
+	sound-crack.ogg.xml \
 	sound-death.ogg.xml \
-	sound-disintegrate.ogg.xml \
 	sound-explode-big.ogg.xml \
 	sound-explode-small.ogg.xml \
 	sound-floater-enter.ogg.xml \

@@ -38,6 +38,7 @@ static const char* const sound_names[HHOP_SOUND_MAX] =
 {
 	"sound-builder",
 	"sound-collapse",
+	"sound-crack",
 	"sound-death",
 	"sound-disintegrate",
 	"sound-explode-big",
