@@ -70,6 +70,8 @@ void FreeSound();
 void PlayMusic(int type);
 void PlaySound(int type);
 void QueueSound(int type, double time);
+void ToggleMusic();
+void ToggleEffects();
 void UndoSound();
 void UpdateSound(double time);
 

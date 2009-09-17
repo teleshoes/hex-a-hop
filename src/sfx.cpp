@@ -25,6 +25,7 @@
 #include "system-directory.h"
 
 #define SOUND_START_DELAY -0.2
+#define MUSIC_VOLUME 0.75
 
 static const char* const music_names[HHOP_MUSIC_MAX] =
 {
@@ -75,7 +76,7 @@ public:
 class SoundEngine
 {
 public:
-	SoundEngine(const char* path) : music_curr(-1), music_next(-1)
+	SoundEngine(const char* path) : disable_music(0), disable_effects(0), music_curr(-1), music_next(-1)
 	{
 		int i;
 		int j;
@@ -147,6 +148,8 @@ public:
 	}
 	void PlayMusic(int type)
 	{
+		if (disable_music)
+			return;
 		int size = music_chunks[type].size();
 		if (size)
 		{
@@ -156,6 +159,8 @@ public:
 	}
 	void PlaySound(int type)
 	{
+		if (disable_effects)
+			return;
 		int size = sound_chunks[type].size();
 		if (size)
 		{
@@ -165,6 +170,8 @@ public:
 	}
 	void QueueMusic(int type)
 	{
+		if (disable_music)
+			return;
 		if (music_curr != type || music_next != type)
 		{
 			music_curr = -2;
@@ -174,7 +181,24 @@ public:
 	}
 	void QueueSound(int type, double time)
 	{
+		if (disable_effects)
+			return;
 		sound_queue.push_back(SoundQueue(type, time));
+	}
+	void ToggleEffects()
+	{
+		disable_effects = !disable_effects;
+		if (disable_effects)
+		{
+			Mix_HaltChannel(-1);
+			sound_queue.clear();
+		}
+	}
+	void ToggleMusic()
+	{
+		disable_music = !disable_music;
+		if (disable_music)
+			Mix_HaltMusic();
 	}
 	void UndoQueue()
 	{
@@ -202,13 +226,15 @@ public:
 			else
 				break;
 		}
-		if (!Mix_PlayingMusic())
+		if (!disable_music && !Mix_PlayingMusic())
 		{
 			PlayMusic(music_next);
 			music_curr = music_next;
 		}
 	}
 public:
+	int disable_music;
+	int disable_effects;
 	int music_curr;
 	int music_next;
 	std::vector<Mix_Music*> music_chunks[HHOP_MUSIC_MAX];
@@ -229,6 +255,7 @@ void InitSound(const char* path)
 		exit(1);
 	}
 	Mix_AllocateChannels(HHOP_EFFECT_CHANNELS);
+	Mix_VolumeMusic((int)(MIX_MAX_VOLUME*MUSIC_VOLUME));
 
 	sound_engine = new SoundEngine(path);
 #endif
@@ -260,6 +287,20 @@ void QueueSound(int type, double time)
 {
 #ifndef DISABLE_SOUND
 	sound_engine->QueueSound(type, time + SOUND_START_DELAY);
+#endif
+}
+
+void ToggleMusic()
+{
+#ifndef DISABLE_SOUND
+	sound_engine->ToggleMusic();
+#endif
+}
+
+void ToggleEffects()
+{
+#ifndef DISABLE_SOUND
+	sound_engine->ToggleEffects();
 #endif
 }
 

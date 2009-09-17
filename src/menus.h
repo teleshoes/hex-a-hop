@@ -190,7 +190,7 @@ struct HintMessage : public Menu
 	{
 		state = 0; time = 0;
 		memset(title, 0, sizeof(title));
-		char * x = strstr(m, "|");
+		const char * x = strstr(m, "|");
 		if (!x)
 		{
 			msg = m;
@@ -395,6 +395,10 @@ enum option {
 	OPT_GOTO_MAP,
 	OPT_GOTO_MAP_CONTINUE,
 	OPT_FULLSCREEN,
+#ifndef DISABLE_SOUND
+	OPT_MUSIC,
+	OPT_EFFECTS,
+#endif
 	OPT_OPTIONS,
 	OPT_QUIT,
 	OPT_QUIT_CONFIRM,
@@ -428,6 +432,10 @@ const char * optionString[] = {
 	_("Return to Map"),
 	_("Continue"),
 	_("Toggle Fullscreen"),
+#ifndef DISABLE_SOUND
+	_("Toggle Music"),
+	_("Toggle Effects"),
+#endif
 	_("Options"),
 	_("Quit"),
 	_("Yes"),
@@ -714,10 +722,17 @@ const char *ending[] = {
 	_("<Design & Direction:"), ">Tom Beaumont", "", "",
 	_("<Programming:"), ">Tom Beaumont", "", "",
 	_("<Graphics:"), ">Tom Beaumont", "", "",
+
+#ifndef DISABLE_SOUND
+	_("<Music:"), ">remaxim", "", "",
+	_("<Sound:"), ">remaxim", ">Stephen Cameron", ">Tomasz Mazurek", ">Michel Baradari",
+	">Sander M", ">Freesound.org", "", "",
+#endif
+
 	_("<Thanks to:"), ">Kris Beaumont", "",  "",
 //	"", "<Some useless facts...", "",
-	_("<Tools and libraries used:"), "", ">Photoshop LE", ">Inno Setup", ">Wings 3D", ">MSVC", ">SDL", "", 
-	_("<Fonts used:"), "", ">Copperplate gothic bold", ">Verdana", "", 
+//	_("<Tools and libraries used:"), "", ">Photoshop LE", ">Inno Setup", ">Wings 3D", ">MSVC", ">SDL", "", 
+//	_("<Fonts used:"), "", ">Copperplate gothic bold", ">Verdana", "", 
 
 	"", "", "*12,14", "", "", 
 
@@ -1109,6 +1124,11 @@ struct OptionMenu : public OptMenuTitle
 	OptionMenu(bool _title) : OptMenuTitle(_("Options")), title(_title)
 	{
 		opt[num_opt++] = OPT_FULLSCREEN;
+
+#ifndef DISABLE_SOUND
+		opt[num_opt++] = OPT_MUSIC;
+		opt[num_opt++] = OPT_EFFECTS;
+#endif
 		
 		opt[num_opt++] = OPT_BACK;
 		
@@ -1225,6 +1245,15 @@ void OptMenu::Select()
 		case OPT_FULLSCREEN:
 			ToggleFullscreen();
 			break;
+
+#ifndef DISABLE_SOUND
+		case OPT_MUSIC:
+			ToggleMusic ();
+			break;
+		case OPT_EFFECTS:
+			ToggleEffects ();
+			break;
+#endif
 
 		case OPT_QUIT_CONFIRM:
 			new Fader(-1, -2);

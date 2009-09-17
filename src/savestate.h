@@ -278,7 +278,7 @@ public:
 
 	LevelSave* GetLevel(const char * name, bool create)
 	{
-		char * l = strstr(name, "Levels");
+		const char * l = strstr(name, "Levels");
 		if (l)
 			name = l;
 
