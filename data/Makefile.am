@@ -18,7 +18,6 @@ freedata = \
 	sound-ice.ogg \
 	sound-laser.ogg \
 	sound-trampoline.ogg \
-	sound-ui-menu.ogg \
 	sound-used-antiice.ogg \
 	sound-used-jump.ogg \
 	sound-win.ogg
@@ -31,7 +30,6 @@ freeinfo = \
 	sound-ice.ogg.xml \
 	sound-laser.ogg.xml \
 	sound-trampoline.ogg.xml \
-	sound-ui-menu.ogg.xml \
 	sound-used-antiice.ogg.xml \
 	sound-used-jump.ogg.xml \
 	sound-win.ogg.xml

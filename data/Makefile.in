@@ -31,7 +31,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 subdir = data
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in AUTHORS
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -166,7 +166,6 @@ freedata = \
 	sound-ice.ogg \
 	sound-laser.ogg \
 	sound-trampoline.ogg \
-	sound-ui-menu.ogg \
 	sound-used-antiice.ogg \
 	sound-used-jump.ogg \
 	sound-win.ogg
@@ -180,7 +179,6 @@ freeinfo = \
 	sound-ice.ogg.xml \
 	sound-laser.ogg.xml \
 	sound-trampoline.ogg.xml \
-	sound-ui-menu.ogg.xml \
 	sound-used-antiice.ogg.xml \
 	sound-used-jump.ogg.xml \
 	sound-win.ogg.xml
