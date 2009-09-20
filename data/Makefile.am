@@ -34,6 +34,7 @@ freeinfo = \
 	sound-used-jump.ogg.xml \
 	sound-win.ogg.xml
 nonfreedata = \
+	music-ending-nonfree.ogg \
 	music-game-nonfree.ogg \
 	music-game-nonfree-1.ogg \
 	sound-builder-nonfree.ogg \
@@ -44,6 +45,7 @@ nonfreedata = \
 	sound-lift-up-nonfree.ogg \
 	sound-spinner-nonfree.ogg
 nonfreeinfo = \
+	music-ending-nonfree.ogg.xml \
 	music-game-nonfree-1.ogg.xml \
 	music-game-nonfree.ogg.xml \
 	sound-builder-nonfree.ogg.xml \
