@@ -31,6 +31,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = hex-a-hop$(EXEEXT)
+noinst_PROGRAMS = dat2bmp$(EXEEXT) bmp2dat$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/config.h.in
@@ -43,12 +44,18 @@ CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
-PROGRAMS = $(bin_PROGRAMS)
+PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS)
+am_bmp2dat_OBJECTS = bmp2dat.$(OBJEXT)
+bmp2dat_OBJECTS = $(am_bmp2dat_OBJECTS)
+am__DEPENDENCIES_1 =
+bmp2dat_DEPENDENCIES = $(am__DEPENDENCIES_1)
+am_dat2bmp_OBJECTS = dat2bmp.$(OBJEXT)
+dat2bmp_OBJECTS = $(am_dat2bmp_OBJECTS)
+dat2bmp_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_hex_a_hop_OBJECTS = gfx.$(OBJEXT) hex_puzzzle.$(OBJEXT) \
 	i18n.$(OBJEXT) sfx.$(OBJEXT) system-directory.$(OBJEXT) \
 	system-relative.$(OBJEXT) text.$(OBJEXT)
 hex_a_hop_OBJECTS = $(am_hex_a_hop_OBJECTS)
-am__DEPENDENCIES_1 =
 hex_a_hop_DEPENDENCIES = $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/msc/depcomp
@@ -62,8 +69,9 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(hex_a_hop_SOURCES)
-DIST_SOURCES = $(hex_a_hop_SOURCES)
+SOURCES = $(bmp2dat_SOURCES) $(dat2bmp_SOURCES) $(hex_a_hop_SOURCES)
+DIST_SOURCES = $(bmp2dat_SOURCES) $(dat2bmp_SOURCES) \
+	$(hex_a_hop_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -191,6 +199,18 @@ hex_a_hop_SOURCES = \
 hex_a_hop_LDADD = \
 	$(SDL_LIBS)
 
+dat2bmp_SOURCES = \
+	tools/dat2bmp.c
+
+dat2bmp_LDADD = \
+	$(SDL_LIBS)
+
+bmp2dat_SOURCES = \
+	tools/bmp2dat.c
+
+bmp2dat_LDADD = \
+	$(SDL_LIBS)
+
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -265,6 +285,15 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+clean-noinstPROGRAMS:
+	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
+bmp2dat$(EXEEXT): $(bmp2dat_OBJECTS) $(bmp2dat_DEPENDENCIES) 
+	@rm -f bmp2dat$(EXEEXT)
+	$(LINK) $(bmp2dat_OBJECTS) $(bmp2dat_LDADD) $(LIBS)
+dat2bmp$(EXEEXT): $(dat2bmp_OBJECTS) $(dat2bmp_DEPENDENCIES) 
+	@rm -f dat2bmp$(EXEEXT)
+	$(LINK) $(dat2bmp_OBJECTS) $(dat2bmp_LDADD) $(LIBS)
 hex-a-hop$(EXEEXT): $(hex_a_hop_OBJECTS) $(hex_a_hop_DEPENDENCIES) 
 	@rm -f hex-a-hop$(EXEEXT)
 	$(CXXLINK) $(hex_a_hop_OBJECTS) $(hex_a_hop_LDADD) $(LIBS)
@@ -275,6 +304,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bmp2dat.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dat2bmp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gfx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hex_puzzzle.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/i18n.Po@am__quote@
@@ -296,6 +327,34 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+bmp2dat.o: tools/bmp2dat.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bmp2dat.o -MD -MP -MF $(DEPDIR)/bmp2dat.Tpo -c -o bmp2dat.o `test -f 'tools/bmp2dat.c' || echo '$(srcdir)/'`tools/bmp2dat.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/bmp2dat.Tpo $(DEPDIR)/bmp2dat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='tools/bmp2dat.c' object='bmp2dat.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bmp2dat.o `test -f 'tools/bmp2dat.c' || echo '$(srcdir)/'`tools/bmp2dat.c
+
+bmp2dat.obj: tools/bmp2dat.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bmp2dat.obj -MD -MP -MF $(DEPDIR)/bmp2dat.Tpo -c -o bmp2dat.obj `if test -f 'tools/bmp2dat.c'; then $(CYGPATH_W) 'tools/bmp2dat.c'; else $(CYGPATH_W) '$(srcdir)/tools/bmp2dat.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/bmp2dat.Tpo $(DEPDIR)/bmp2dat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='tools/bmp2dat.c' object='bmp2dat.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bmp2dat.obj `if test -f 'tools/bmp2dat.c'; then $(CYGPATH_W) 'tools/bmp2dat.c'; else $(CYGPATH_W) '$(srcdir)/tools/bmp2dat.c'; fi`
+
+dat2bmp.o: tools/dat2bmp.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT dat2bmp.o -MD -MP -MF $(DEPDIR)/dat2bmp.Tpo -c -o dat2bmp.o `test -f 'tools/dat2bmp.c' || echo '$(srcdir)/'`tools/dat2bmp.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/dat2bmp.Tpo $(DEPDIR)/dat2bmp.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='tools/dat2bmp.c' object='dat2bmp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o dat2bmp.o `test -f 'tools/dat2bmp.c' || echo '$(srcdir)/'`tools/dat2bmp.c
+
+dat2bmp.obj: tools/dat2bmp.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT dat2bmp.obj -MD -MP -MF $(DEPDIR)/dat2bmp.Tpo -c -o dat2bmp.obj `if test -f 'tools/dat2bmp.c'; then $(CYGPATH_W) 'tools/dat2bmp.c'; else $(CYGPATH_W) '$(srcdir)/tools/dat2bmp.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/dat2bmp.Tpo $(DEPDIR)/dat2bmp.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='tools/dat2bmp.c' object='dat2bmp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o dat2bmp.obj `if test -f 'tools/dat2bmp.c'; then $(CYGPATH_W) 'tools/dat2bmp.c'; else $(CYGPATH_W) '$(srcdir)/tools/dat2bmp.c'; fi`
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -417,7 +476,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-noinstPROGRAMS \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -475,17 +535,18 @@ uninstall-am: uninstall-binPROGRAMS
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic ctags distclean distclean-compile \
-	distclean-generic distclean-hdr distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-binPROGRAMS
+	clean-generic clean-noinstPROGRAMS ctags distclean \
+	distclean-compile distclean-generic distclean-hdr \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-binPROGRAMS install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
+	uninstall-am uninstall-binPROGRAMS
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
