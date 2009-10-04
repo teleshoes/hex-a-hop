@@ -9,7 +9,7 @@
 
 #ifndef ENABLE_PANGO
 
-#include <SDL/SDL_ttf.h>
+#include <SDL_ttf.h>
 
 static TTF_Font* font;
 
@@ -433,6 +433,7 @@ void PrintC(bool split, int x, int y, const char * string, ...)
 
 void ConvertToUTF8(const std::string &text_locally_encoded, char *text_utf8, size_t text_utf8_length)
 {
+#ifdef USE_GETTEXT
 	// Is this portable?
 	size_t text_length = text_locally_encoded.length()+1;
 	errno = 0;
@@ -444,4 +445,7 @@ void ConvertToUTF8(const std::string &text_locally_encoded, char *text_utf8, siz
 	iconv_close(cd);
 	if (errno != 0)
 		std::cerr << "An error occurred recoding " << text_locally_encoded << " to UTF8" << std::endl;
+#else
+	strcpy (text_utf8, text_locally_encoded.c_str ());
+#endif
 }

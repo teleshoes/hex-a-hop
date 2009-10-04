@@ -19,9 +19,9 @@
 #ifndef __HHOP_STATE_H__
 #define __HHOP_STATE_H__
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #ifdef USE_OPENGL
-#include <SDL/SDL_OpenGL.h>
+#include <SDL_OpenGL.h>
 #endif
 #include <math.h>
 #include <stdlib.h>
@@ -46,6 +46,7 @@ public:
 	void reserve(int i) { if (i<0) FATAL("-ve string length."); if (i<=len) return; len=i; data=(char*)realloc(data, (len+1)*sizeof(char)); }
 	String() : len(0), data(NULL) { reserve(32); *data = '\0'; }
 	String(String const & s) : len(0), data(NULL) { reserve(s.len); strcpy(data, s.data); }
+	String(const char* s) : len(0), data(NULL) { *this = s; }
 	~String() { free(data); }
 	operator const char* () const {return data ? data : "";}
 	void operator = (String const & a) { *this = (const char*)a; }

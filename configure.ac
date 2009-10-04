@@ -11,7 +11,7 @@ AC_PROG_CXX
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 
-AC_CHECK_HEADERS(stdint.h)
+AC_CHECK_HEADERS(stdint.h windows.h)
 AC_CHECK_LIB(m, main)
 
 dnl Check for SDL.
@@ -30,7 +30,9 @@ if test "$want_debug" = yes; then
 else
 	CXXFLAGS="$CXXFLAGS -DNDEBUG -Wall"
 fi
-CXXFLAGS="$CXXFLAGS -DUSE_GETTEXT"
+
+dnl Check for gettext.
+AC_CHECK_HEADERS([libintl.h], [CXXFLAGS="$CXXFLAGS -DUSE_GETTEXT"])
 
 dnl Conditional sound compilation.
 if test "$want_sound" = yes; then

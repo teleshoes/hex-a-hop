@@ -7,11 +7,11 @@
 #include <errno.h>
 #include <string.h>
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #define ERROR_PRINTF(...) { fprintf(stderr, "%s:%s:%u Error: ", __FILE__, __PRETTY_FUNCTION__, __LINE__); fprintf(stderr,__VA_ARGS__); fflush(stderr); }
 
-int main(int argc, const char *argv[])
+int main(int argc, char** argv)
 {
 	FILE* f = NULL;
 	uint32_t *tmp = NULL;

@@ -7,7 +7,7 @@
 #include <errno.h>
 #include <string.h>
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #define IMAGE_DAT_OR_MASK 0xff030303 // Reduce colour depth of images slightly for better compression (and remove useless top 8 bits!)
 
@@ -44,7 +44,7 @@ static int IsEmpty(SDL_Surface* im, int x, int y, int w, int h)
 	return 1;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, char** argv)
 {
 	typedef unsigned int uint32;
 	SDL_Surface * g = NULL;

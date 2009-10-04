@@ -23,7 +23,6 @@
 #include <iostream>
 #include <cctype> // TODO: remove it later
 #include <errno.h>
-#include <iconv.h>
 
 //////////////////////////////////////////////////////
 // Config
@@ -88,32 +87,37 @@ int keyState[SDLK_LAST] = {0};
 
 FILE *file_open( const char *file, const char *flags )
 {
-//	printf("file_open( \"%s\", \"%s\" )\n", file, flags );
 	extern String base_path;
 	static String filename; // static to reduce memory alloc/free calls.
-	if (file[0]=='/') //If a full path is specified, don't prepend base_path
-		filename = "";
-	else
+
+	//printf("file_open( \"%s\", \"%s\" )\n", file, flags );
+	if (strncmp(file, "save", 4) == 0)
 	{
-		if (strncmp(file, "save", 4) == 0)
+#ifndef WIN32
+		const char *home = getenv("HOME");
+		if (home) 
 		{
-			const char *home = getenv("HOME");
-			if (home) 
-			{
-				char save_path[PATH_MAX];
-				snprintf(save_path, sizeof(save_path), "%s/.hex-a-hop", home);
-				if (!strchr(flags, 'r'))
-					if (mkdir(save_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != -1)
-						printf("Creating directory \"%s\"\n", (const char *)save_path);
-				strncat(save_path, "/", sizeof(save_path));
-				filename = save_path;
-			}
-			else filename = "/tmp/";
+			char save_path[PATH_MAX];
+			snprintf(save_path, sizeof(save_path), "%s/.hex-a-hop", home);
+			if (!strchr(flags, 'r'))
+				if (mkdir(save_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != -1)
+					printf("Creating directory \"%s\"\n", (const char *)save_path);
+			strncat(save_path, "/", sizeof(save_path));
+			filename = save_path;
+			filename += file;
 		}
-		else filename = base_path;
+		else
+		{
+			filename = "/tmp/";
+			filename += file;
+		}
+#else
+		filename = base_path + file;
+#endif
 	}
-	filename += file;
-//	printf("   -> \"%s\"\n", filename );
+	else
+		filename = base_path + file;
+	//printf("   -> \"%s\"\n", (const char*) filename );
 
 	filename.fix_backslashes();
 	FILE* f = fopen( filename, flags );
@@ -4095,8 +4099,7 @@ retry_pos:
 	}
 	void LoadGraphics()
 	{
-		extern String base_path;
-		#define X(NAME,FILE,ALPHA) NAME = Load(base_path + "/" + FILE + BMP_SUFFIX, ALPHA);
+		#define X(NAME,FILE,ALPHA) NAME = Load(String(FILE) + BMP_SUFFIX, ALPHA);
 		#include "gfx_list.h"
 
 		static int first = 1;

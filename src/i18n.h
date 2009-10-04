@@ -37,6 +37,7 @@ static GetTextInit gettext_init;
 #else
 
 #define _(String) String
+#define ngettext(a,b,n) ((n)?(b):(a))
 
 #endif
 

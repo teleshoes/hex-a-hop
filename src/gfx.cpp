@@ -25,11 +25,11 @@
 #include <cassert>
 
 #ifdef WIN32
-	#include <SDL_syswm.h>
+/*	#include <SDL_syswm.h>
 	#include <shellapi.h> // Windows header for drag & drop
 	#ifdef USE_BBTABLET
 		#include "bbtablet/bbtablet.h"
-	#endif
+	#endif*/
 #else
 	#undef USE_BBTABLET
 #endif
@@ -406,7 +406,7 @@ int main(int /*argc*/, char * /*argv*/[])
 				break;
 
 #ifdef WIN32
-			case SDL_SYSWMEVENT:
+/*			case SDL_SYSWMEVENT:
 			{
 				SDL_SysWMmsg* m = e.syswm.msg;
 				hwnd = m->hwnd;
@@ -437,7 +437,7 @@ int main(int /*argc*/, char * /*argv*/[])
 				}
 
 				break;
-			}
+			}*/
 #endif
 
 			case SDL_ACTIVEEVENT:

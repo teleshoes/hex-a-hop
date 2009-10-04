@@ -1,5 +1,5 @@
 /* Lips of Suna
- * Copyright© 2007-2008 Lips of Suna development team.
+ * Copyright© 2007-2009 Lips of Suna development team.
  *
  * Lips of Suna is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -13,6 +13,13 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Lips of Suna. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * \addtogroup lisys System
+ * @{
+ * \addtogroup lisysDir Directory
+ * @{
  */
 
 #ifndef __SYSTEM_DIRECTORY_H__
@@ -80,3 +87,7 @@ LISYS_DIR_SORTER_ALPHA (const char** name0,
 #endif
 
 #endif
+
+/** @} */
+/** @} */
+
