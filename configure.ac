@@ -1,4 +1,4 @@
-AC_INIT([Hex-a-hop], [1.0.1], [http://hexahop.sourceforge.net], [hex-a-hop])
+AC_INIT([Hex-a-hop], [1.1.0], [http://hexahop.sourceforge.net], [hex-a-hop])
 AC_CONFIG_AUX_DIR([msc])
 AC_CONFIG_MACRO_DIR([msc/m4])
 AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION)
@@ -22,7 +22,7 @@ dnl Arguments.
 AC_ARG_ENABLE([debug], AC_HELP_STRING([--disable-debug], [Do not compile with debugging symbols]), [want_debug=no], [want_debug=yes])
 AC_ARG_ENABLE([sound], AC_HELP_STRING([--disable-sound], [Do not compile with sound support]), [want_sound=no], [want_sound=yes])
 AC_ARG_ENABLE([sdlttf], AC_HELP_STRING([--disable-sdlttf], [Use SDL_Pango instead of SDL_ttf]), [want_ttf=no], [want_ttf=yes])
-AC_ARG_ENABLE([relative-paths], AC_HELP_STRING([--enable-relative-paths], [Install everything under a single directory]), [want_relative=yes], [want_relative=no])
+AC_ARG_ENABLE([relpath], AC_HELP_STRING([--enable-relpath], [Install everything under a single directory]), [want_relative=yes], [want_relative=no])
 
 dnl Compilation flags.
 if test "$want_debug" = yes; then
