@@ -10,6 +10,7 @@ AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_CC_STDC
 AC_HEADER_STDC
+AM_GNU_GETTEXT([external])
 
 AC_CHECK_HEADERS(stdint.h windows.h)
 AC_CHECK_LIB(m, main)
@@ -30,9 +31,6 @@ if test "$want_debug" = yes; then
 else
 	CXXFLAGS="$CXXFLAGS -DNDEBUG -Wall"
 fi
-
-dnl Check for gettext.
-AC_CHECK_HEADERS([libintl.h], [CXXFLAGS="$CXXFLAGS -DUSE_GETTEXT"])
 
 dnl Conditional sound compilation.
 if test "$want_sound" = yes; then
@@ -80,4 +78,5 @@ AC_OUTPUT([
 Makefile
 data/Makefile
 src/Makefile
+po/Makefile.in
 ])

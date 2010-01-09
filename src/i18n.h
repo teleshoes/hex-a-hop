@@ -18,9 +18,10 @@
 #ifndef _I18N_H
 #define _I18N_H
 
-#ifdef USE_GETTEXT
-
-#include <libintl.h>
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+#include "gettext.h"
 #define _(String) gettext (String)
 
 class GetTextInit
@@ -33,12 +34,5 @@ class GetTextInit
 };
 
 static GetTextInit gettext_init;
-
-#else
-
-#define _(String) String
-#define ngettext(a,b,n) ((n)?(b):(a))
-
-#endif
 
 #endif

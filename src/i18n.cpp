@@ -15,11 +15,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA.
 
-#ifdef USE_GETTEXT
-
 #include "i18n.h"
-
-#include <libintl.h>
 #include <locale.h>
 #include <langinfo.h>
 
@@ -32,7 +28,7 @@ GetTextInit::GetTextInit()
 		setlocale (LC_CTYPE, "");
 		setlocale (LC_COLLATE, "");
 		textdomain ("hex-a-hop");
-		bindtextdomain ("hex-a-hop", NULL);
+		bindtextdomain ("hex-a-hop", LOCALEDIR);
 	}
 }
 
@@ -46,4 +42,3 @@ const char *GetTextInit::GetEncoding() const
 	return locale_enc;
 }
 
-#endif

@@ -1,3 +1,8 @@
+2010-01-09  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.am (EXTRA_DIST): New variable.
+	* configure.ac (AC_OUTPUT): Add po/Makefile.in.
+
 1.0.1:
  * Autotoolized the project.
  * Changed the directory structure a bit.
