@@ -21,8 +21,14 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+
+#ifdef ENABLE_NLS
 #include "gettext.h"
 #define _(String) gettext (String)
+#else
+#define _(String) String
+#define ngettext(a,b,n) ((n)?(b):(a))
+#endif  // ENABLE_NLS
 
 class GetTextInit
 {
@@ -30,7 +36,9 @@ class GetTextInit
 		static bool IsInit;
 	public:
 		GetTextInit();
+#ifdef ENABLE_NLS
 		const char *GetEncoding() const;
+#endif
 };
 
 static GetTextInit gettext_init;

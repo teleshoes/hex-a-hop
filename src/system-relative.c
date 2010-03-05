@@ -37,6 +37,10 @@
 #ifdef HAVE_WINDOWS_H
 #include <windows.h>
 #endif
+#ifdef __APPLE__
+  #include "CoreFoundation/CoreFoundation.h"
+#endif
+
 #include "system-relative.h"
 
 /**
@@ -192,7 +196,19 @@ lisys_relative_exedir ()
 	}
 	*(ptr + 1) = '\0';
 	return tmp;
+#elif defined __APPLE__
+	// This makes relative paths work in C++ in Xcode by determining the Resources path inside the .app bundle
+	char path[1024];
+
+  CFBundleRef mainBundle = CFBundleGetMainBundle();
+	CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL( mainBundle ); 
+  if( !CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)path, sizeof(path)) )
+		return NULL;
+	CFRelease(resourcesURL);
+
+	return strdup (path);
 #else
+
 #warning "Not supported."
 	return NULL;
 #endif

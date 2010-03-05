@@ -210,7 +210,11 @@ static void Print_Pango_Aligned(int x, int y, int width, const std::string &text
 bool TextInit(const char* base)
 {
 	std::string dir(base);
-	std::string name(dir + "/font.ttf");
+
+	// Translate this if your language requires a specific font.
+	std::string fontname(_("font.ttf"));
+
+	std::string name(dir + "/" + fontname);
 
 	TTF_Init();
 	font = TTF_OpenFont(name.c_str(), 16);
@@ -433,7 +437,7 @@ void PrintC(bool split, int x, int y, const char * string, ...)
 
 void ConvertToUTF8(const std::string &text_locally_encoded, char *text_utf8, size_t text_utf8_length)
 {
-#ifdef USE_GETTEXT
+#ifdef ENABLE_NLS
 	// Is this portable?
 	size_t text_length = text_locally_encoded.length()+1;
 	errno = 0;

@@ -58,4 +58,5 @@ nonfreeinfo = \
 	
 datadir = $(DATADIR)
 data_DATA = $(freedata) $(nonfreedata)
-EXTRA_DIST = $(freedata) $(freeinfo) $(nonfreedata) $(nonfreeinfo)
+EXTRA_DIST = $(freedata) $(freeinfo) $(nonfreedata) $(nonfreeinfo) \
+	hex-a-hop.png hex-a-hop.icns
