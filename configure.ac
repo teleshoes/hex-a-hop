@@ -32,6 +32,10 @@ else
 	CXXFLAGS="$CXXFLAGS -DNDEBUG -Wall"
 fi
 
+dnl Check for SDL_image.
+SDL_LIBS="$SDL_LIBS -lSDL_image"
+SDL_CFLAGS="$SDL_CFLAGS"
+
 dnl Conditional sound compilation.
 if test "$want_sound" = yes; then
 	MAYBE_SOUND="sound"

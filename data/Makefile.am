@@ -1,15 +1,15 @@
 freedata = \
-	emi.dat \
-	font.dat \
+	emi.png \
 	font.ttf \
-	gradient.dat \
-	icon.bmp \
+	gradient.png \
+	hex-a-hop.png \
+	hex-a-hop-16.png \
 	levels.dat \
-	map.dat \
-	map_top.dat \
-	tiles.dat \
-	tiles_reflect.dat \
-	title.dat \
+	map.png \
+	map_top.png \
+	tiles.png \
+	tiles_reflect.png \
+	title.png \
 	sound-crack.ogg \
 	sound-death.ogg \
 	sound-explode-big.ogg \

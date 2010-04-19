@@ -23,6 +23,7 @@
 #include <iostream>
 #include <cctype> // TODO: remove it later
 #include <errno.h>
+#include <SDL_image.h>
 
 //////////////////////////////////////////////////////
 // Config
@@ -41,7 +42,7 @@
 	#define BMP_SUFFIX ".bmp"
 #else
 	#define USE_LEVEL_PACKFILE
-	#define BMP_SUFFIX ".dat"
+	#define BMP_SUFFIX ".png"
 #endif
 
 
@@ -85,15 +86,16 @@ void RenderTile(bool reflect, int t, int x, int y, int cliplift=-1);
 
 int keyState[SDLK_LAST] = {0};
 
-FILE *file_open( const char *file, const char *flags )
+String GetFilePath(const char* file, const char* flags)
 {
 	extern String base_path;
-	static String filename; // static to reduce memory alloc/free calls.
+	String filename;
 
-	//printf("file_open( \"%s\", \"%s\" )\n", file, flags );
+#ifdef WIN32
+	filename = base_path + file;
+#else
 	if (strncmp(file, "save", 4) == 0)
 	{
-#ifndef WIN32
 		const char *home = getenv("HOME");
 		if (home) 
 		{
@@ -111,15 +113,18 @@ FILE *file_open( const char *file, const char *flags )
 			filename = "/tmp/";
 			filename += file;
 		}
-#else
-		filename = base_path + file;
-#endif
 	}
 	else
 		filename = base_path + file;
-	//printf("   -> \"%s\"\n", (const char*) filename );
-
+#endif
 	filename.fix_backslashes();
+
+	return filename;
+}
+
+FILE *file_open( const char *file, const char *flags )
+{
+	String filename = GetFilePath(file, flags);
 	FILE* f = fopen( filename, flags );
 
 	if (!f && strncmp(file, "save", 4) != 0)
@@ -161,7 +166,7 @@ FILE *file_open( const char *file, const char *flags )
 #define MIN(a,b) ((a)<(b) ? (a) : (b))
 #define ABS(a) ((a)<0 ? -(a) : (a))
 
-#define WATER_COLOUR 31 | ((IMAGE_DAT_OR_MASK>>16)&255), 37 | ((IMAGE_DAT_OR_MASK>>8)&255), 135 | ((IMAGE_DAT_OR_MASK>>0)&255)
+#define WATER_COLOUR 30, 38, 134
 
 #define ROTATION_TIME 0.25
 #define BUILD_TIME 1
@@ -2322,7 +2327,6 @@ struct HexPuzzle : public State
 	SDL_Surface* Load(const char * bmp, bool colourKey=true)
 	{
 		typedef unsigned int uint32;
-		uint32* tmp = 0;
 
 		SDL_Surface * g = 0;
 
@@ -2380,52 +2384,13 @@ struct HexPuzzle : public State
 		}
 #endif			
 
-		FILE* f = file_open(bmp, "rb");
-		if (!f) FATAL("Unable to open file", bmp);
+		g = IMG_Load(GetFilePath(bmp, "rb"));
 
-		int16_t w,h;
-		fread(&w, sizeof(w), 1, f);
-		fread(&h, sizeof(h), 1, f);
-		w = SWAP16(w);
-		h = SWAP16(h);
-		if (w>1500 || h>1500 || w<=0 || h<=0) FATAL("Invalid file", bmp);
-
-		tmp = new uint32[(int)w*h];
-		
-		uint32 c = 0;
-		uint32 cnt = 0;
-		for (int p=0; p<(int)w*h; p++)
-		{
-			if (cnt)
-				cnt -= 0x1;
-			else
-			{
-				fread(&c, sizeof(c), 1, f);
-				c = SWAP32(c);
-				cnt = c >> 24;
-				if (cnt==255) {
-					fread(&cnt, sizeof(cnt), 1, f);
-					cnt = SWAP32(cnt);
-				}
-			}
-			tmp[p] = c | 0xff000000;
-		}
-
-		g = SDL_CreateRGBSurfaceFrom(tmp, w, h, 32, w*4, 
-			0xff0000,
-			0xff00,
-			0xff,
-			0xff000000 );
-
-		fclose(f);
-
-
-		if (!g) FATAL("Unable to create SDL surface");
+		if (!g) FATAL("Unable to load file", bmp);
 		if (colourKey)
 			SDL_SetColorKey(g, SDL_SRCCOLORKEY, SDL_MapRGB(g->format, WATER_COLOUR));
 		SDL_Surface * out = SDL_DisplayFormat(g);
 		SDL_FreeSurface(g);
-		delete [] tmp;
 		if (!out) FATAL("Unable to create SDL surface (SDL_DisplayFormat)");
 		return out;
 	}

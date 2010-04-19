@@ -23,6 +23,8 @@
 #include "text.h"
 #include "system-relative.h"
 #include <cassert>
+#include <SDL.h>
+#include <SDL_image.h>
 
 #ifdef WIN32
 /*	#include <SDL_syswm.h>
@@ -244,49 +246,11 @@ int main(int /*argc*/, char * /*argv*/[])
 	if (!TextInit(base_path))
 		return 1;
 
-	SDL_Surface* icon = SDL_LoadBMP(base_path + "/icon.bmp");
+	SDL_Surface* icon = IMG_Load(base_path + "/hex-a-hop-16.png");
 	if (icon)
 	{
-		static unsigned int mask[32] = {
-			0x00001fc0,
-			0x00003fe0,
-			0x00007ff0,
-			0x00007df8,
-			0x0000f0f8,
-			0x0000f07c,
-			0x0005f87c,
-			0x0fbfff3c,
-
-			0x1ffffffe,
-			0x3ffffffe,
-			0x3ffffffe,
-			0x7ffffffe,
-			0x7ffffffe,
-			0x7ffffffe,
-			0x7ffffffe,
-			0xefffffff,
-
-			0x1fffffff,
-			0x3fffffff,
-			0x3fffffff,
-			0x3fffffff,
-			0x3fffffff,
-			0x3fffffff,
-			0x3fffffff,
-			0x3ffffffe,
-
-			0x3ffffff8,
-			0x3ffffff0,
-			0x3ffffff0,
-			0x3ffffff0,
-			0x3fffffe0,
-			0x3fffffe0,
-			0x1ffffff0,
-			0x1ffffff1,
-		};
-		for (int i=0; i<32; i++)
-			mask[i] = ((mask[i]>>24) | ((mask[i]>>8)&0xff00) | ((mask[i]<<8)&0xff0000) | ((mask[i]<<24)&0xff000000));
-		SDL_WM_SetIcon(icon, (unsigned char*) mask);
+		SDL_SetColorKey(icon, SDL_SRCCOLORKEY, SDL_MapRGB(icon->format, 0, 255, 255));
+		SDL_WM_SetIcon(icon, NULL);
 		SDL_FreeSurface(icon);
 	}
 
