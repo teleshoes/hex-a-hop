@@ -6,10 +6,6 @@ EXTRA_DIST = src/SDLMain.h src/SDLMain.m src/config.h.cmake
 bin_PROGRAMS = \
 	hex-a-hop
 
-noinst_PROGRAMS = \
-	dat2bmp \
-	bmp2dat
-
 hex_a_hop_SOURCES = \
 	gettext.h \
 	gfx.cpp \
@@ -34,16 +30,4 @@ hex_a_hop_SOURCES = \
 	video.h
 
 hex_a_hop_LDADD = \
-	$(SDL_LIBS)
-
-dat2bmp_SOURCES = \
-	tools/dat2bmp.c
-
-dat2bmp_LDADD = \
-	$(SDL_LIBS)
-
-bmp2dat_SOURCES = \
-	tools/bmp2dat.c
-
-bmp2dat_LDADD = \
 	$(SDL_LIBS)

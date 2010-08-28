@@ -1,4 +1,4 @@
-AC_INIT([Hex-a-hop], [1.1.0], [http://hexahop.sourceforge.net], [hex-a-hop])
+AC_INIT([Hex-a-hop], [1.2.0], [http://hexahop.sourceforge.net], [hex-a-hop])
 AC_CONFIG_AUX_DIR([msc])
 AC_CONFIG_MACRO_DIR([msc/m4])
 AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION)
@@ -62,17 +62,23 @@ fi
 
 dnl Relative paths.
 if test "$want_relative" = yes; then
+	APPDIR="${prefix}/data"
 	DATADIR="${prefix}/data"
 	bindir="${prefix}"
+	docdir="${prefix}/data"
+	htmldir="${prefix}/data"
+	mandir="${prefix}/data"
 	CXXFLAGS="$CXXFLAGS -DRELATIVE_PATHS"
 	LDFLAGS="-Wl,-rpath -Wl,\\\$\$ORIGIN/lib $LDFLAGS"
 else
+	APPDIR="${datadir}/applications"
 	DATADIR="${datadir}/${PACKAGE}"
 	CXXFLAGS="$CXXFLAGS -DDATADIR=\\\"\"${datadir}/${PACKAGE}\"\\\""
 fi
 
 dnl Export configuration.
 AC_SUBST([CXXFLAGS])
+AC_SUBST([APPDIR])
 AC_SUBST([DATADIR])
 AC_SUBST([MAYBE_SOUND])
 AC_SUBST([SDL_LIBS])

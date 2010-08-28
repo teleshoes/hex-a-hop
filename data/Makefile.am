@@ -1,9 +1,23 @@
+applicationfiles = hex-a-hop.desktop
+applicationfilesdir = $(APPDIR)
+applicationfiles_DATA = $(applicationfiles)
+
+htmlfiles = hints.html
+htmlfilesdir = $(htmldir)
+htmlfiles_DATA = $(htmlfiles)
+
+iconfiles = hex-a-hop.png hex-a-hop-16.png
+iconfilesdir = $(DATADIR)
+iconfiles_DATA = $(iconfiles)
+
+manfiles = hex-a-hop.6
+manfilesdir = $(mandir)
+manfiles_DATA = $(manfiles)
+
 freedata = \
 	emi.png \
 	font.ttf \
 	gradient.png \
-	hex-a-hop.png \
-	hex-a-hop-16.png \
 	levels.dat \
 	map.png \
 	map_top.png \
@@ -59,4 +73,5 @@ nonfreeinfo = \
 datadir = $(DATADIR)
 data_DATA = $(freedata) $(nonfreedata)
 EXTRA_DIST = $(freedata) $(freeinfo) $(nonfreedata) $(nonfreeinfo) \
-	hex-a-hop.png hex-a-hop.icns
+	$(applicationfiles) $(htmlfiles) $(iconfiles) $(manfiles) \
+	hex-a-hop.icns
