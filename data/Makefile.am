@@ -21,6 +21,9 @@ freedata = \
 	levels.dat \
 	map.png \
 	map_top.png \
+	music-ending.ogg \
+	music-game.ogg \
+	music-game-1.ogg \
 	tiles.png \
 	tiles_reflect.png \
 	title.png \
@@ -36,6 +39,9 @@ freedata = \
 	sound-used-jump.ogg \
 	sound-win.ogg
 freeinfo = \
+	music-ending.ogg.xml \
+	music-game-1.ogg.xml \
+	music-game.ogg.xml \
 	sound-crack.ogg.xml \
 	sound-death.ogg.xml \
 	sound-explode-big.ogg.xml \
@@ -48,9 +54,6 @@ freeinfo = \
 	sound-used-jump.ogg.xml \
 	sound-win.ogg.xml
 nonfreedata = \
-	music-ending-nonfree.ogg \
-	music-game-nonfree.ogg \
-	music-game-nonfree-1.ogg \
 	sound-builder-nonfree.ogg \
 	sound-collapse-nonfree.ogg \
 	sound-found-antiice-nonfree.ogg \
@@ -59,9 +62,6 @@ nonfreedata = \
 	sound-lift-up-nonfree.ogg \
 	sound-spinner-nonfree.ogg
 nonfreeinfo = \
-	music-ending-nonfree.ogg.xml \
-	music-game-nonfree-1.ogg.xml \
-	music-game-nonfree.ogg.xml \
 	sound-builder-nonfree.ogg.xml \
 	sound-collapse-nonfree.ogg.xml \
 	sound-found-antiice-nonfree.ogg.xml \
