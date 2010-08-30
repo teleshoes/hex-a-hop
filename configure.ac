@@ -15,6 +15,12 @@ AM_GNU_GETTEXT([external])
 AC_CHECK_HEADERS(stdint.h windows.h)
 AC_CHECK_LIB(m, main)
 
+AM_ICONV
+if test "$am_cv_func_iconv" = yes; then
+       AC_DEFINE_UNQUOTED(ICONV_CONST, [$am_cv_proto_iconv_arg1],
+               [Define as const if the declaration of iconv() needs const.])
+fi
+
 dnl Check for SDL.
 SDL_VERSION=1.2.0
 AM_PATH_SDL($SDL_VERSION, :, AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
