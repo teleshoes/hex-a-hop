@@ -930,8 +930,8 @@ msgstr "VEDERE ANCHE"
 
 # type: Plain text
 #: debian/hex-a-hop.6:41
-msgid "You can find more about the game on its homepage: http://www.aceinternet.co.uk/~mokona/"
-msgstr "È possibile saperne di più circa il gioco sulla homepage: http://www.aceinternet.co.uk/~mokona/"
+msgid "You can find more about the game on its homepage: http://hexahop.sourceforge.net/"
+msgstr "È possibile saperne di più circa il gioco sulla homepage: http://hexahop.sourceforge.net/"
 
 # type: Plain text
 #: debian/hex-a-hop.6:43

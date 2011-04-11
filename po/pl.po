@@ -1121,10 +1121,9 @@ msgstr "PATRZ TEŻ"
 # type: Plain text
 #: debian/hex-a-hop.6:41
 msgid ""
-"You can find more about the game on its homepage: http://www.aceinternet.co."
-"uk/~mokona/"
+"You can find more about the game on its homepage: http://hexahop.sourceforge.net/"
 msgstr ""
-"Więcej o grze na jej stronie domowej: http://www.aceinternet.co.uk/~mokona/"
+"Więcej o grze na jej stronie domowej: http://hexahop.sourceforge.net/"
 
 # type: Plain text
 #: debian/hex-a-hop.6:43

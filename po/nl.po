@@ -1106,11 +1106,9 @@ msgstr "ZIE OOK"
 # type: Plain text
 #: debian/hex-a-hop.6:41
 msgid ""
-"You can find more about the game on its homepage: http://www.aceinternet.co."
-"uk/~mokona/"
+"You can find more about the game on its homepage: http://hexahop.sourceforge.net/"
 msgstr ""
-"Meer informatie over het spel is te vinden op de homepage: http://www."
-"aceinternet.co.uk/~mokona/"
+"Meer informatie over het spel is te vinden op de homepage: http://hexahop.sourceforge.net/"
 
 # type: Plain text
 #: debian/hex-a-hop.6:43

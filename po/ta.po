@@ -1070,11 +1070,9 @@ msgstr "SEE ALSO"
 # type: Plain text
 #: debian/hex-a-hop.6:41
 msgid ""
-"You can find more about the game on its homepage: http://www.aceinternet.co."
-"uk/~mokona/"
+"You can find more about the game on its homepage: http://hexahop.sourceforge.net/"
 msgstr ""
-"இந்த பிணைய பக்கத்தில் விளையாட்டைப்பற்றி மேலும் பாக்கலாம். http://www.aceinternet.co.uk/"
-"~mokona/"
+"இந்த பிணைய பக்கத்தில் விளையாட்டைப்பற்றி மேலும் பாக்கலாம். http://hexahop.sourceforge.net/"
 
 # type: Plain text
 #: debian/hex-a-hop.6:43

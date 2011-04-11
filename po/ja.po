@@ -1123,11 +1123,9 @@ msgstr "関連項目"
 # type: Plain text
 #: debian/hex-a-hop.6:41
 msgid ""
-"You can find more about the game on its homepage: http://www.aceinternet.co."
-"uk/~mokona/"
+"You can find more about the game on its homepage: http://hexahop.sourceforge.net/"
 msgstr ""
-"本ゲームに関するさらに詳しい情報は、ホームページで参照できます: http://www."
-"aceinternet.co.uk/~mokona/"
+"本ゲームに関するさらに詳しい情報は、ホームページで参照できます: http://hexahop.sourceforge.net/"
 
 # type: Plain text
 #: debian/hex-a-hop.6:43
