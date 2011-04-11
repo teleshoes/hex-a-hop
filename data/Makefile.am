@@ -74,4 +74,5 @@ datadir = $(DATADIR)
 data_DATA = $(freedata) $(nonfreedata)
 EXTRA_DIST = $(freedata) $(freeinfo) $(nonfreedata) $(nonfreeinfo) \
 	$(applicationfiles) $(htmlfiles) $(iconfiles) $(manfiles) \
+	hex-a-hop.xpm \
 	hex-a-hop.icns
