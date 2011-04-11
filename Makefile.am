@@ -1,7 +1,7 @@
 SUBDIRS = src data po
 ACLOCAL_AMFLAGS = -I msc
 
-EXTRA_DIST = msc/config.rpath CMakeList.txt
+EXTRA_DIST = msc/config.rpath CMakeLists.txt
 
 MAINTAINERCLEANFILES = \
 	aclocal.m4 \
