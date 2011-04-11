@@ -36,7 +36,7 @@ struct PackFile1
    * Maybe it's also compiler dependent ...
    * 
    * See also http://c-faq.com/struct/padding.html,
-   * http://c-faq.com/strangeprob/ptralign.html and Debian bug #442854
+   * http://c-faq.com/strangeprob/ptralign.html and http://bugs.debian.org/442854
    * (Need to refer to a C FAQ in a (so called) C++ program, argh ...)
    * */
 	class Entry {
