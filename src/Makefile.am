@@ -2,6 +2,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 AM_CFLAGS = $(CFLAGS) $(SDL_CFLAGS)
 AM_CXXFLAGS = $(CXXFLAGS) $(SDL_CFLAGS)
 EXTRA_DIST = src/SDLMain.h src/SDLMain.m src/config.h.cmake
+MAINTAINERCLEANFILES = Makefile.in config.h.in config.h.in~
 
 bin_PROGRAMS = \
 	hex-a-hop

@@ -1,7 +1,7 @@
 AC_PREREQ([2.58])
 AC_INIT([Hex-a-hop],[1.2.0],[http://hexahop.sourceforge.net],[hex-a-hop])
 AC_CONFIG_AUX_DIR([msc])
-AC_CONFIG_MACRO_DIR([msc/m4])
+AC_CONFIG_MACRO_DIR([msc])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_HEADERS([src/config.h])
 AM_MAINTAINER_MODE

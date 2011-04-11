@@ -76,3 +76,5 @@ EXTRA_DIST = $(freedata) $(freeinfo) $(nonfreedata) $(nonfreeinfo) \
 	$(applicationfiles) $(htmlfiles) $(iconfiles) $(manfiles) \
 	hex-a-hop.xpm \
 	hex-a-hop.icns
+
+MAINTAINERCLEANFILES = Makefile.in
