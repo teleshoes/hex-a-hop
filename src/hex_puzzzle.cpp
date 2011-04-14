@@ -115,10 +115,7 @@ String GetFilePath(const char* file, const char* flags)
 			filename += file;
 		}
 		else
-		{
-			filename = "/tmp/";
-			filename += file;
-		}
+			filename = base_path + file;
 	}
 	else
 		filename = base_path + file;
