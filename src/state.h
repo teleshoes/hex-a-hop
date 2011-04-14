@@ -52,8 +52,8 @@ public:
 		char* newdata = (char*)realloc(data, (i+1)*sizeof(char));
 		if(!newdata) return;
 		else data = newdata;
-		data[len] = '\0';
 		len = i;
+		data[len] = '\0';
 	}
 	String() : len(0), data(NULL) { reserve(32); *data = '\0'; }
 	String(String const & s) : len(0), data(NULL) { reserve(s.len); strcpy(data, s.data); }
