@@ -68,7 +68,7 @@ struct Menu {
 	virtual void Mouse(int /*x*/, int /*y*/, int /*dx*/, int /*dy*/, int buttons_pressed, int /*buttons_released*/, int /*buttons*/) 
 	{
 		if (buttons_pressed==4 || buttons_pressed==2)
-			Cancel();
+			Pop();
 	}
 	
 	virtual void Move(int /*dir*/) {}
@@ -308,7 +308,7 @@ struct HintReview : public HintMessage
 					HintMessage::GetOuterWindowRect().h)
 				Move(1);
 			else
-				Cancel();
+				Pop();
 		}
 		else if (buttons_pressed==8)
 			Move(-1);
@@ -401,8 +401,6 @@ enum option {
 #endif
 	OPT_OPTIONS,
 	OPT_QUIT,
-	OPT_QUIT_CONFIRM,
-	OPT_QUIT_CANCEL,
 	OPT_QUIT_MENU_CONFIRM,
 	OPT_HELP,
 	OPT_GAMESLOT_NEW,
@@ -438,8 +436,6 @@ const char * optionString[] = {
 #endif
 	_("Options"),
 	_("Quit"),
-	_("Yes"),
-	_("No"),
 	_("Return to Title"),
 	_("Help"),
 	_("Start New Game"),
@@ -1030,20 +1026,7 @@ struct TitleMenu : public OptMenuTitle
 #endif
 	}
 	bool KeyPressed(int key, int mod);
-};
-
-struct QuitConfirmMenu : public OptMenuTitle
-{
-	QuitConfirmMenu() : OptMenuTitle(_("Quit: Are you sure?"))
-	{
-		opt[num_opt++] = OPT_QUIT_CONFIRM;
-		opt[select=num_opt++] = OPT_QUIT_CANCEL;
-		Init();
-
-		r.y += FONT_SPACING*1;
-		r2.y += FONT_SPACING*2;
-	}
-
+	void Cancel ();
 };
 
 struct DeleteConfirmMenu : public OptMenuTitle
@@ -1077,25 +1060,12 @@ struct DeleteConfirmMenu : public OptMenuTitle
 	}
 };
 
-bool TitleMenu::KeyPressed(int key, int mod)
-{
-	if (key==SDLK_DELETE || key==SDLK_BACKSPACE || key==SDLK_F2)
-	{
-		if (select<0 || select>=num_opt || opt[select]<OPT_GAMESLOT_0 || opt[select]>OPT_GAMESLOT_LAST)
-			return true;
-		int i = opt[select] - OPT_GAMESLOT_0;
-
-		new DeleteConfirmMenu(i);
-
-		return true;
-	}
-	return OptMenu::KeyPressed(key, mod);
-}
-
 struct PauseMenu : public OptMenu
 {
+	bool escape_to_map;
 	PauseMenu(bool isMap, bool allowGotoMap, int allowEnd, int allowEnd2) : OptMenu(_("Paused"))
 	{
+		escape_to_map = !isMap && allowGotoMap;
 		opt[num_opt++] = OPT_RESUME;
 		if (!isMap)
 			opt[num_opt++] = OPT_RESTART;
@@ -1103,19 +1073,19 @@ struct PauseMenu : public OptMenu
 		opt[num_opt++] = OPT_HELP;
 		if (allowEnd || allowEnd2)
 			opt[num_opt++] = allowEnd2 ? OPT_END2 : OPT_END;
-		opt[num_opt++] = (isMap || !allowGotoMap) ? OPT_QUIT_MENU_CONFIRM : OPT_GOTO_MAP;
+		opt[num_opt++] = escape_to_map ? OPT_GOTO_MAP : OPT_QUIT_MENU_CONFIRM;
 		Init();
 	}
 	virtual bool KeyPressed(int key, int mod)
 	{
 		if (key=='p' || key==SDLK_PAUSE)
 		{
-			Cancel();
+			Pop();
 			return true;
 		}
 		return Menu::KeyPressed(key, mod);
 	}
-	
+	void Cancel ();
 };
 
 struct OptionMenu : public OptMenuTitle
@@ -1204,6 +1174,26 @@ struct Fader : public Menu
 	}
 };
 
+bool TitleMenu::KeyPressed(int key, int mod)
+{
+	if (key==SDLK_DELETE || key==SDLK_BACKSPACE || key==SDLK_F2)
+	{
+		if (select<0 || select>=num_opt || opt[select]<OPT_GAMESLOT_0 || opt[select]>OPT_GAMESLOT_LAST)
+			return true;
+		int i = opt[select] - OPT_GAMESLOT_0;
+
+		new DeleteConfirmMenu(i);
+
+		return true;
+	}
+	return OptMenu::KeyPressed(key, mod);
+}
+
+void TitleMenu::Cancel ()
+{
+	new Fader (-1, -2);
+}
+
 void Ending::Cancel()
 {
 	if (isMap)
@@ -1212,6 +1202,12 @@ void Ending::Cancel()
 		PlayMusic(HHOP_MUSIC_GAME);
 	new Fader(-1, -6, 0.3);
 //	Pop();
+}
+
+void PauseMenu::Cancel ()
+{
+	opt[select] = escape_to_map ? OPT_GOTO_MAP : OPT_QUIT_MENU_CONFIRM;
+	Select ();
 }
 
 void ToggleFullscreen();
@@ -1224,11 +1220,11 @@ void OptMenu::Select()
 	switch(opt[select])
 	{
 		case OPT_RESUME:
-			Cancel();
+			Pop();
 			break;
 
 		case OPT_RESTART:
-			Cancel();
+			Pop();
 			HackKeyPress('r', KMOD_CTRL);
 			break;
 
@@ -1236,10 +1232,6 @@ void OptMenu::Select()
 		case OPT_GOTO_MAP_CONTINUE:
 			Pop();
 			HackKeyPress(SDLK_ESCAPE, KMOD_CTRL);
-			break;
-
-		case OPT_QUIT:
-			new QuitConfirmMenu();
 			break;
 
 		case OPT_FULLSCREEN:
@@ -1255,7 +1247,7 @@ void OptMenu::Select()
 			break;
 #endif
 
-		case OPT_QUIT_CONFIRM:
+		case OPT_QUIT:
 			new Fader(-1, -2);
 			break;
 
@@ -1272,7 +1264,6 @@ void OptMenu::Select()
 			new HintReview();
 			break;
 
-		case OPT_QUIT_CANCEL:
 		case OPT_BACK:
 			Pop();
 			break;
