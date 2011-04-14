@@ -2340,6 +2340,7 @@ struct HexPuzzle : public State
 		if (strstr(bmp, ".bmp"))
 		{
 			g = SDL_LoadBMP(bmp);
+			if (!g) FATAL("Unable to load BMP file", bmp);
 
 			char out[1024];
 			strcpy(out, bmp);
