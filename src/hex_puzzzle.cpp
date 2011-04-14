@@ -518,7 +518,10 @@ public:
 		{
 			while (numStages > 0 && time[numStages-1] >= t)
 				numStages--;
+			if (currentStage > 0 && currentStage >= numStages)
+				currentStage = numStages - 1;
 		}
+		if (currentStage < 0) currentStage = 0;
 	}
 	void Wipe()
 	{
