@@ -49,11 +49,10 @@ public:
 			FATAL("-ve string length.");
 		if (i <= len)
 			return;
-		char * newdata = (char*)realloc(data, (i+1)*sizeof(char));
+		char* newdata = (char*)realloc(data, (i+1)*sizeof(char));
 		if(!newdata) return;
 		else data = newdata;
-		if(!len)
-			data[0] = '\0';
+		data[len] = '\0';
 		len = i;
 	}
 	String() : len(0), data(NULL) { reserve(32); *data = '\0'; }
@@ -71,6 +70,7 @@ public:
 		}
 		reserve(strlen(a));
 		strncpy(data, a, len);
+		data[len] = '\0';
 	}
 	void operator += (const char * a) { reserve(strlen(a)+len); strcat(data, a); }
 	String operator + (const char * a) const { String ret(*this); ret += a; return ret; }
