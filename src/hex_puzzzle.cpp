@@ -23,6 +23,7 @@
 #include <iostream>
 #include <cctype> // TODO: remove it later
 #include <errno.h>
+#include <pwd.h>
 #include <SDL_image.h>
 
 //////////////////////////////////////////////////////
@@ -97,6 +98,11 @@ String GetFilePath(const char* file, const char* flags)
 	if (strncmp(file, "save", 4) == 0)
 	{
 		const char *home = getenv("HOME");
+		if (!home || !home[0])
+		{
+			struct passwd *pw = getpwuid(getuid());
+			home = pw->pw_dir;
+		}
 		if (home) 
 		{
 			char save_path[PATH_MAX];
