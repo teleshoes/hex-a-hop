@@ -43,18 +43,56 @@ class String
 	int len;
 	char* data;
 public:
-	void reserve(int i) { if (i<0) FATAL("-ve string length."); if (i<=len) return; len=i; data=(char*)realloc(data, (len+1)*sizeof(char)); }
+	void reserve(int i)
+	{
+		if (i < 0)
+			FATAL("-ve string length.");
+		if (i <= len)
+			return;
+		char * newdata = (char*)realloc(data, (i+1)*sizeof(char));
+		if(!newdata) return;
+		else data = newdata;
+		if(!len)
+			data[0] = '\0';
+		len = i;
+	}
 	String() : len(0), data(NULL) { reserve(32); *data = '\0'; }
 	String(String const & s) : len(0), data(NULL) { reserve(s.len); strcpy(data, s.data); }
 	String(const char* s) : len(0), data(NULL) { *this = s; }
 	~String() { free(data); }
 	operator const char* () const {return data ? data : "";}
 	void operator = (String const & a) { *this = (const char*)a; }
-	void operator = (const char * a) { reserve(strlen(a)); strcpy(data, a); }
+	void operator = (const char * a)
+	{
+		if(!a || !a[0])
+		{
+			truncate(0);
+			return;
+		}
+		reserve(strlen(a));
+		strncpy(data, a, len);
+	}
 	void operator += (const char * a) { reserve(strlen(a)+len); strcat(data, a); }
 	String operator + (const char * a) const { String ret(*this); ret += a; return ret; }
-	void truncate (int pos) { data[pos] = '\0'; }
-	void fix_backslashes() { if(data) { for (int i=0; data[i]; i++) { if (data[i]=='\\') data[i]='/'; } } }
+	void truncate (int pos)
+	{
+		if(data && pos < len)
+		{
+			data[pos] = '\0';
+			len = 0;
+		}
+	}
+	void fix_backslashes()
+	{
+		if(data)
+		{
+			for (int i=0; data[i]; i++)
+			{
+				if (data[i]=='\\')
+					data[i]='/';
+			}
+		}
+	}
 };
 
 class State
