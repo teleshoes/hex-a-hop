@@ -71,8 +71,8 @@ nonfreeinfo = \
 	sound-spinner-nonfree.ogg.xml
 	
 datadir = $(DATADIR)
-data_DATA = $(freedata) $(nonfreedata)
-EXTRA_DIST = $(freedata) $(freeinfo) $(nonfreedata) $(nonfreeinfo) \
+data_DATA = $(freedata)
+EXTRA_DIST = $(freedata) $(freeinfo) \
 	$(applicationfiles) $(htmlfiles) $(iconfiles) $(manfiles) \
 	hex-a-hop.xpm \
 	hex-a-hop.icns
