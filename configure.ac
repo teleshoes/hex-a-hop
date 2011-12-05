@@ -29,10 +29,10 @@ SDL_VERSION=1.2.0
 AM_PATH_SDL($SDL_VERSION, :, AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
 
 # Arguments.
-AC_ARG_ENABLE([debug], AS_HELP_STRING([--disable-debug],[Do not compile with debugging symbols]), [want_debug=no], [want_debug=yes])
-AC_ARG_ENABLE([sound], AS_HELP_STRING([--disable-sound],[Do not compile with sound support]), [want_sound=no], [want_sound=yes])
-AC_ARG_ENABLE([sdlttf], AS_HELP_STRING([--disable-sdlttf],[Use SDL_Pango instead of SDL_ttf]), [want_ttf=no], [want_ttf=yes])
-AC_ARG_ENABLE([relpath], AS_HELP_STRING([--enable-relpath],[Install everything under a single directory]), [want_relative=yes], [want_relative=no])
+AC_ARG_ENABLE([debug], AS_HELP_STRING([--disable-debug],[Do not compile with debugging symbols]), [want_debug=$enableval], [want_debug=yes])
+AC_ARG_ENABLE([sound], AS_HELP_STRING([--disable-sound],[Do not compile with sound support]), [want_sound=$enableval], [want_sound=yes])
+AC_ARG_ENABLE([sdlttf], AS_HELP_STRING([--disable-sdlttf],[Use SDL_Pango instead of SDL_ttf]), [want_ttf=$enableval], [want_ttf=yes])
+AC_ARG_ENABLE([relpath], AS_HELP_STRING([--enable-relpath],[Install everything under a single directory]), [want_relative=$enableval], [want_relative=no])
 
 # Compilation flags.
 if test "$want_debug" = yes; then
