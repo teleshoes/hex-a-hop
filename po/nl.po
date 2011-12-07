@@ -333,7 +333,7 @@ msgid ""
 "All content is Copyright 2005 Tom Beaumont    email: tombeaumont@yahoo.com  "
 "Any constructive criticism gratefully received!"
 msgstr ""
-"Bedankt voor het spelen. Ik hoop de je het leuk vond.\n"
+"Bedankt voor het spelen. Ik hoop dat je het leuk vond.\n"
 "\n"
 "Auteursrecht 2005 Tom Beaumont (e-mail: tombeaumont@yahoo.com)\n"
 "Auteursrecht Nederlandse vertaling 2007 Bas Wijnen (e-mail: wijnen@debian."
@@ -581,7 +581,7 @@ msgstr "Kaart"
 
 #: src/level_list.h:28
 msgid "  Orbital"
-msgstr "Satteliet"
+msgstr "Satelliet"
 
 #: src/level_list.h:29
 msgid "  Hive"
