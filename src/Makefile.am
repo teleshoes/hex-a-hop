@@ -1,6 +1,3 @@
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-AM_CFLAGS = $(CFLAGS) $(SDL_CFLAGS)
-AM_CXXFLAGS = $(CXXFLAGS) $(SDL_CFLAGS)
 EXTRA_DIST = SDLMain.h SDLMain.m config.h.cmake
 MAINTAINERCLEANFILES = Makefile.in config.h.in config.h.in~
 
@@ -29,6 +26,16 @@ hex_a_hop_SOURCES = \
 	text.h \
 	tiletypes.h \
 	video.h
+
+hex_a_hop_CPPFLAGS = \
+	$(DEBUG_FLAGS) \
+	$(TEXT_FLAGS) \
+	$(SOUND_FLAGS) \
+	$(PATH_CPPFLAGS) \
+	$(SDL_CFLAGS)
+
+hex_a_hop_LDFLAGS = \
+	$(PATH_LDFLAGS)
 
 hex_a_hop_LDADD = \
 	$(SDL_LIBS)

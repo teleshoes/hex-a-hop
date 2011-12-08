@@ -36,9 +36,9 @@ AC_ARG_ENABLE([relpath], AS_HELP_STRING([--enable-relpath],[Install everything u
 
 # Compilation flags.
 if test "$want_debug" = yes; then
-	CXXFLAGS="$CXXFLAGS -g -Wall"
+	DEBUG_FLAGS="-g -D_DEBUG"
 else
-	CXXFLAGS="$CXXFLAGS -DNDEBUG -Wall"
+	DEBUG_FLAGS="-DNDEBUG"
 fi
 
 # Check for SDL_image.
@@ -54,19 +54,17 @@ if test "$want_sound" = yes; then
 	SDL_CFLAGS="$SDL_CFLAGS"
 else
 	MAYBE_SOUND=
-	CXXFLAGS="$CXXFLAGS -DDISABLE_SOUND"
+	SOUND_FLAGS="-DDISABLE_SOUND"
 fi
 
 # Conditional Pango/TTF support.
 if test "$want_ttf" = yes; then
 	# Check for SDL_ttf.
 	SDL_LIBS="$SDL_LIBS -lSDL_ttf"
-	SDL_CFLAGS="$SDL_CFLAGS"
 else
 	# Check for SDL_Pango.
 	SDL_LIBS="$SDL_LIBS -lSDL_Pango"
-	SDL_CFLAGS="$SDL_CFLAGS"
-	CXXFLAGS="$CXXFLAGS -DENABLE_PANGO"
+	TEXT_FLAGS="-DENABLE_PANGO"
 fi
 
 # Relative paths.
@@ -77,16 +75,20 @@ if test "$want_relative" = yes; then
 	docdir="${prefix}/data"
 	htmldir="${prefix}/data"
 	mandir="${prefix}/data"
-	CXXFLAGS="$CXXFLAGS -DRELATIVE_PATHS"
-	LDFLAGS="-Wl,-rpath -Wl,\\\$\$ORIGIN/lib $LDFLAGS"
+	PATH_CPPFLAGS="-DRELATIVE_PATHS"
+	PATH_LDFLAGS="-Wl,-rpath -Wl,\\\$\$ORIGIN/lib"
 else
 	APPDIR="${datadir}/applications"
 	DATADIR="${datadir}/${PACKAGE}"
-	CXXFLAGS="$CXXFLAGS -DDATADIR=\\\"\"${datadir}/${PACKAGE}\"\\\""
+	PATH_CPPFLAGS="-DDATADIR=\\\"\"$DATADIR\"\\\" "-DLOCALEDIR=\\\"\"$localedir\"\\\"
 fi
 
 # Export configuration.
-AC_SUBST([CXXFLAGS])
+AC_SUBST([DEBUG_FLAGS])
+AC_SUBST([TEXT_FLAGS])
+AC_SUBST([SOUND_FLAGS])
+AC_SUBST([PATH_CPPFLAGS])
+AC_SUBST([PATH_LDFLAGS])
 AC_SUBST([APPDIR])
 AC_SUBST([DATADIR])
 AC_SUBST([MAYBE_SOUND])
