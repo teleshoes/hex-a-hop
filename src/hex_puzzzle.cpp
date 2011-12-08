@@ -2773,8 +2773,10 @@ struct HexPuzzle : public State
 			_s = s;
 		
 			char* sp = GetSpecial(s);
+#ifdef EDIT
 			char tmp[1000];
 			tmp[0]='\0';
+#endif
 			if (sp)
 			{
 				if (isMap)
@@ -3232,7 +3234,6 @@ struct HexPuzzle : public State
 		double realTime = time;
 		double endAnimTime = time;
 		bool high = (tileSolid[GetTile(player)] == 1);
-		Pos playerStartPos = player;
 		Pos oldpos = player;
 		int oldPlayerHeight = GetHeight(oldpos);
 		Pos newpos = player + d;
