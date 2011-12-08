@@ -120,7 +120,6 @@ set(
 	hah_data
 		data/emi.dat
 		data/font.dat
-		data/font.ttf
 		data/gradient.dat
 		data/icon.bmp
 		data/levels.dat

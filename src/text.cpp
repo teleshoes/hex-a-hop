@@ -211,10 +211,20 @@ bool TextInit(const char* base)
 {
 	std::string dir(base);
 
-	// Translate this if your language requires a specific font.
-	std::string fontname(_("font.ttf"));
-
-	std::string name(dir + "/" + fontname);
+#ifdef FONT_PATH
+	std::string name;
+	std::string fontname(FONT_PATH);
+#ifdef WIN32
+	if (fontname[0]=='/' || fontname[0]=='\\')
+#else
+	if (fontname[0]=='/')
+#endif
+		name = fontname;
+	else
+		name = dir + "/" + fontname;
+#else
+#error "Font path not configured, please use the --with-font-path configure argument"
+#endif
 
 	TTF_Init();
 	font = TTF_OpenFont(name.c_str(), 16);

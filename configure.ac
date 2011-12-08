@@ -34,6 +34,13 @@ AC_ARG_ENABLE([sound], AS_HELP_STRING([--disable-sound],[Do not compile with sou
 AC_ARG_ENABLE([sdlttf], AS_HELP_STRING([--disable-sdlttf],[Use SDL_Pango instead of SDL_ttf]), [want_ttf=$enableval], [want_ttf=yes])
 AC_ARG_ENABLE([relpath], AS_HELP_STRING([--enable-relpath],[Install everything under a single directory]), [want_relative=$enableval], [want_relative=no])
 
+# Allow specifiying a hard-coded font file at build time
+AC_ARG_WITH(font-path,
+        AS_HELP_STRING([--with-font-path=file.ttf],
+                [Path to the TTF font to use at runtime with SDL_ttf (DejaVu Sans Bold recommended)]),
+        [FONT_PATH="$withval"],
+        [FONT_PATH=""])
+
 # Compilation flags.
 if test "$want_debug" = yes; then
 	DEBUG_FLAGS="-g -D_DEBUG"
@@ -65,6 +72,13 @@ else
 	# Check for SDL_Pango.
 	SDL_LIBS="$SDL_LIBS -lSDL_Pango"
 	TEXT_FLAGS="-DENABLE_PANGO"
+fi
+
+# Font path
+if test "$want_ttf" = yes -a "x$FONT_PATH" != x ; then
+        TEXT_FLAGS="$TEXT_FLAGS -DFONT_PATH=\"\\\"$FONT_PATH\\\"\""
+elif test "$want_ttf" = yes; then
+	AC_MSG_ERROR([Font path not configured, please use the --with-font-path configure argument])
 fi
 
 # Relative paths.

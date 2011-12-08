@@ -16,7 +16,6 @@ manfiles_DATA = $(manfiles)
 
 freedata = \
 	emi.png \
-	font.ttf \
 	gradient.png \
 	levels.dat \
 	map.png \
