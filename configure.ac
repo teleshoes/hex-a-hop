@@ -4,7 +4,7 @@ AC_CONFIG_AUX_DIR([msc])
 AC_CONFIG_MACRO_DIR([msc])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_HEADERS([src/config.h])
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE([enable])
 
 AC_SEARCH_LIBS([strerror],[cposix])
 AC_PROG_CC
