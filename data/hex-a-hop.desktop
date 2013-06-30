@@ -24,4 +24,5 @@ Comment[vi]=Trờ chối đố dựa vào cái ngói hình sáu cạnh
 Icon=hex-a-hop
 Exec=hex-a-hop
 Terminal=false
-Categories=Game;KidsGame;
+Categories=Game;KidsGame;LogicGame;
+Keywords=
