@@ -92,7 +92,7 @@ if test "$want_relative" = yes; then
 	PATH_CPPFLAGS="-DRELATIVE_PATHS"
 	PATH_LDFLAGS="-Wl,-rpath -Wl,\\\$\$ORIGIN/lib"
 else
-	APPDIR="${datadir}/applications"
+	APPDIR="${datarootdir}/applications"
 	DATADIR="${datadir}/${PACKAGE}"
 	PATH_CPPFLAGS="-DDATADIR=\\\"\"$DATADIR\"\\\" "-DLOCALEDIR=\\\"\"$localedir\"\\\"
 fi
