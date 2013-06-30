@@ -55,3 +55,8 @@ MAINTAINERCLEANFILES = \
 	msc/intl.m4 \
 	msc/intldir.m4 \
 	msc/threadlib.m4
+
+dist-hook:
+	if test -d .git -a \( ! -e $(distdir)/ChangeLog -o -w $(distdir)/ChangeLog \) ; then \
+		LC_ALL=C git log --pretty --numstat --summary $(VERSION) | git2cl > $(distdir)/ChangeLog ; \
+	fi
