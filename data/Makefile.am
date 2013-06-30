@@ -10,9 +10,7 @@ iconfiles = hex-a-hop.png hex-a-hop-16.png
 iconfilesdir = $(DATADIR)
 iconfiles_DATA = $(iconfiles)
 
-manfiles = hex-a-hop.6
-manfilesdir = $(mandir)
-manfiles_DATA = $(manfiles)
+dist_man_MANS = hex-a-hop.6
 
 freedata = \
 	emi.png \
@@ -72,7 +70,7 @@ nonfreeinfo = \
 datadir = $(DATADIR)
 data_DATA = $(freedata)
 EXTRA_DIST = $(freedata) $(freeinfo) \
-	$(applicationfiles) $(htmlfiles) $(iconfiles) $(manfiles) \
+	$(applicationfiles) $(htmlfiles) $(iconfiles) \
 	hex-a-hop.xpm \
 	hex-a-hop.icns
 
