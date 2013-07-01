@@ -42,7 +42,7 @@ msgstr ""
 "Last-Translator: Helge Kreutzmann <debian@helgefjell.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -50,8 +50,8 @@ msgstr ""
 #, c-format
 msgid "Complete 1  more level  to unlock!"
 msgid_plural "Complete %d  more levels  to unlock!"
-msgstr[0] "Einen weiteren Level zum Entsperren abschließen!"
-msgstr[1] "%d weitere Level zum Entsperren abschließen!"
+msgstr[0] "Einen weiteren Level zum Entsperren abschlieÃŸen!"
+msgstr[1] "%d weitere Level zum Entsperren abschlieÃŸen!"
 
 #: src/hex_puzzzle.cpp:1480
 msgid "<<NO NAME>>"
@@ -67,7 +67,7 @@ msgstr "Anti-Eis: %d"
 #: src/hex_puzzzle.cpp:2578
 #, c-format
 msgid "Jumps: %d"
-msgstr "Sprünge: %d"
+msgstr "SprÃ¼nge: %d"
 
 #: src/hex_puzzzle.cpp:2579
 #, c-format
@@ -99,7 +99,7 @@ msgstr " Anti-Eis: %d"
 #: src/hex_puzzzle.cpp:2591
 #, c-format
 msgid " Jumps: %d"
-msgstr " Sprünge: %d"
+msgstr " SprÃ¼nge: %d"
 
 #: src/hex_puzzzle.cpp:2597
 #, c-format
@@ -164,7 +164,7 @@ msgstr "<Keine>"
 
 #: src/hex_puzzzle.cpp:2966
 msgid "Select level"
-msgstr "Level auswählen"
+msgstr "Level auswÃ¤hlen"
 
 #: src/hex_puzzzle.cpp:4068
 msgid "Save level"
@@ -172,7 +172,7 @@ msgstr "Level speichern"
 
 #: src/hex_puzzzle.cpp:4074
 msgid "Open level"
-msgstr "Level öffnen"
+msgstr "Level Ã¶ffnen"
 
 #: src/menus.h:88
 msgid ""
@@ -182,15 +182,15 @@ msgid ""
 "mistakes.    The 'Esc' key (or middle mouse button) brings up a  menu from "
 "which you can restart if you get stuck."
 msgstr ""
-"Grundlegende Steuerung:|Sie können Ihre Figur mit den Tasten Q,W,E,A,S,D "
-"oder mit dem numerischen Eingabefeld bewegen. Alternativ können Sie die Maus "
-"verwenden und auf die Platte klicken, zu der Sie die Figur bewegen möchten.\n"
+"Grundlegende Steuerung:|Sie kÃ¶nnen Ihre Figur mit den Tasten Q,W,E,A,S,D "
+"oder mit dem numerischen Eingabefeld bewegen. Alternativ kÃ¶nnen Sie die Maus "
+"verwenden und auf die Platte klicken, zu der Sie die Figur bewegen mÃ¶chten.\n"
 "\n"
-"Verwenden Sie »U«, die Rückschritttaste oder die rechte Maustaste, um Fehler "
-"rückgängig zu machen.\n"
+"Verwenden Sie Â»UÂ«, die RÃ¼ckschritttaste oder die rechte Maustaste, um Fehler "
+"rÃ¼ckgÃ¤ngig zu machen.\n"
 "\n"
-"Die »Esc«-Taste (oder die mittlere Maustaste) holt ein Menü hervor, in dem "
-"Sie den Level neu starten können, wenn Sie festsitzen."
+"Die Â»EscÂ«-Taste (oder die mittlere Maustaste) holt ein MenÃ¼ hervor, in dem "
+"Sie den Level neu starten kÃ¶nnen, wenn Sie festsitzen."
 
 #: src/menus.h:92
 msgid ""
@@ -198,11 +198,11 @@ msgid ""
 "by jumping on them.    They will crack when you land on them, and  only "
 "disintegrate when you jump off.    Try not to trap yourself!"
 msgstr ""
-"Ziel:|Ihr Ziel besteht darin, alle grünen Platten zu zerstören.\n"
+"Ziel:|Ihr Ziel besteht darin, alle grÃ¼nen Platten zu zerstÃ¶ren.\n"
 "\n"
-"Sie erreichen dies hauptsächlich, indem Sie auf die Platten draufspringen.\n"
+"Sie erreichen dies hauptsÃ¤chlich, indem Sie auf die Platten draufspringen.\n"
 "\n"
-"Sie werden brechen, wenn Sie auf ihnen landen, und sich erst auflösen, wenn "
+"Sie werden brechen, wenn Sie auf ihnen landen, und sich erst auflÃ¶sen, wenn "
 "Sie herunterspringen.\n"
 "\n"
 "Sperren Sie sich nicht selber ein!"
@@ -221,19 +221,19 @@ msgid ""
 "to fall in the water.    If you do, remember you can undo with 'U',  "
 "backspace or the right mouse button!"
 msgstr ""
-"Sie können auf die violetten Trampolin-Platten springen, um sich "
+"Sie kÃ¶nnen auf die violetten Trampolin-Platten springen, um sich "
 "herumzubewegen.\n"
 "\n"
 "Vermeiden Sie aber, ins Wasser zu fallen.\n"
 "\n"
-"Falls das passiert, können Sie es mit »U«, der Rückschritttaste oder der "
-"rechten Maustaste rückgängig machen."
+"Falls das passiert, kÃ¶nnen Sie es mit Â»UÂ«, der RÃ¼ckschritttaste oder der "
+"rechten Maustaste rÃ¼ckgÃ¤ngig machen."
 
 #: src/menus.h:98
 msgid ""
 "A red spinner tile will rotate the pieces around  it when you step on it."
 msgstr ""
-"Ein rote Kreiselplatte rotiert die Stücke um sich herum, wenn Sie drauf "
+"Ein rote Kreiselplatte rotiert die StÃ¼cke um sich herum, wenn Sie drauf "
 "treten."
 
 #: src/menus.h:102
@@ -242,9 +242,9 @@ msgid ""
 "turn green when you step off them, and  you know what you have to do to "
 "green tiles..."
 msgstr ""
-"Sie brauchen blaue Platten nicht zu zerstören, um den Level abzuschließen. "
-"Allerdings werden Sie grün, wenn Sie von ihnen runter gehen, und Sie wissen, "
-"was Sie mit grünen Platten machen müssen ..."
+"Sie brauchen blaue Platten nicht zu zerstÃ¶ren, um den Level abzuschlieÃŸen. "
+"Allerdings werden Sie grÃ¼n, wenn Sie von ihnen runter gehen, und Sie wissen, "
+"was Sie mit grÃ¼nen Platten machen mÃ¼ssen ..."
 
 #: src/menus.h:106
 msgid ""
@@ -252,7 +252,7 @@ msgid ""
 "is more destructive."
 msgstr ""
 "Gelbe Laser-Platten feuern, wenn Sie darauf treten. Auf andere Laser-Platten "
-"zu schießen zerstört mehr."
+"zu schieÃŸen zerstÃ¶rt mehr."
 
 #: src/menus.h:108
 msgid "Ice is slippery!    Please be careful!!"
@@ -264,7 +264,7 @@ msgid ""
 "green tiles in any adjacent  empty tile, and turns green tiles into walls."
 msgstr ""
 "Die dunkelgrauen Platten mit Pfeilen sind Bauplatten. Landen Sie auf einer, "
-"werden grüne Platten in allen anliegenden leeren Position erzeugt, und grüne "
+"werden grÃ¼ne Platten in allen anliegenden leeren Position erzeugt, und grÃ¼ne "
 "Platten werden zu Mauern."
 
 #. TRANSLATORS: pop means vanish and Emy drowns (you loose)
@@ -274,13 +274,13 @@ msgid ""
 "if you try and float off the edge of the  screen though, so look where "
 "you're going."
 msgstr ""
-"Sie können auf rosa schwimmenden Booten über das Wasser gelangen. Sie lösen "
-"sich aber auf, falls Sie versuchen, über den Rand des Bildschirms "
+"Sie kÃ¶nnen auf rosa schwimmenden Booten Ã¼ber das Wasser gelangen. Sie lÃ¶sen "
+"sich aber auf, falls Sie versuchen, Ã¼ber den Rand des Bildschirms "
 "hinauszuschwimmen, passen Sie also auf, wo die Reise hingeht."
 
 #: src/menus.h:119
 msgid "The blue lifts go up or down when you land on them."
-msgstr "Die blauen Fahrstühle fahren hoch oder runter, wenn Sie darauf landen."
+msgstr "Die blauen FahrstÃ¼hle fahren hoch oder runter, wenn Sie darauf landen."
 
 #: src/menus.h:125
 msgid ""
@@ -298,8 +298,8 @@ msgid ""
 "jump.    Try it out on different types of tiles.    Use the space bar or "
 "return key to jump. Or click  on the tile you're currently on with the mouse."
 msgstr ""
-"Durch Einsammeln des goldenen Sprungs können Sie einen großen vertikalen "
-"Sprung durchführen. Probieren Sie ihn auf verschiedenartigen Platten aus. "
+"Durch Einsammeln des goldenen Sprungs kÃ¶nnen Sie einen groÃŸen vertikalen "
+"Sprung durchfÃ¼hren. Probieren Sie ihn auf verschiedenartigen Platten aus. "
 "Verwenden Sie die Leertaste oder die Eingabetaste, um zu springen. Oder "
 "klicken Sie mit der Maus auf die Platte, auf der Sie gerade sind."
 
@@ -309,12 +309,12 @@ msgid ""
 "screen.    Silver levels are ones you've cleared.    Black levels are ones "
 "you haven't completed yet,  but are available to play."
 msgstr ""
-"Karten-Bildschirm:|Sie können den Level vom Kartenbildschirm aussuchen, den "
-"Sie als nächstes versuchen wollen.\n"
+"Karten-Bildschirm:|Sie kÃ¶nnen den Level vom Kartenbildschirm aussuchen, den "
+"Sie als nÃ¤chstes versuchen wollen.\n"
 "\n"
 "Die Level in Silber haben Sie bereits geschafft.\n"
 "\n"
-"Die schwarzen Level haben Sie noch nicht beendet, können aber gespielt "
+"Die schwarzen Level haben Sie noch nicht beendet, kÃ¶nnen aber gespielt "
 "werden."
 
 #. TRANSLATORS: Levels are depicted as black balls. Once you passed them, they
@@ -327,10 +327,10 @@ msgid ""
 "against you.    Why not try replaying some levels and going  for gold?"
 msgstr ""
 "Neue Funktion freigeschaltet!|Jeder Level hat ein Effizienz-Ziel, das Sie "
-"versuchen können, zu schlagen.\n"
+"versuchen kÃ¶nnen, zu schlagen.\n"
 "\n"
-"Jede Bewegung die Sie durchführen und jede nicht-grüne Platte, die Sie "
-"zerstören, zählt gegen Sie.\n"
+"Jede Bewegung die Sie durchfÃ¼hren und jede nicht-grÃ¼ne Platte, die Sie "
+"zerstÃ¶ren, zÃ¤hlt gegen Sie.\n"
 "\n"
 "Warum versuchen Sie nicht, einige Level noch einmal zu spielen und auf Gold "
 "zu bekommen?"
@@ -342,7 +342,7 @@ msgid ""
 "Any constructive criticism gratefully received!"
 msgstr ""
 "Vielen Dank, dass Sie dieses kleine Spiel gespielt haben. Ich hoffe, Sie "
-"hatten Ihren Spaß!\n"
+"hatten Ihren SpaÃŸ!\n"
 "\n"
 "-- --\n"
 "\n"
@@ -364,7 +364,7 @@ msgstr "Info:"
 
 #: src/menus.h:229
 msgid "Press any key"
-msgstr "Beliebige Taste drücken"
+msgstr "Beliebige Taste drÃ¼cken"
 
 #. TRANSLATORS: This specifies how the text in the help dialog should
 #. be aligned. Do *not* translate the text itself but use one of "left",
@@ -393,7 +393,7 @@ msgstr "Level neu starten"
 
 #: src/menus.h:428
 msgid "Return to Map"
-msgstr "Zur Karte zurückkehren"
+msgstr "Zur Karte zurÃ¼ckkehren"
 
 #: src/menus.h:429
 msgid "Continue"
@@ -421,7 +421,7 @@ msgstr "Nein"
 
 #: src/menus.h:435
 msgid "Return to Title"
-msgstr "Zum Titel zurückkehren"
+msgstr "Zum Titel zurÃ¼ckkehren"
 
 #: src/menus.h:436
 msgid "Help"
@@ -433,7 +433,7 @@ msgstr "Neues Spiel starten"
 
 #: src/menus.h:438
 msgid "Yes, really delete it!"
-msgstr "Ja, lösche es wirklich!"
+msgstr "Ja, lÃ¶sche es wirklich!"
 
 #: src/menus.h:439
 msgid "Don't do it!"
@@ -441,7 +441,7 @@ msgstr "Lass das!"
 
 #: src/menus.h:440
 msgid "Undo Last Move"
-msgstr "Letzte Bewegung rückgängig"
+msgstr "Letzte Bewegung rÃ¼ckgÃ¤ngig"
 
 #: src/menus.h:441
 msgid "OK"
@@ -486,7 +486,7 @@ msgstr "Alle Level geschafft!"
 
 #: src/menus.h:707
 msgid "Not a single green hexagon is left unbroken."
-msgstr "Kein einziges grünes Sechseck ist nicht gebrochen."
+msgstr "Kein einziges grÃ¼nes Sechseck ist nicht gebrochen."
 
 #: src/menus.h:709
 msgid "Truly, you are a master of hexagon hopping!"
@@ -522,7 +522,7 @@ msgstr "<Benutzte Schriften:"
 
 #: src/menus.h:724
 msgid "Thanks for playing!"
-msgstr "Danke fürs Spielen!"
+msgstr "Danke fÃ¼rs Spielen!"
 
 #: src/menus.h:728
 msgid " Absolutely Amazing! "
@@ -534,7 +534,7 @@ msgstr "Alle Level gemeistert!!"
 
 #: src/menus.h:737
 msgid "You crushed every last green hexagon with"
-msgstr "Sie haben jedes letzte Sechseck zerstört mit"
+msgstr "Sie haben jedes letzte Sechseck zerstÃ¶rt mit"
 
 #: src/menus.h:738
 msgid "breathtaking efficiency!"
@@ -542,7 +542,7 @@ msgstr "atemberaubender Effizienz!"
 
 #: src/menus.h:740
 msgid "You truly are a grand master of hexagon hopping!"
-msgstr "Sie sind wirklich ein Großmeister des Sechseck-Springens!"
+msgstr "Sie sind wirklich ein GroÃŸmeister des Sechseck-Springens!"
 
 #: src/menus.h:890
 msgid "The End"
@@ -570,7 +570,7 @@ msgstr "Beenden: Sind Sie sicher?"
 #: src/menus.h:1042
 #, c-format
 msgid "Really delete game %d?"
-msgstr "Wirklich Spiel %d löschen?"
+msgstr "Wirklich Spiel %d lÃ¶schen?"
 
 #: src/menus.h:1082
 msgid "Paused"
@@ -592,7 +592,7 @@ msgstr "  Schwarm"
 
 #: src/level_list.h:30
 msgid "  There  and Back"
-msgstr "  Dort  und zurück"
+msgstr "  Dort  und zurÃ¼ck"
 
 #: src/level_list.h:31
 msgid "  Triangular"
@@ -616,7 +616,7 @@ msgstr "  Wetterfahne"
 
 #: src/level_list.h:36
 msgid "  Bridges"
-msgstr "  Brücken"
+msgstr "  BrÃ¼cken"
 
 #: src/level_list.h:37
 msgid "  Explorer"
@@ -640,7 +640,7 @@ msgstr "  Ein  Berg"
 
 #: src/level_list.h:42
 msgid "  Green  Walls"
-msgstr "  Grüne  Mauern"
+msgstr "  GrÃ¼ne  Mauern"
 
 #: src/level_list.h:43
 msgid "  Winding  Order"
@@ -652,7 +652,7 @@ msgstr "  Miet-Boot"
 
 #: src/level_list.h:45
 msgid "  Ferrying"
-msgstr "  Fähre"
+msgstr "  FÃ¤hre"
 
 #: src/level_list.h:46
 msgid "  Transport  Hub"
@@ -660,7 +660,7 @@ msgstr "  Transport-Drehscheibe"
 
 #: src/level_list.h:47
 msgid "  Lifts"
-msgstr "  Aufzüge"
+msgstr "  AufzÃ¼ge"
 
 #: src/level_list.h:48
 msgid "  Leftovers"
@@ -696,7 +696,7 @@ msgstr "  Nur Ein  Weg nach oben"
 
 #: src/level_list.h:56
 msgid "  Outposts"
-msgstr "  Außenstellen"
+msgstr "  AuÃŸenstellen"
 
 #: src/level_list.h:57
 msgid "  Roundabouts"
@@ -712,7 +712,7 @@ msgstr "Alles  aufgewickelt"
 
 #: src/level_list.h:60
 msgid "  Toughened  Tiles"
-msgstr "  Verstärkte  Platten"
+msgstr "  VerstÃ¤rkte  Platten"
 
 #: src/level_list.h:61
 msgid "  Island"
@@ -732,7 +732,7 @@ msgstr "  Ein Zwei  Eins Zwei"
 
 #: src/level_list.h:65
 msgid "  Turtle"
-msgstr "  Schildkröte"
+msgstr "  SchildkrÃ¶te"
 
 #: src/level_list.h:66
 msgid "  Wand"
@@ -748,7 +748,7 @@ msgstr "  Eifer"
 
 #: src/level_list.h:69
 msgid "  Gun  Platform"
-msgstr "  Geschütz-Plattform"
+msgstr "  GeschÃ¼tz-Plattform"
 
 #: src/level_list.h:70
 msgid "  Nucleus"
@@ -756,11 +756,11 @@ msgstr "  Kern"
 
 #: src/level_list.h:71
 msgid "  Sniper"
-msgstr "  Heckenschütze"
+msgstr "  HeckenschÃ¼tze"
 
 #: src/level_list.h:72
 msgid "  Deadly  Snowflake"
-msgstr "  Tödliche  Schneeflocke"
+msgstr "  TÃ¶dliche  Schneeflocke"
 
 #: src/level_list.h:73
 msgid "  Snowflake"
@@ -772,11 +772,11 @@ msgstr "  Laser-Platten"
 
 #: src/level_list.h:75
 msgid "  Trigger  Happy"
-msgstr "  Schießwütig"
+msgstr "  SchieÃŸwÃ¼tig"
 
 #: src/level_list.h:76
 msgid "  Lure"
-msgstr "  Köder"
+msgstr "  KÃ¶der"
 
 #: src/level_list.h:77
 msgid "  Maze"
@@ -788,7 +788,7 @@ msgstr "  Reisekrankheit"
 
 #: src/level_list.h:79
 msgid "  All About  Preparation"
-msgstr "  Nichts geht  über Vorbereitung"
+msgstr "  Nichts geht  Ã¼ber Vorbereitung"
 
 #: src/level_list.h:80
 msgid "  Revolver  Cannon"
@@ -816,7 +816,7 @@ msgstr "  Drei  weitere Wege"
 
 #: src/level_list.h:86
 msgid "  Three  Ways To Go"
-msgstr "  Drei  Wege vorwärts"
+msgstr "  Drei  Wege vorwÃ¤rts"
 
 #: src/level_list.h:87
 msgid "Please  Skate  Safely"
@@ -840,11 +840,11 @@ msgstr "  Betrogen"
 
 #: src/level_list.h:92
 msgid "  Green  Honey"
-msgstr "  Grüner  Honig"
+msgstr "  GrÃ¼ner  Honig"
 
 #: src/level_list.h:93
 msgid "  Carefully  Does It"
-msgstr "  Sorgfältig  wirds was"
+msgstr "  SorgfÃ¤ltig  wirds was"
 
 #: src/level_list.h:94
 msgid "  Radioactive  Ice"
@@ -852,7 +852,7 @@ msgstr "  Radioaktives  Eis"
 
 #: src/level_list.h:95
 msgid "  Pro  Skater"
-msgstr "  Für  Skater"
+msgstr "  FÃ¼r  Skater"
 
 #: src/level_list.h:96
 msgid "  Spinners  II"
@@ -867,7 +867,7 @@ msgstr "  Kreisel"
 #. is (probably) related to "Make less slippery".
 #: src/level_list.h:101
 msgid "  Deslippify"
-msgstr "  Entglätten"
+msgstr "  EntglÃ¤tten"
 
 #: src/level_list.h:102
 msgid "  Tri Mesh"
@@ -883,7 +883,7 @@ msgstr "  Letzter  Schlag"
 
 #: src/level_list.h:105
 msgid "  Big  Jumps"
-msgstr "  Große  Sprünge"
+msgstr "  GroÃŸe  SprÃ¼nge"
 
 #: src/level_list.h:106
 msgid "  Wave  Cannon"
@@ -927,7 +927,7 @@ msgstr "  Opportunist"
 
 #: src/level_list.h:116
 msgid "  Demolition"
-msgstr "  Zerstörung"
+msgstr "  ZerstÃ¶rung"
 
 #: src/level_list.h:117
 msgid "  Upper"
@@ -935,7 +935,7 @@ msgstr "  Oberer"
 
 #: src/level_list.h:118
 msgid "Beware  Feedback  Loops"
-msgstr "Achtung  Rückkopplungsschleifen"
+msgstr "Achtung  RÃ¼ckkopplungsschleifen"
 
 #: src/level_list.h:119
 msgid "  Somewhat  Constructive"
@@ -943,7 +943,7 @@ msgstr "  Irgendwie  Konstruktiv"
 
 #: src/level_list.h:120
 msgid "  Overbuild"
-msgstr "  Überbaut"
+msgstr "  Ãœberbaut"
 
 #: src/level_list.h:121
 msgid "  Reversing  Space"
@@ -951,11 +951,11 @@ msgstr "  Den Raum  invertieren"
 
 #: src/level_list.h:122
 msgid "Burn  Your  Bridges"
-msgstr "Verbrenne  Deine  Brücken"
+msgstr "Verbrenne  Deine  BrÃ¼cken"
 
 #: src/level_list.h:123
 msgid "A  Strange  Place"
-msgstr "Ein  merkwürdiger  Ort"
+msgstr "Ein  merkwÃ¼rdiger  Ort"
 
 #: src/level_list.h:124
 msgid "  Commute"
@@ -963,7 +963,7 @@ msgstr "  Pendeln"
 
 #: src/level_list.h:125
 msgid "  Bouncing  Required"
-msgstr "  Hüpfen  notwendig"
+msgstr "  HÃ¼pfen  notwendig"
 
 #: src/level_list.h:126
 msgid "  Fetch  Quest"
@@ -979,7 +979,7 @@ msgstr "  Vereiste  Platten"
 
 #: src/level_list.h:129
 msgid "  Icy  Road"
-msgstr "  Vereiste  Straße"
+msgstr "  Vereiste  StraÃŸe"
 
 #: src/level_list.h:130
 msgid "  Inversion"
@@ -1029,9 +1029,9 @@ msgid ""
 "the 100 levels. As you progress through the game, more types of tiles are "
 "introduced which make things more difficult and interesting."
 msgstr ""
-"Das Ziel besteht einfach darin, alle grünen hexagonalen Platten in jedem der "
-"100 Level zu zerstören. Während Sie im Spiel vorankommen, werden weitere "
-"Typen von Platten eingeführt, die das Spiel schwerer und interessanter "
+"Das Ziel besteht einfach darin, alle grÃ¼nen hexagonalen Platten in jedem der "
+"100 Level zu zerstÃ¶ren. WÃ¤hrend Sie im Spiel vorankommen, werden weitere "
+"Typen von Platten eingefÃ¼hrt, die das Spiel schwerer und interessanter "
 "machen."
 
 # type: SH
@@ -1047,9 +1047,9 @@ msgid ""
 "numeric keypad. Alternatively, you can use the mouse and click on the tile "
 "you'd like to move to."
 msgstr ""
-"Sie können die Figur mit den Tasten Q,W,E,A,S,D oder mit dem numerischen "
-"Eingabefeld bewegen. Alternativ können Sie die Maus verwenden und auf die "
-"Platte klicken, zu der Sie die Figur bewegen möchten."
+"Sie kÃ¶nnen die Figur mit den Tasten Q,W,E,A,S,D oder mit dem numerischen "
+"Eingabefeld bewegen. Alternativ kÃ¶nnen Sie die Maus verwenden und auf die "
+"Platte klicken, zu der Sie die Figur bewegen mÃ¶chten."
 
 #: debian/hex-a-hop.6:31
 msgid ""
@@ -1057,9 +1057,9 @@ msgid ""
 "key (or middle mouse button) brings up a menu from which you can restart if "
 "you get stuck."
 msgstr ""
-"Verwenden Sie »U«, die Rückschritttaste oder die rechte Maustaste, um Fehler "
-"rückgängig zu machen. Die »Esc«\\(hyTaste (oder die mittlere Maustaste) holt "
-"ein Menü hervor, in dem Sie den Level neu starten können, wenn Sie "
+"Verwenden Sie Â»UÂ«, die RÃ¼ckschritttaste oder die rechte Maustaste, um Fehler "
+"rÃ¼ckgÃ¤ngig zu machen. Die Â»EscÂ«\\(hyTaste (oder die mittlere Maustaste) holt "
+"ein MenÃ¼ hervor, in dem Sie den Level neu starten kÃ¶nnen, wenn Sie "
 "festsitzen."
 
 #: debian/hex-a-hop.6:33
@@ -1068,9 +1068,9 @@ msgid ""
 "them. They will crack when you land on them, and only disintegrate when you "
 "jump off. Try not to trap yourself!"
 msgstr ""
-"Ihr Ziel besteht darin, alle grünen Platten zu zerstören. Sie erreichen dies "
-"hauptsächlich, indem Sie auf die Platten draufspringen. Sie werden brechen, "
-"wenn Sie auf ihnen landen, und sich erst auflösen, wenn Sie "
+"Ihr Ziel besteht darin, alle grÃ¼nen Platten zu zerstÃ¶ren. Sie erreichen dies "
+"hauptsÃ¤chlich, indem Sie auf die Platten draufspringen. Sie werden brechen, "
+"wenn Sie auf ihnen landen, und sich erst auflÃ¶sen, wenn Sie "
 "herunterspringen. Sperren Sie sich nicht selber ein!"
 
 #: debian/hex-a-hop.6:35
@@ -1080,9 +1080,9 @@ msgid ""
 "More pages will be added as you progress through the game, as new tiles will "
 "keep appearing."
 msgstr ""
-"Während des Spiels werden Ihnen Tipps und Anleitungen angezeigt, was Sie tun "
-"können. Verwenden Sie die Cursor\\(hyTasten oder klicken Sie auf die Pfeile, "
-"um durch die Hilfeseiten zu blättern. Weitere Seiten werden hinzugefügt, "
+"WÃ¤hrend des Spiels werden Ihnen Tipps und Anleitungen angezeigt, was Sie tun "
+"kÃ¶nnen. Verwenden Sie die Cursor\\(hyTasten oder klicken Sie auf die Pfeile, "
+"um durch die Hilfeseiten zu blÃ¤ttern. Weitere Seiten werden hinzugefÃ¼gt, "
 "wenn Sie im Spiel vorankommen, da immer wieder neue Platten auftauchen."
 
 #: debian/hex-a-hop.6:37
@@ -1091,9 +1091,9 @@ msgid ""
 "levels are ones you've cleared. Black levels are ones you haven't completed "
 "yet, but are available to play."
 msgstr ""
-"Sie können sich von der Kartenansicht aus den nächsten Level aussuchen, den "
-"Sie versuchen möchten. Erledigte Level erscheinen in Silber. Schwarze Level "
-"haben Sie noch nicht beendet, können aber gespielt werden."
+"Sie kÃ¶nnen sich von der Kartenansicht aus den nÃ¤chsten Level aussuchen, den "
+"Sie versuchen mÃ¶chten. Erledigte Level erscheinen in Silber. Schwarze Level "
+"haben Sie noch nicht beendet, kÃ¶nnen aber gespielt werden."
 
 # type: Plain text
 #: debian/hex-a-hop.6:39
@@ -1115,7 +1115,7 @@ msgstr "SIEHE AUCH"
 msgid ""
 "You can find more about the game on its homepage: http://hexahop.sourceforge.net/"
 msgstr ""
-"Sie können mehr über das Spiel auf seiner Homepage unter http://hexahop.sourceforge.net/"
+"Sie kÃ¶nnen mehr Ã¼ber das Spiel auf seiner Homepage unter http://hexahop.sourceforge.net/"
 
 # type: Plain text
 #: debian/hex-a-hop.6:43
@@ -1155,7 +1155,7 @@ msgstr ""
 #~ "\n"
 #~ "Dies ist ein Puzzle-Spiel basierend auf hexagonalen Platten. Es gibt kein "
 #~ "Zeitlimit und keine Echtzeitelemente, nehmen Sie sich die Zeit die Sie "
-#~ "benötigen.\n"
+#~ "benÃ¶tigen.\n"
 #~ "\n"
 #~ "Verwenden Sie die Cursor-Tasten oder klicken Sie auf die Pfeile, um durch "
 #~ "die Hilfe-Seiten zu scrollen. Weitere Seiten werden dargestellt, je "
