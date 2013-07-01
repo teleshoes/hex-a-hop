@@ -113,7 +113,6 @@ set(
 		src/text.h
 		src/tiletypes.h
 		src/video.h
-		src/SDLMain.m
 )
 
 set(
@@ -197,6 +196,7 @@ target_link_libraries(
 		${SDLMIXER_LIBRARY}
 		${SDLTTF_LIBRARY}
 		${OPENGL_LIBRARIES}
+		SDLmain
 )
 
 

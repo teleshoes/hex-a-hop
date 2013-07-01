@@ -1,4 +1,4 @@
-EXTRA_DIST = SDLMain.h SDLMain.m config.h.cmake
+EXTRA_DIST = config.h.cmake
 MAINTAINERCLEANFILES = Makefile.in config.h.in config.h.in~
 
 bin_PROGRAMS = \
