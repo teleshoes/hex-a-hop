@@ -2,6 +2,9 @@ applicationfiles = hex-a-hop.desktop
 applicationfilesdir = $(APPDIR)
 applicationfiles_DATA = $(applicationfiles)
 
+dist_appdata_DATA = hex-a-hop.appdata.xml
+appdatadir = $(datarootdir)/appdata
+
 htmlfiles = hints.html
 htmlfilesdir = $(htmldir)
 htmlfiles_DATA = $(htmlfiles)
