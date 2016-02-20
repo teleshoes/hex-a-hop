@@ -16,7 +16,7 @@ set(hah_PATCH 0)
 set(hah_VERSION ${hah_MAJOR}.${hah_MINOR}.${hah_PATCH})
 set(hah_DESCRIPTION "Puzzle Game")
 set(hah_HOMEPAGE "http://hexahop.sourceforge.net")
-set(hah_EXENAME "hex-a-hop")
+set(hah_EXENAME "hex-a-hop-scoredump")
 set(hah_PACKAGENAME "Hex-a-hop")
 
 # Minimum cmake version required

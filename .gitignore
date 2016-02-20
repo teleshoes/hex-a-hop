@@ -7,7 +7,7 @@ configure
 ChangeLog
 autom4te.cache
 config.h*
-src/hex-a-hop
+src/hex-a-hop-scoredump
 ABOUT-NLS
 config.guess
 config.log

@@ -2,9 +2,9 @@ EXTRA_DIST = config.h.cmake
 MAINTAINERCLEANFILES = Makefile.in config.h.in config.h.in~
 
 bin_PROGRAMS = \
-	hex-a-hop
+	hex-a-hop-scoredump
 
-hex_a_hop_SOURCES = \
+hex_a_hop_scoredump_SOURCES = \
 	gettext.h \
 	gfx.cpp \
 	gfx_list.h \
@@ -27,15 +27,15 @@ hex_a_hop_SOURCES = \
 	tiletypes.h \
 	video.h
 
-hex_a_hop_CPPFLAGS = \
+hex_a_hop_scoredump_CPPFLAGS = \
 	$(DEBUG_FLAGS) \
 	$(TEXT_FLAGS) \
 	$(SOUND_FLAGS) \
 	$(PATH_CPPFLAGS) \
 	$(SDL_CFLAGS)
 
-hex_a_hop_LDFLAGS = \
+hex_a_hop_scoredump_LDFLAGS = \
 	$(PATH_LDFLAGS)
 
-hex_a_hop_LDADD = \
+hex_a_hop_scoredump_LDADD = \
 	$(SDL_LIBS)
