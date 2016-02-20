@@ -26,6 +26,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include <iostream>
+using namespace std;
+
 #ifdef WIN32
 /*	#include <SDL_syswm.h>
 	#include <shellapi.h> // Windows header for drag & drop
@@ -229,8 +232,14 @@ String GetBasePath()
 #endif
 }
 
-int main(int /*argc*/, char * /*argv*/[])
+int main(int argc, char * argv[])
 {
+	if (argc == 2){
+		cerr << "reading savestate from file: " << argv[1] << endl;
+		char * saveDatPath = argv[1];
+	}
+
+	////////////hack
 	base_path = GetBasePath();
 
 /*
