@@ -279,6 +279,7 @@ public:
 					first = new X(temp, first);
 
 					first->LoadSave(f,save);
+					printf("% 8d %s\n", first->GetScore(), first->name);
 				}
 			}
 
