@@ -239,6 +239,7 @@ int main(int argc, char * argv[])
 		char * saveDatPath = argv[1];
 		FILE * saveFile = fopen (saveDatPath, "r");
 		fclose(saveFile);
+		exit(0);
 	}else{
 		cerr << "Usage: SAVE.DAT" << endl;
 		exit(1);
