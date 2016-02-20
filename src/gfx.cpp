@@ -239,6 +239,10 @@ int main(int argc, char * argv[])
 		cerr << "reading savestate from file: " << argv[1] << endl;
 		char * saveDatPath = argv[1];
 		FILE * saveFile = fopen (saveDatPath, "r");
+		if(saveFile == NULL){
+			cerr << "could not read file: " << saveDatPath << endl;
+			exit(1);
+		}
 		SaveState save = SaveState();
 		save.LoadSave(saveFile, false);
 		fclose(saveFile);
