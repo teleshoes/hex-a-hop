@@ -25,6 +25,7 @@
 #include <cassert>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "savestate.h"
 
 #include <iostream>
 using namespace std;
@@ -238,6 +239,8 @@ int main(int argc, char * argv[])
 		cerr << "reading savestate from file: " << argv[1] << endl;
 		char * saveDatPath = argv[1];
 		FILE * saveFile = fopen (saveDatPath, "r");
+		SaveState save = SaveState();
+		save.LoadSave(saveFile, false);
 		fclose(saveFile);
 		exit(0);
 	}else{
