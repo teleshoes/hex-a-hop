@@ -237,6 +237,8 @@ int main(int argc, char * argv[])
 	if (argc == 2){
 		cerr << "reading savestate from file: " << argv[1] << endl;
 		char * saveDatPath = argv[1];
+		FILE * saveFile = fopen (saveDatPath, "r");
+		fclose(saveFile);
 	}
 
 	////////////hack
